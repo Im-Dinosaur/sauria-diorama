@@ -5,9 +5,9 @@ import {useWebGLTF as useGLTF} from './useWebGLTF';
 import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
 import { Bloom,EffectComposer,FXAA,SSAO,ToneMapping } from '@react-three/postprocessing';
 import { ToneMappingMode } from 'postprocessing';
-import { ACESFilmicToneMapping,NoToneMapping,PCFSoftShadowMap } from 'three';
-import type { PerspectiveCamera as PerspectiveCameraImpl } from 'three';
-import { DisasterParticles } from './scene/HabitatLandscape';
+import { ACESFilmicToneMapping,Color,NoToneMapping,PCFSoftShadowMap } from 'three';
+import type { AmbientLight,DirectionalLight,Fog,HemisphereLight,MeshStandardMaterial,PerspectiveCamera as PerspectiveCameraImpl } from 'three';
+import {DisasterEffects} from './scene/DisasterEffects';
 import { ReferenceLandscape } from './scene/ReferenceLandscape';
 import { ReferenceForest } from './scene/LayeredForest';
 import { MapTyrannosaurus } from './scene/MapTyrannosaurus';
@@ -21,6 +21,11 @@ import {realisticModel} from './models/RealisticMapRig';
 import {TYRANNOSAURUS_MODEL} from './models/TyrannosaurusMapRig';
 import {initialRenderTier,renderDpr,RENDER_BUDGETS} from './renderPerformance';
 import type {QualityPreference,RenderTier} from './renderPerformance';
+import {AnimalPicking,ObservationCamera} from './scene/AnimalObservation';
+import type {ObservationSubjects} from './scene/observationMath';
+import {AnimalPresence} from './scene/AnimalPresence';
+import {advanceDisaster,animalPresence,disasterAppearance,disasterWaterAppearance,disasterProgress,disasterSnapshot,disasterWorldMode,distantFlash} from './world/disaster';
+import type {DisasterSequence,DisasterSnapshot} from './world/disaster';
 // Start the independent requests together instead of waiting for suspended siblings.
 useGLTF.preload(publicAsset(TYRANNOSAURUS_MODEL));
 for(const species of ['brachiosaurus','triceratops','stegosaurus','spinosaurus','velociraptor','pterosaur'] as const)useGLTF.preload(publicAsset(realisticModel(species)));
@@ -37,25 +42,38 @@ function OrbitView({view,reset,zoom}:{view:HabitatView;reset:number;zoom:number}
  useEffect(()=>{const t=controls.current?.target;if(t&&camera.current){camera.current.position.sub(t).multiplyScalar(Math.pow(.83,zoom-lastZoom.current)).add(t);controls.current?.update();}lastZoom.current=zoom;},[zoom]);
  return <><PerspectiveCamera ref={camera} makeDefault fov={42} near={.1} far={220} position={[48,46,53]}/><OrbitControls ref={controls} makeDefault target={[0,.4,0]} enableDamping dampingFactor={.08} enablePan minDistance={12} maxDistance={120} minPolarAngle={.03} maxPolarAngle={Math.PI*.47} rotateSpeed={.55} zoomSpeed={.8}/></>;
 }
-function Studio({mode,tier}:{mode:WorldMode;tier:RenderTier}){
- const {gl}=useThree();useEffect(()=>{gl.toneMapping=tier===0?NoToneMapping:ACESFilmicToneMapping;gl.toneMappingExposure=mode==='ice'?1.05:mode==='ember'?1.08:1.15;},[gl,mode,tier]);
- const bg=mode==='ice'?'#8b9fa9':mode==='ember'?'#272a27':'#686e5d';
- return <><color attach="background" args={[bg]}/><fog attach="fog" args={[bg,mode==='peaceful'?150:60,mode==='peaceful'?300:165]}/>
-  <ambientLight intensity={mode==='ember'?.65:1.1}/><hemisphereLight args={[mode==='ice'?'#d9eafa':'#f2f0df',mode==='ember'?'#66513b':'#8b8c70',.8]}/>
-  <directionalLight position={[-18,35,18]} color={mode==='ice'?'#e4f1ff':mode==='ember'?'#ffc68f':'#fff0d8'} intensity={mode==='ember'?2.8:1.7} castShadow shadow-mapSize={[RENDER_BUDGETS[tier].shadowSize,RENDER_BUDGETS[tier].shadowSize]} shadow-camera-left={-39} shadow-camera-right={39} shadow-camera-top={30} shadow-camera-bottom={-30} shadow-camera-far={100} shadow-bias={-.00015} shadow-normalBias={.045}/>
-  <directionalLight position={[14,14,-18]} color="#cddce1" intensity={mode==='ember'?.75:.6}/>
-  <mesh rotation={[-Math.PI/2,0,0]} position={[0,-1.31,0]} receiveShadow><planeGeometry args={[160,160]}/><meshStandardMaterial color={bg} roughness={.92}/></mesh>
+function Studio({mode,tier,sequence}:{mode:WorldMode;tier:RenderTier;sequence:DisasterSequence}){
+ const {gl}=useThree(),background=useRef<Color>(null),fog=useRef<Fog>(null),ambient=useRef<AmbientLight>(null),sun=useRef<DirectionalLight>(null),sky=useRef<HemisphereLight>(null),floor=useRef<MeshStandardMaterial>(null);
+ const colours=useMemo(()=>({base:new Color('#686e5d'),ice:new Color('#8b9fa9'),ember:new Color('#08090b'),flash:new Color('#fff0ca'),sun:new Color('#fff0d8'),coldSun:new Color('#e4f1ff'),hotSun:new Color('#b5a79a'),sky:new Color('#f2f0df'),coldSky:new Color('#d9eafa'),hotSky:new Color('#67676b')}),[]);
+ useEffect(()=>{gl.toneMapping=tier===0?NoToneMapping:ACESFilmicToneMapping;},[gl,tier]);
+ useFrame(()=>{
+  const p=disasterAppearance(sequence),ice=mode==='ice',target=ice?colours.ice:colours.ember;
+  background.current?.copy(colours.base).lerp(target,p).lerp(colours.flash,distantFlash(sequence)*.88);
+  if(fog.current){fog.current.color.copy(colours.base).lerp(target,p);fog.current.near=150-100*p;fog.current.far=300-160*p;}
+  if(ambient.current)ambient.current.intensity=1.1-(ice?.12:.62)*p;
+  sun.current?.color.copy(colours.sun).lerp(ice?colours.coldSun:colours.hotSun,p);if(sun.current)sun.current.intensity=1.7+(ice?-.25:.8)*p;
+  sky.current?.color.copy(colours.sky).lerp(ice?colours.coldSky:colours.hotSky,p);if(sky.current)sky.current.intensity=.8-.25*p;
+  floor.current?.color.copy(colours.base).lerp(target,p);gl.toneMappingExposure=1.15-(ice?.1:.07)*p;
+ });
+ return <><color ref={background} attach="background" args={['#686e5d']}/><fog ref={fog} attach="fog" args={['#686e5d',150,300]}/>
+  <ambientLight ref={ambient} intensity={1.1}/><hemisphereLight ref={sky} args={['#f2f0df','#8b8c70',.8]}/>
+  <directionalLight ref={sun} position={[-18,35,18]} color="#fff0d8" intensity={1.7} castShadow shadow-mapSize={[RENDER_BUDGETS[tier].shadowSize,RENDER_BUDGETS[tier].shadowSize]} shadow-camera-left={-39} shadow-camera-right={39} shadow-camera-top={30} shadow-camera-bottom={-30} shadow-camera-far={100} shadow-bias={-.00015} shadow-normalBias={.045}/>
+  <directionalLight position={[14,14,-18]} color="#cddce1" intensity={.6}/>
+  <mesh rotation={[-Math.PI/2,0,0]} position={[0,-1.31,0]} receiveShadow><planeGeometry args={[160,160]}/><meshStandardMaterial ref={floor} color="#686e5d" roughness={.92}/></mesh>
  </>;
 }
-function Runtime({world,mode,paused,onSummary,onReady,onTier}:{world:Ecosystem;mode:WorldMode;paused:boolean;onSummary:(s:HabitatSummary)=>void;onReady:()=>void;onTier:()=>void}){
- const timer=useRef(0),frames=useRef(0),age=useRef(0),bad=useRef(0),started=useRef(false);
+function Runtime({world,sequence,visualTime,paused,onDisasterUpdate,onSummary,onReady,onTier}:{world:Ecosystem;sequence:DisasterSequence;visualTime:{current:number};paused:boolean;onDisasterUpdate:(s:DisasterSnapshot)=>void;onSummary:(s:HabitatSummary)=>void;onReady:()=>void;onTier:()=>void}){
+ const timer=useRef(0),disasterTimer=useRef(0),reportedFinished=useRef(false),frames=useRef(0),age=useRef(0),bad=useRef(0),started=useRef(false);
  useFrame((_,dt)=>{
-  setWorldMode(world,mode);world.paused=paused;advanceEcosystem(world,dt);timer.current+=dt;frames.current++;age.current+=dt;
+  advanceDisaster(sequence,dt,paused);if(!paused)visualTime.current+=Math.min(dt,.25);const finished=disasterProgress(sequence)>=1;
+  setWorldMode(world,disasterWorldMode(sequence));world.paused=paused||finished;advanceEcosystem(world,dt);timer.current+=dt;disasterTimer.current+=dt;frames.current++;age.current+=dt;
+  if(sequence.kind&&(!finished&&disasterTimer.current>.25||finished!==reportedFinished.current)){onDisasterUpdate(disasterSnapshot(sequence));disasterTimer.current=0;}reportedFinished.current=finished;
   if(!started.current){started.current=true;onReady();}
   if(timer.current>1.25){const fps=Math.round(frames.current/timer.current);onSummary({...ecosystemSummary(world),fps,trees:0,quality:'HIGH'});if(age.current>4&&!paused&&document.visibilityState!=='hidden'&&fps<28)bad.current++;else bad.current=0;if(bad.current>=2){onTier();bad.current=0;}timer.current=0;frames.current=0;}
  },-100);return null;
 }
-export default function EcosystemScene({world,mode,paused,view,reset,zoom,onSummary,onReady,quality}:{world:Ecosystem;mode:WorldMode;paused:boolean;view:HabitatView;reset:number;zoom:number;onSummary:(s:HabitatSummary)=>void;onReady:()=>void;quality:QualityPreference}){
+export default function EcosystemScene({world,mode,paused,view,reset,zoom,onSummary,onReady,quality,followedId,onSelect,sequence,disaster,onDisasterUpdate}:{world:Ecosystem;mode:WorldMode;paused:boolean;view:HabitatView;reset:number;zoom:number;onSummary:(s:HabitatSummary)=>void;onReady:()=>void;quality:QualityPreference;followedId:string|null;onSelect:(id:string)=>void;sequence:DisasterSequence;disaster:DisasterSnapshot;onDisasterUpdate:(s:DisasterSnapshot)=>void}){
+ const subjects=useMemo<ObservationSubjects>(()=>new Map(),[]),visualTime=useRef(0);
  const [tier,setTier]=useState<RenderTier>(()=>initialRenderTier(quality)),[viewport,setViewport]=useState({w:innerWidth,h:innerHeight});
  useEffect(()=>{const fn=()=>setViewport({w:innerWidth,h:innerHeight});addEventListener('resize',fn);return()=>removeEventListener('resize',fn);},[]);
  useEffect(()=>setTier(initialRenderTier(quality)),[quality]);
@@ -63,10 +81,11 @@ export default function EcosystemScene({world,mode,paused,view,reset,zoom,onSumm
  const dpr=renderDpr(tier,viewport.w,viewport.h,devicePixelRatio),budget=RENDER_BUDGETS[tier];
  return <Canvas shadows frameloop={paused?'demand':'always'} dpr={dpr} camera={{position:[30,29,34],fov:43,near:.1,far:200}} gl={{antialias:false,powerPreference:'high-performance',toneMapping:ACESFilmicToneMapping}} onCreated={({gl})=>{gl.shadowMap.type=PCFSoftShadowMap;}}>
   <Suspense fallback={null}>
-   <Studio mode={mode} tier={tier}/><ReferenceLandscape mode={mode} time={()=>world.time}/><ReferenceForest mode={mode} tier={tier}/>
-   {world.actors.map(actor=>actor.species==='rex'?<MapTyrannosaurus key={actor.id} actor={actor} world={world} poseHz={budget.poseHz}/>:<MapRealisticDinosaur key={actor.id} actor={actor} world={world} poseHz={budget.poseHz}/>)}
-   <DisasterParticles mode={mode} time={()=>world.time}/>{view==='top'?<TopView zoom={zoom}/>:<OrbitView view={view} reset={reset} zoom={zoom}/>}
-   <Runtime world={world} mode={mode} paused={paused} onReady={onReady} onSummary={s=>onSummary({...s,quality:budget.label})} onTier={()=>{if(quality==='auto')setTier(2);}}/>
+   <Studio mode={mode} tier={tier} sequence={sequence}/><ReferenceLandscape mode={mode} time={()=>visualTime.current} transition={()=>disasterAppearance(sequence)} waterTransition={()=>disasterWaterAppearance(sequence)}/><ReferenceForest mode={mode} tier={tier} transition={()=>disasterAppearance(sequence)}/>
+   <AnimalPresence sequence={sequence}>{world.actors.map(actor=>actor.species==='rex'?<MapTyrannosaurus key={actor.id} actor={actor} world={world} subjects={subjects} poseHz={actor.id===followedId?Math.max(30,budget.poseHz):budget.poseHz}/>:<MapRealisticDinosaur key={actor.id} actor={actor} world={world} subjects={subjects} poseHz={actor.id===followedId?Math.max(30,budget.poseHz):budget.poseHz}/>)}</AnimalPresence>
+   <AnimalPicking subjects={subjects} onSelect={onSelect} enabled={animalPresence(sequence)>.05}/>
+   <DisasterEffects sequence={sequence} time={()=>visualTime.current} tier={tier}/>{followedId?<ObservationCamera key={followedId} id={followedId} subjects={subjects} zoom={zoom}/>:view==='top'?<TopView zoom={zoom}/>:<OrbitView view={view} reset={reset} zoom={zoom}/>}
+   <Runtime world={world} sequence={sequence} visualTime={visualTime} paused={paused} onDisasterUpdate={onDisasterUpdate} onReady={onReady} onSummary={s=>onSummary({...s,quality:budget.label})} onTier={()=>{if(quality==='auto')setTier(2);}}/>
    {tier===0&&<EffectComposer multisampling={0} enableNormalPass={tier===0} resolutionScale={.5}>
     {tier===0?<SSAO samples={12} rings={3} radius={.22} intensity={1.25} luminanceInfluence={.6} resolutionScale={.5}/>:<></>}
     <Bloom intensity={mode==='ember'?.4:.06} luminanceThreshold={1.4} luminanceSmoothing={.4} mipmapBlur resolutionScale={.5}/>

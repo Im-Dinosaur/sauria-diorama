@@ -1,8 +1,10 @@
 import { useEffect,useLayoutEffect,useMemo,useRef } from 'react';
-import { BufferGeometry,Color,DoubleSide,Float32BufferAttribute,InstancedMesh,Object3D } from 'three';
+import {useFrame} from '@react-three/fiber';
+import { BufferGeometry,Color,DoubleSide,Float32BufferAttribute,InstancedMesh,MeshStandardMaterial,Object3D } from 'three';
 import { forest,habitatGround,noise } from '../world/habitat';
 import type { WorldMode } from '../world/layout';
 import type {RenderTier} from '../renderPerformance';
+import {disasterCoverageGLSL} from './disasterShader';
 function foliageGeometry(kind:'palm'|'broad'|'conifer'|'fern',tier:RenderTier){
  const fronds=tier===0?9:tier===1?7:5,segments=tier===0?10:tier===1?6:4,leaves=tier===0?110:tier===1?75:50,layers=tier===0?7:5,branches=tier===0?8:6,needles=tier===0?5:3;
  const positions:number[]=[],colors:number[]=[],color=new Color();
@@ -18,12 +20,27 @@ function foliageGeometry(kind:'palm'|'broad'|'conifer'|'fern',tier:RenderTier){
  }
  const g=new BufferGeometry();g.setAttribute('position',new Float32BufferAttribute(positions,3));g.setAttribute('color',new Float32BufferAttribute(colors,3));g.computeVertexNormals();return g;
 }
-export function ReferenceForest({mode,tier=0}:{mode:WorldMode;tier?:RenderTier}){
+export function ReferenceForest({mode,tier=0,transition}:{mode:WorldMode;tier?:RenderTier;transition?:()=>number}){
  const trunks=useRef<InstancedMesh>(null),palms=useRef<InstancedMesh>(null),broad=useRef<InstancedMesh>(null),conifers=useRef<InstancedMesh>(null),shrubs=useRef<InstancedMesh>(null),dummy=useMemo(()=>new Object3D(),[]),color=useMemo(()=>new Color(),[]);
  const groups=useMemo(()=>({trunks:forest.filter(p=>p.kind!==2),palms:forest.filter(p=>p.kind===0),broad:forest.filter(p=>p.kind===1),conifers:forest.filter(p=>p.kind===3),shrubs:forest.filter((p,i)=>p.kind===2||i%3===0)}),[]);
  const geometry=useMemo(()=>({palm:foliageGeometry('palm',tier),broad:foliageGeometry('broad',tier),conifer:foliageGeometry('conifer',tier),fern:foliageGeometry('fern',tier)}),[tier]);
  useEffect(()=>()=>Object.values(geometry).forEach(g=>g.dispose()),[geometry]);
- const tint=(p:typeof forest[number],index:number)=>{if(mode==='peaceful')color.setHex(p.color).lerp(new Color(index%3?'#425c25':'#6f8135'),.35);else color.set(mode==='ice'?'#d8e2de':'#493e2e');return color;};
+ const uniforms=useMemo(()=>({uDisasterProgress:{value:0},uDisasterKind:{value:0}}),[]);
+ const materials=useMemo(()=>{
+  const leaves=new MeshStandardMaterial({vertexColors:true,side:DoubleSide,roughness:.9}),trunk=new MeshStandardMaterial({color:'#67563b',roughness:.98});
+  for(const material of [leaves,trunk]){
+   material.onBeforeCompile=shader=>{
+    Object.assign(shader.uniforms,uniforms);
+    shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\nvarying vec3 vForestWorld;').replace('#include <begin_vertex>','#include <begin_vertex>\nvec4 forestPosition=vec4(position,1.);\n#ifdef USE_INSTANCING\nforestPosition=instanceMatrix*forestPosition;\n#endif\nvForestWorld=(modelMatrix*forestPosition).xyz;');
+    shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\nvarying vec3 vForestWorld;\n'+disasterCoverageGLSL).replace('#include <color_fragment>','#include <color_fragment>\nif(uDisasterKind!=0)diffuseColor.rgb=mix(diffuseColor.rgb,uDisasterKind==1?vec3(.70,.79,.82):vec3(.035,.027,.021),disasterCoverage(vForestWorld)*.96);');
+   };
+   material.customProgramCacheKey=()=>`forest-disaster-${material.vertexColors}`;
+  }
+  return {leaves,trunk};
+ },[uniforms]);
+ useEffect(()=>()=>Object.values(materials).forEach(m=>m.dispose()),[materials]);
+ useFrame(()=>{uniforms.uDisasterProgress.value=transition?transition():mode==='peaceful'?0:1;uniforms.uDisasterKind.value=mode==='peaceful'?0:mode==='ice'?1:2;});
+ const tint=(p:typeof forest[number],index:number)=>color.setHex(p.color).lerp(new Color(index%3?'#425c25':'#6f8135'),.35);
  useLayoutEffect(()=>{
   groups.trunks.forEach((p,i)=>{const h=p.kind===0?1.45+noise(i+18)*.55:p.kind===3?1.6:1.05+noise(i+18)*.9,y=habitatGround(p.x,p.z);dummy.position.set(p.x,y+h*p.scale/2,p.z);dummy.rotation.set((noise(i)-.5)*.06,i*2.399,0);dummy.scale.set(.065*p.scale,h*p.scale,.065*p.scale);dummy.updateMatrix();trunks.current?.setMatrixAt(i,dummy.matrix);});
   groups.palms.forEach((p,i)=>{const y=habitatGround(p.x,p.z),h=1.45+noise(i+18)*.55;dummy.position.set(p.x,y+h*p.scale,p.z);dummy.rotation.set(0,i*2.399,0);dummy.scale.setScalar(p.scale);dummy.updateMatrix();palms.current?.setMatrixAt(i,dummy.matrix);palms.current?.setColorAt(i,tint(p,i));});
@@ -31,12 +48,12 @@ export function ReferenceForest({mode,tier=0}:{mode:WorldMode;tier?:RenderTier})
   groups.conifers.forEach((p,i)=>{dummy.position.set(p.x,habitatGround(p.x,p.z)+.35*p.scale,p.z);dummy.rotation.set(0,i*2.399,0);dummy.scale.set(p.scale,1.1*p.scale,p.scale);dummy.updateMatrix();conifers.current?.setMatrixAt(i,dummy.matrix);conifers.current?.setColorAt(i,tint(p,i));});
   groups.shrubs.forEach((p,i)=>{dummy.position.set(p.x+.05,habitatGround(p.x,p.z)+.08,p.z-.05);dummy.rotation.set(0,i*2.399,0);dummy.scale.setScalar(p.scale*.65);dummy.updateMatrix();shrubs.current?.setMatrixAt(i,dummy.matrix);shrubs.current?.setColorAt(i,tint(p,i));});
   for(const ref of [trunks,palms,broad,conifers,shrubs])if(ref.current){ref.current.instanceMatrix.needsUpdate=true;if(ref.current.instanceColor)ref.current.instanceColor.needsUpdate=true;}
- },[mode,groups,dummy,color]);
+ },[groups,dummy,color,geometry,materials]);
  return <group>
-  <instancedMesh ref={trunks} args={[undefined,undefined,groups.trunks.length]} castShadow={tier===0} receiveShadow><cylinderGeometry args={[.70,1,1,9,3]}/><meshStandardMaterial color={mode==='ice'?'#92998c':mode==='ember'?'#332a23':'#67563b'} roughness={.98}/></instancedMesh>
-  <instancedMesh ref={palms} geometry={geometry.palm} args={[undefined,undefined,groups.palms.length]} castShadow={tier===0} receiveShadow><meshStandardMaterial vertexColors side={DoubleSide} roughness={.86}/></instancedMesh>
-  <instancedMesh ref={broad} geometry={geometry.broad} args={[undefined,undefined,groups.broad.length*3]} castShadow={tier===0} receiveShadow><meshStandardMaterial vertexColors side={DoubleSide} roughness={.88}/></instancedMesh>
-  <instancedMesh ref={conifers} geometry={geometry.conifer} args={[undefined,undefined,groups.conifers.length]} castShadow={tier===0} receiveShadow><meshStandardMaterial vertexColors side={DoubleSide} roughness={.91}/></instancedMesh>
-  <instancedMesh ref={shrubs} geometry={geometry.fern} args={[undefined,undefined,groups.shrubs.length]} receiveShadow><meshStandardMaterial vertexColors side={DoubleSide} roughness={.94}/></instancedMesh>
+  <instancedMesh ref={trunks} args={[undefined,undefined,groups.trunks.length]} material={materials.trunk} castShadow={tier===0} receiveShadow><cylinderGeometry args={[.70,1,1,9,3]}/></instancedMesh>
+  <instancedMesh ref={palms} geometry={geometry.palm} material={materials.leaves} args={[undefined,undefined,groups.palms.length]} castShadow={tier===0} receiveShadow/>
+  <instancedMesh ref={broad} geometry={geometry.broad} material={materials.leaves} args={[undefined,undefined,groups.broad.length*3]} castShadow={tier===0} receiveShadow/>
+  <instancedMesh ref={conifers} geometry={geometry.conifer} material={materials.leaves} args={[undefined,undefined,groups.conifers.length]} castShadow={tier===0} receiveShadow/>
+  <instancedMesh ref={shrubs} geometry={geometry.fern} material={materials.leaves} args={[undefined,undefined,groups.shrubs.length]} receiveShadow/>
  </group>;
 }

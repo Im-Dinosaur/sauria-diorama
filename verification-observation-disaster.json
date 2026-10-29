@@ -1,0 +1,135 @@
+{
+  "result": "PASS",
+  "renderedModelFraming": [
+    {
+      "species": "brachiosaurus",
+      "sizes": [
+        {
+          "aspect": 1.7777777777777777,
+          "distance": 12.060448234775027,
+          "maximumScreenExtent": 0.7251202382086823
+        },
+        {
+          "aspect": 0.5625,
+          "distance": 20.478011853105166,
+          "maximumScreenExtent": 0.44072804345288896
+        }
+      ]
+    },
+    {
+      "species": "spinosaurus",
+      "sizes": [
+        {
+          "aspect": 1.7777777777777777,
+          "distance": 5.488625077869921,
+          "maximumScreenExtent": 0.6613655327189913
+        },
+        {
+          "aspect": 0.5625,
+          "distance": 9.319399015186532,
+          "maximumScreenExtent": 0.5823239341713181
+        }
+      ]
+    },
+    {
+      "species": "rex",
+      "sizes": [
+        {
+          "aspect": 1.7777777777777777,
+          "distance": 4.814067061398892,
+          "maximumScreenExtent": 0.6819456428778106
+        },
+        {
+          "aspect": 0.5625,
+          "distance": 8.174034698040277,
+          "maximumScreenExtent": 0.6058726355766189
+        }
+      ]
+    },
+    {
+      "species": "triceratops",
+      "sizes": [
+        {
+          "aspect": 1.7777777777777777,
+          "distance": 3.6477024903327715,
+          "maximumScreenExtent": 0.689309309635275
+        },
+        {
+          "aspect": 0.5625,
+          "distance": 6.193608511021409,
+          "maximumScreenExtent": 0.6154020151496008
+        }
+      ]
+    },
+    {
+      "species": "stegosaurus",
+      "sizes": [
+        {
+          "aspect": 1.7777777777777777,
+          "distance": 3.690573522249902,
+          "maximumScreenExtent": 0.6923805272476836
+        },
+        {
+          "aspect": 0.5625,
+          "distance": 6.266401286436048,
+          "maximumScreenExtent": 0.5761320788004309
+        }
+      ]
+    },
+    {
+      "species": "velociraptor",
+      "sizes": [
+        {
+          "aspect": 1.7777777777777777,
+          "distance": 0.7458857115397881,
+          "maximumScreenExtent": 0.7007033997663468
+        },
+        {
+          "aspect": 0.5625,
+          "distance": 1.2664750218762069,
+          "maximumScreenExtent": 0.5921438646975213
+        }
+      ]
+    },
+    {
+      "species": "pterosaur",
+      "sizes": [
+        {
+          "aspect": 1.7777777777777777,
+          "distance": 2.255330952449624,
+          "maximumScreenExtent": 0.4881692956678159
+        },
+        {
+          "aspect": 0.5625,
+          "distance": 3.8294342861793216,
+          "maximumScreenExtent": 0.7503174517478254
+        }
+      ]
+    }
+  ],
+  "gestureSafety": true,
+  "sequences": [
+    {
+      "kind": "ice",
+      "finished": {
+        "kind": "ice",
+        "progress": 1,
+        "finished": true,
+        "phase": "빙하 멸망 완료",
+        "description": "얼어붙은 강과 고요한 숲만 남았습니다.",
+        "secondsLeft": 0
+      }
+    },
+    {
+      "kind": "ember",
+      "finished": {
+        "kind": "ember",
+        "progress": 1,
+        "finished": true,
+        "phase": "화산 멸망 완료",
+        "description": "검게 탄 세계 위로 화산재와 메테오가 계속 떨어집니다.",
+        "secondsLeft": 0
+      }
+    }
+  ]
+}

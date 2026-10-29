@@ -9,6 +9,7 @@ import { DIORAMA } from '../world/layout';
 import type { WorldMode } from '../world/layout';
 import { noiseGLSL } from '../shaders/lavaNoise';
 import { fracturedSlab } from '../world/rockGeometry';
+import {disasterCoverageGLSL} from './disasterShader';
 export function referenceMask(){
  const pixels=new Uint8Array(reference.columns*reference.rows*4);
  for(let z=0;z<reference.rows;z++)for(let x=0;x<reference.columns;x++){
@@ -26,40 +27,43 @@ const waterVertex=`varying vec2 vUv;varying vec3 vWorldPosition;void main(){vUv=
 const waterFragment=`
  varying vec2 vUv;varying vec3 vWorldPosition;uniform sampler2D uMap;uniform sampler2D uMask;uniform float uTime;uniform int uMode;
  ${noiseGLSL}
+ ${disasterCoverageGLSL}
  float cells(vec2 p){vec2 cell=floor(p),local=fract(p);float d1=8.,d2=8.;for(int j=-1;j<=1;j++)for(int i=-1;i<=1;i++){vec2 o=vec2(float(i),float(j)),id=cell+o,c=.18+.64*vec2(hash(id),hash(id+53.71));float d=length(o+c-local);if(d<d1){d2=d1;d1=d;}else d2=min(d2,d);}return d2-d1;}
  void main(){
   vec2 p=vWorldPosition.xz,drift=p-vec2(uTime*.07,uTime*.025);vec2 ripple=vec2(sin(p.y*2.5+uTime*.7),cos(p.x*3.1-uTime*.5))*.00028;
   vec3 base=texture2D(uMap,vUv+ripple).rgb,color=base;float grain=noise(p*35.);
-  if(uMode==2){vec2 warp=vec2(fbm(drift*.55),fbm(drift*.55+31.));float edge=cells((drift+warp)*1.45),crack=1.-smoothstep(.012,.14,edge),fresh=1.-smoothstep(.34,.61,fbm(drift*.9));float heat=max(crack,fresh*.86);color=vec3(.017,.014,.012)+mix(vec3(.8,.018,.001),vec3(4.2,1.0,.04),pow(heat,1.8))*pow(heat,2.);}
+  if(uMode==2){float ash=fbm(drift*.8);color=mix(base*.13,vec3(.026,.024,.022),.72)+vec3(.025,.012,.005)*ash;}
   else if(uMode==1){float crack=1.-smoothstep(.004,.022,cells(p*.7+fbm(p)*.2));color=mix(vec3(.28,.50,.63),vec3(.68,.81,.86),fbm(p*.8));color=mix(color,vec3(.13,.30,.43),crack*.5);color+=pow(grain,16.)*.1;}
   else{vec3 normal=normalize(vec3(cos(p.x*4.+uTime*.7)*.08,1.,cos(p.y*4.4-uTime*.6)*.07)),eye=normalize(cameraPosition-vWorldPosition),light=normalize(vec3(-.4,1.,.6));float spec=pow(max(0.,dot(normal,normalize(eye+light))),95.);color=base*.96+vec3(.35,.48,.48)*spec*.2;}
+  if(uMode!=0)color=mix(base*.96,color,disasterCoverage(vWorldPosition));
   gl_FragColor=vec4(color,1.);
   #include <tonemapping_fragment>
   #include <colorspace_fragment>
  }`;
-export function ReferenceLandscape({mode,time}:{mode:WorldMode;time:()=>number}){
+export function ReferenceLandscape({mode,time,transition,waterTransition}:{mode:WorldMode;time:()=>number;transition?:()=>number;waterTransition?:()=>number}){
  const image=useTexture(publicAsset('/textures/reference-valley-web.webp')),mask=useMemo(referenceMask,[]),geometry=useMemo(terrainGeometry,[]),surface=useRef<ShaderMaterial>(null);
  image.colorSpace=SRGBColorSpace;image.anisotropy=8;
+ const disasterUniforms=useMemo(()=>({uDisasterProgress:{value:0},uDisasterKind:{value:0}}),[]);
  const stones=useRef<InstancedMesh>(null),stoneGeometry=useMemo(()=>new RoundedBoxGeometry(1,1,1,3,.07),[]),rockShapes=useMemo(()=>Array.from({length:11},(_,i)=>fracturedSlab(i+17)),[]);
- const stoneMaterial=useMemo(()=>{const m=new MeshStandardMaterial({color:mode==='ice'?'#c6d6dd':mode==='ember'?'#685543':'#a99c7a',roughness:.94});m.onBeforeCompile=shader=>{
-  shader.uniforms.uRockImage={value:image};shader.uniforms.uRockMode={value:mode==='peaceful'?0:mode==='ice'?1:2};
+ const stoneMaterial=useMemo(()=>{const m=new MeshStandardMaterial({color:'#a99c7a',roughness:.94});m.onBeforeCompile=shader=>{
+  Object.assign(shader.uniforms,disasterUniforms);shader.uniforms.uRockImage={value:image};shader.uniforms.uRockMode=disasterUniforms.uDisasterKind;
   shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\nvarying vec3 vStonePosition;varying vec3 vStoneNormal;').replace('#include <begin_vertex>','#include <begin_vertex>\nvec4 stoneLocal=vec4(position,1.);\n#ifdef USE_INSTANCING\nstoneLocal=instanceMatrix*stoneLocal;\n#endif\nvStonePosition=(modelMatrix*stoneLocal).xyz;vStoneNormal=normalize(mat3(modelMatrix)*normal);');
-  shader.fragmentShader=shader.fragmentShader.replace('#include <common>',`#include <common>\nuniform sampler2D uRockImage;uniform int uRockMode;varying vec3 vStonePosition;varying vec3 vStoneNormal;\n${noiseGLSL}`)
-   .replace('#include <color_fragment>',`#include <color_fragment>\nvec2 rockUv=vec2(vStonePosition.x/${DIORAMA.width.toFixed(8)}+.5,.5-vStonePosition.z/${DIORAMA.depth.toFixed(8)});vec3 tracedRock=texture2D(uRockImage,rockUv).rgb;float upward=smoothstep(.15,.8,vStoneNormal.y);if(uRockMode==0)diffuseColor.rgb=mix(diffuseColor.rgb,tracedRock,upward*.96);float weather=fbm(vStonePosition.xz*9.+vStonePosition.y*3.),strata=pow(.5+.5*sin(vStonePosition.y*75.+weather*4.),12.),cracks=pow(1.-abs(sin(vStonePosition.x*7.+fbm(vStonePosition.xz*2.)*4.)),32.);diffuseColor.rgb*=.88+weather*.22;diffuseColor.rgb*=1.-strata*.12-cracks*.18;`)
+  shader.fragmentShader=shader.fragmentShader.replace('#include <common>',`#include <common>\nuniform sampler2D uRockImage;uniform int uRockMode;varying vec3 vStonePosition;varying vec3 vStoneNormal;\n${noiseGLSL}\n${disasterCoverageGLSL}`)
+   .replace('#include <color_fragment>',`#include <color_fragment>\nvec2 rockUv=vec2(vStonePosition.x/${DIORAMA.width.toFixed(8)}+.5,.5-vStonePosition.z/${DIORAMA.depth.toFixed(8)});vec3 tracedRock=texture2D(uRockImage,rockUv).rgb;float upward=smoothstep(.15,.8,vStoneNormal.y);diffuseColor.rgb=mix(diffuseColor.rgb,tracedRock,upward*.96);if(uRockMode!=0)diffuseColor.rgb=mix(diffuseColor.rgb,uRockMode==1?vec3(.62,.72,.77):vec3(.065,.045,.03),disasterCoverage(vStonePosition)*.9);float weather=fbm(vStonePosition.xz*9.+vStonePosition.y*3.),strata=pow(.5+.5*sin(vStonePosition.y*75.+weather*4.),12.),cracks=pow(1.-abs(sin(vStonePosition.x*7.+fbm(vStonePosition.xz*2.)*4.)),32.);diffuseColor.rgb*=.88+weather*.22;diffuseColor.rgb*=1.-strata*.12-cracks*.18;`)
    .replace('#include <normal_fragment_begin>',`#include <normal_fragment_begin>\nvec2 stoneUv=vec2(vStonePosition.x/${DIORAMA.width.toFixed(8)}+.5,.5-vStonePosition.z/${DIORAMA.depth.toFixed(8)});float originalRelief=dot(texture2D(uRockImage,stoneUv).rgb,vec3(.25,.6,.15));float relief=fbm(vStonePosition.xz*48.+vStonePosition.y*7.)*.3+originalRelief;normal=normalize(normal+vec3(dFdx(relief),dFdy(relief),0.)*.65);`);
- };m.customProgramCacheKey=()=>`traced-stone-${mode}`;return m;},[mode,image]);
+ };m.customProgramCacheKey=()=>`traced-stone-transition`;return m;},[image,disasterUniforms]);
  const gravel=useMemo(()=>{const sites=[] as {x:number;z:number;s:number}[];for(let i=0;i<reference.water.length;i+=3){const d=reference.landDistanceCentimeters[i];if(reference.water[i]||d<30||d>140||noise(i+37)>.26)continue;const p=referencePoint(i);sites.push({...p,s:.018+noise(i+12)*.060});if(sites.length>=650)break;}return sites;},[]);
  useLayoutEffect(()=>{const dummy=new Object3D();gravel.forEach((p,i)=>{dummy.position.set(p.x,habitatGround(p.x,p.z)+p.s*.18,p.z);dummy.rotation.set(i,i*2.4,i*.3);dummy.scale.set(p.s*1.6,p.s*.55,p.s);dummy.updateMatrix();stones.current?.setMatrixAt(i,dummy.matrix);});if(stones.current)stones.current.instanceMatrix.needsUpdate=true;},[gravel]);
  const material=useMemo(()=>{const m=new MeshStandardMaterial({map:image,roughness:.94,color:'#ffffff'});m.onBeforeCompile=shader=>{
-  shader.uniforms.uMask={value:mask};shader.uniforms.uWorldMode={value:mode==='peaceful'?0:mode==='ice'?1:2};
+  Object.assign(shader.uniforms,disasterUniforms);shader.uniforms.uMask={value:mask};shader.uniforms.uWorldMode=disasterUniforms.uDisasterKind;
   shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\nvarying vec2 vTerrainUv;varying vec3 vGroundPosition;').replace('#include <begin_vertex>','#include <begin_vertex>\nvTerrainUv=uv;vGroundPosition=position;');
-  shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\nuniform sampler2D uMask;uniform int uWorldMode;varying vec2 vTerrainUv;varying vec3 vGroundPosition;\nfloat groundHash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}')
-   .replace('#include <color_fragment>','#include <color_fragment>\nvec4 layers=texture2D(uMask,vTerrainUv);float grains=groundHash(floor(vGroundPosition.xz*70.));vec3 litter=vec3(.064,.080,.026)*(.8+grains*.35);diffuseColor.rgb=mix(diffuseColor.rgb,litter,layers.g*.94);diffuseColor.rgb*=.93+grains*.12;if(uWorldMode==1){diffuseColor.rgb=mix(diffuseColor.rgb,vec3(.76,.85,.89),.82);}else if(uWorldMode==2){diffuseColor.rgb=mix(diffuseColor.rgb*.22,vec3(.055,.038,.024),.55);}')
-   .replace('#include <normal_fragment_begin>','#include <normal_fragment_begin>\nfloat grit=groundHash(floor(vGroundPosition.xz*95.));normal=normalize(normal+vec3(dFdx(grit),dFdy(grit),0.)*.035);');
- };m.customProgramCacheKey=()=>`reference-ground-${mode}`;return m;},[image,mask,mode]);
- const uniforms=useMemo(()=>({uMap:{value:image},uMask:{value:mask},uTime:{value:0},uMode:{value:0}}),[image,mask]);
+  shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\nuniform sampler2D uMask;uniform int uWorldMode;varying vec2 vTerrainUv;varying vec3 vGroundPosition;\n'+disasterCoverageGLSL+'\nfloat groundHash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);} float groundGrain(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(groundHash(i),groundHash(i+vec2(1.,0.)),f.x),mix(groundHash(i+vec2(0.,1.)),groundHash(i+vec2(1.,1.)),f.x),f.y);}')
+   .replace('#include <color_fragment>','#include <color_fragment>\nvec4 layers=texture2D(uMask,vTerrainUv);float grains=groundGrain(vGroundPosition.xz*95.);vec3 litter=vec3(.064,.080,.026)*(.96+grains*.08);diffuseColor.rgb=mix(diffuseColor.rgb,litter,layers.g*.94);diffuseColor.rgb*=.98+grains*.04;vec3 originalGround=diffuseColor.rgb;if(uWorldMode==1){diffuseColor.rgb=mix(diffuseColor.rgb,vec3(.76,.85,.89),.82);}else if(uWorldMode==2){diffuseColor.rgb=mix(diffuseColor.rgb*.22,vec3(.055,.038,.024),.55);}diffuseColor.rgb=mix(originalGround,diffuseColor.rgb,disasterCoverage(vGroundPosition));')
+   .replace('#include <normal_fragment_begin>','#include <normal_fragment_begin>\nfloat grit=groundGrain(vGroundPosition.xz*180.);normal=normalize(normal+vec3(dFdx(grit),dFdy(grit),0.)*.013);');
+ };m.customProgramCacheKey=()=>`reference-ground-transition`;return m;},[image,mask,disasterUniforms]);
+ const uniforms=useMemo(()=>({uMap:{value:image},uMask:{value:mask},uTime:{value:0},uMode:disasterUniforms.uDisasterKind,...disasterUniforms,uDisasterProgress:{value:0}}),[image,mask,disasterUniforms]);
  useEffect(()=>()=>{material.dispose();stoneMaterial.dispose();},[material,stoneMaterial]);useEffect(()=>()=>{geometry.dispose();mask.dispose();stoneGeometry.dispose();rockShapes.forEach(g=>g.dispose());},[geometry,mask,stoneGeometry,rockShapes]);
- useFrame(()=>{if(surface.current){surface.current.uniforms.uTime.value=time();surface.current.uniforms.uMode.value=mode==='peaceful'?0:mode==='ice'?1:2;}});
+ useFrame(()=>{disasterUniforms.uDisasterProgress.value=transition?transition():mode==='peaceful'?0:1;disasterUniforms.uDisasterKind.value=mode==='peaceful'?0:mode==='ice'?1:2;if(surface.current){surface.current.uniforms.uTime.value=time();surface.current.uniforms.uMode.value=disasterUniforms.uDisasterKind.value;surface.current.uniforms.uDisasterKind.value=disasterUniforms.uDisasterKind.value;surface.current.uniforms.uDisasterProgress.value=waterTransition?waterTransition():disasterUniforms.uDisasterProgress.value;}});
  return <group>
   <mesh position={[0,-.85,0]} castShadow receiveShadow><boxGeometry args={[DIORAMA.width,.65,DIORAMA.depth]}/><meshStandardMaterial color={mode==='ice'?'#778e98':'#74644a'} roughness={1}/></mesh>
   <mesh geometry={geometry} material={material} receiveShadow/>

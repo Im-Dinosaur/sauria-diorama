@@ -50,3 +50,14 @@ All seven species now receive the calibration factor, including pterosaurs added
 
 ## Cloud/local transfer status
 The local checkout now exists under this task's `work/sauria-diorama`, on `main`. Initial status was clean and no existing local edits were overwritten. The initial transfer uses a shallow checkout; older history remains available on GitHub. Dependencies were installed with npm ci. The in-app browser is authenticated and was used for Pages activation. No passwords or API tokens should be pasted into chat.
+
+## Individual observation and progressive extinction — 2026-10-29
+
+The user requested click-to-zoom tracking, then replaced the three static world buttons with two extinction buttons in Settings. They explicitly chose animals fleeing and gradually disappearing into an uninhabited aftermath.
+
+- Click a rendered animal or a species-row button to smoothly approach and follow one actor. Repeated species clicks cycle individuals. Mouse orbit/wheel and zoom buttons remain available. Escape, exit or view buttons restore the map. The selected rig gets at least 30Hz pose sampling. Physical body sizes are unchanged.
+- Screen-space shortlisting expands tiny click targets; only a completed tap raycasts shortlisted animal meshes. Terrain and forest meshes are excluded. Drag, cancelled and multi-touch gestures do not select animals. Neutral bounds are cached per source model rather than measured per frame.
+- Settings starts a 45-second sequence from a fresh peaceful population. Ice: early snowfall, accumulating ground/forest snow, a later river-freeze front, heavy blowing snow, fleeing and fading animals, then an uninhabited ice age.
+- Volcano: one distant northwest flash at simulation second 1, an ash front moving from that direction, darkening/black sky, continuous falling meteors with trails and impact glows, fleeing/fading animals and a burned, ash-covered aftermath. Precipitation and meteors continue after completion. Pause freezes event time and atmosphere; restart restores everything.
+- Terrain and foliage transition through shared shader uniforms. Water uniforms are updated explicitly. Forest placement is re-uploaded when quality geometry changes, retaining instanced transforms; gravel remains stable. Weather and meteors use small shared, instanced geometries and add no network assets. Shared animal materials fade globally and restore on reset.
+- Verification: existing eight suites, new actual-model portrait/landscape framing and picking/gesture checks, sequence pause/flash/fade/reset checks, performance checks, TypeScript and Pages build. Browser checks must also cover selecting a small actor, mouse picking, exit, both full extinction sequences, reset, and quality changes. See verification-observation-disaster.json.

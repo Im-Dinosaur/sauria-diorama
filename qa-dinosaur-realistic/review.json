@@ -1,5 +1,85 @@
 [
   {
+    "id": "triceratops",
+    "errors": [],
+    "diagnostics": {
+      "id": "triceratops",
+      "triangles": 156920,
+      "bones": 45,
+      "meshes": 3,
+      "action": "walk",
+      "paused": true,
+      "time": 1,
+      "view": "threequarter",
+      "layer": "skin",
+      "file": "/models/realistic-dinosaurs/triceratops.glb"
+    }
+  },
+  {
+    "id": "stegosaurus",
+    "errors": [],
+    "diagnostics": {
+      "id": "stegosaurus",
+      "triangles": 19839,
+      "bones": 53,
+      "meshes": 3,
+      "action": "walk",
+      "paused": true,
+      "time": 1,
+      "view": "threequarter",
+      "layer": "skin",
+      "file": "/models/realistic-dinosaurs/stegosaurus.glb"
+    }
+  },
+  {
+    "id": "spinosaurus",
+    "errors": [],
+    "diagnostics": {
+      "id": "spinosaurus",
+      "triangles": 70018,
+      "bones": 99,
+      "meshes": 1,
+      "action": "walk",
+      "paused": true,
+      "time": 1,
+      "view": "threequarter",
+      "layer": "skin",
+      "file": "/models/realistic-dinosaurs/spinosaurus.glb"
+    }
+  },
+  {
+    "id": "brachiosaurus",
+    "errors": [],
+    "diagnostics": {
+      "id": "brachiosaurus",
+      "triangles": 326988,
+      "bones": 109,
+      "meshes": 30,
+      "action": "walk",
+      "paused": true,
+      "time": 1,
+      "view": "threequarter",
+      "layer": "skin",
+      "file": "/models/realistic-dinosaurs/brachiosaurus.glb"
+    }
+  },
+  {
+    "id": "velociraptor",
+    "errors": [],
+    "diagnostics": {
+      "id": "velociraptor",
+      "triangles": 122058,
+      "bones": 31,
+      "meshes": 8,
+      "action": "walk",
+      "paused": true,
+      "time": 1,
+      "view": "threequarter",
+      "layer": "skin",
+      "file": "/models/realistic-dinosaurs/velociraptor.glb"
+    }
+  },
+  {
     "id": "pterosaur",
     "errors": [],
     "diagnostics": {

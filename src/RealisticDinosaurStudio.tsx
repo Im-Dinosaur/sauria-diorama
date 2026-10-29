@@ -1,3 +1,4 @@
+import {publicAsset} from './publicAsset';
 import {Suspense,useEffect,useMemo,useRef,useState} from 'react';
 import {Canvas,useFrame,useThree} from '@react-three/fiber';
 import {Environment,Lightformer,OrbitControls,useGLTF} from '@react-three/drei';
@@ -9,7 +10,7 @@ import './tyrannosaurus-study.css';
 
 type View='threequarter'|'side'|'front'|'head';type Layer='skin'|'clay'|'normal';
 const LABELS:Record<string,string>={idle:'대기 · 호흡',walk:'걷기',run:'빠른 이동',roar:'위협 · 턱 벌리기',drink:'물 마시기',rest:'휴식',alert:'주변 살피기',hunt:'먹이 탐색',graze:'낮은 식생 먹기',browse:'높은 잎 먹기',fly:'날갯짓',glide:'활공'};
-const folder='/models/realistic-dinosaurs';
+const folder=publicAsset('/models/realistic-dinosaurs');
 type Stats={triangles:number;bones:number;meshes:number};
 function Specimen({id,action,paused,speed,clock,onTime,onStats,view,reset,layer,wire,bones}:{id:string;action:string;paused:boolean;speed:number;clock:{current:number};onTime:(t:number)=>void;onStats:(s:Stats)=>void;view:View;reset:number;layer:Layer;wire:boolean;bones:boolean}){
  const data=manifest.find(m=>m.id===id)!,gltf=useGLTF(`${folder}/${id}.glb`),scene=useMemo(()=>clone(gltf.scene),[gltf.scene]),mixer=useMemo(()=>new AnimationMixer(scene),[scene]),helper=useMemo(()=>new SkeletonHelper(scene),[scene]),last=useRef(0),{camera}=useThree(),[target,setTarget]=useState<[number,number,number]>([0,1,0]);
@@ -34,7 +35,7 @@ export default function RealisticDinosaurStudio(){
  function choose(next:string){setId(next);setAction('idle');clock.current=0;setTime(0);setPaused(true);setStats({triangles:0,bones:0,meshes:0});setReset(n=>n+1);const url=new URL(location.href);url.searchParams.set('specimen',next);history.replaceState(null,'',url);}
  const file=`${folder}/${id}.glb`,pixelSize=Math.max(...data.textures.filter(t=>t.kind==='map').map(t=>t.width));
  return <main className="trex-study">
-  <header><a href="/dinosaur-report.html"><ArrowLeft size={15}/>제작 보고서</a><span>SAURIA <b>/</b> REALISTIC SPECIMENS</span><a className="trex-download" href={file} download><Download size={15}/>GLB 모델 받기</a></header>
+  <header><a href="./dinosaur-report.html"><ArrowLeft size={15}/>제작 보고서</a><span>SAURIA <b>/</b> REALISTIC SPECIMENS</span><a className="trex-download" href={file} download><Download size={15}/>GLB 모델 받기</a></header>
   <section className="trex-stage" aria-label="공룡 실사 모델 검수">
    <Canvas shadows dpr={[1,1.6]} camera={{position:[6,3,6],fov:35,near:.01,far:100}} gl={{antialias:true,toneMapping:ACESFilmicToneMapping,toneMappingExposure:1.02}}>
     <color attach="background" args={['#292d2b']}/><fog attach="fog" args={['#292d2b',16,36]}/><hemisphereLight args={['#e1e5df','#6b6355',.85]}/><directionalLight position={[4,6,5]} intensity={2.8} color="#fff2df" castShadow shadow-mapSize={[2048,2048]} shadow-camera-left={-5} shadow-camera-right={5} shadow-camera-top={6} shadow-camera-bottom={-4} shadow-normalBias={.003}/><directionalLight position={[-4,3,-3]} intensity={1.2} color="#bfd2db"/>
@@ -46,7 +47,7 @@ export default function RealisticDinosaurStudio(){
    <div className="trex-metrics"><span>{stats.triangles.toLocaleString()} TRIANGLES</span><span>{stats.bones} BONES</span><span>{pixelSize}px COLOR</span></div><button className="trex-reset" title="시점 초기화" onClick={()=>setReset(n=>n+1)}><RotateCcw size={16}/></button>
   </section>
   <aside>
-   <p className="trex-kicker">SPECIES / 공룡 선택</p><div className="trex-options">{manifest.map(m=><button key={m.id} aria-pressed={m.id===id} onClick={()=>choose(m.id)}>{m.name}</button>)}<a href="/?trex=study" style={{fontSize:10,padding:8}}>티라노사우루스 ↗</a></div>
+   <p className="trex-kicker">SPECIES / 공룡 선택</p><div className="trex-options">{manifest.map(m=><button key={m.id} aria-pressed={m.id===id} onClick={()=>choose(m.id)}>{m.name}</button>)}<a href="./?trex=study" style={{fontSize:10,padding:8}}>티라노사우루스 ↗</a></div>
    <p className="trex-kicker">FORM / 외형 확인</p><div className="trex-options">{([['threequarter','전체 ¾'],['side','정측면'],['front','정면'],['head','머리 확대']] as const).map(([v,label])=><button key={v} aria-pressed={v===view} onClick={()=>setView(v)}>{label}</button>)}</div>
    <p className="trex-kicker">SURFACE / 재질 확인</p><div className="trex-options">{([['skin','피부 재질'],['clay','무채색 조형'],['normal','표면 법선']] as const).map(([v,label])=><button key={v} aria-pressed={v===layer} onClick={()=>setLayer(v)}>{label}</button>)}</div><div className="trex-checks"><label><input type="checkbox" checked={wire} onChange={e=>setWire(e.target.checked)}/>와이어프레임</label><label><input type="checkbox" checked={bones} onChange={e=>setBones(e.target.checked)}/>뼈대</label></div>
    <p className="trex-kicker">ANIMATION / 동작</p><div className="trex-options">{data.clips.map(c=><button key={c.name} aria-pressed={action===c.name} onClick={()=>{setAction(c.name);setTime(0);}}>{LABELS[c.name]??c.name}</button>)}</div>

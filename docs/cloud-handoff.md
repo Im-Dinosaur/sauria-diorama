@@ -55,3 +55,9 @@ The user explicitly requested continued modeling **and main-map application** in
 - `npm run verify:realistic-map` checks the actual map GLBs: independent rigs/shared GPU assets, scale, finite joint transforms, fixed anatomical offsets/neck lengths, pause determinism, flight altitude and one representative water-contact site per terrestrial species. It is part of `npm run verify`. Contact sampling is not exhaustive for all banks or terrain.
 - This environment started at local snapshot `a48293d`, with no configured Git remote. Fetching the known private GitHub URL failed because the configured proxy could not connect. Remote main `3187282` could not be rechecked here; no push was performed.
 - Validation after this change: all seven existing verification suites passed; the new six-species suite and updated actual-model physical-size suite passed; TypeScript/production build passed. Chromium software WebGL rendered 32 animals and passed pause, top view and observation-notes controls with no page errors. Screenshot capture timed out under software rendering, so device FPS and visual comparison remain unverified. Development server is running on `0.0.0.0:5173`.
+
+## GitHub Pages deployment
+
+- `.github/workflows/pages.yml` builds and deploys pushes to `main` with Node 24, `actions/configure-pages` and `actions/deploy-pages`.
+- `GITHUB_PAGES=true npm run build` sets Vite base to `/sauria-diorama/`; `publicAsset()` scopes runtime model/texture requests to that project path. Local development retains `/`.
+- Intended Pages endpoint: `https://im-dinosaur.github.io/sauria-diorama/`. Deployment success must be checked before treating this URL as live. Repository visibility is unchanged.

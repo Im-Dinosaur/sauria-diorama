@@ -1,3 +1,4 @@
+import {publicAsset} from './publicAsset';
 import { Suspense,useEffect,useMemo,useRef,useState } from 'react';
 import { Canvas,useFrame,useThree } from '@react-three/fiber';
 import { Environment,Lightformer,OrbitControls,useGLTF } from '@react-three/drei';
@@ -6,7 +7,7 @@ import { ArrowLeft,Download,Pause,Play,RotateCcw } from 'lucide-react';
 import './tyrannosaurus-study.css';
 
 type View='threequarter'|'side'|'front'|'head';type Layer='skin'|'clay'|'normal';
-const FILE='/models/tyrannosaurus-study/tyrannosaurus-reference-study.glb';
+const FILE=publicAsset('/models/tyrannosaurus-study/tyrannosaurus-reference-study.glb');
 const REFERENCE='https://www.amnh.org/explore/news-blogs/t-rex-size-evolution';
 const ACTIONS=[['reference','외형 확인 자세',8],['01_Idle','대기 · 호흡',8],['02_Walk','걷기',3],['03_Run','빠른 이동',1.2],['04_Attack','턱 벌리기 · 위협',4]] as const;
 function Camera({view,reset}:{view:View;reset:number}){
@@ -28,7 +29,7 @@ export default function TyrannosaurusStudy(){
  useEffect(()=>{document.getElementById('boot')?.remove();document.title='Tyrannosaurus rex · 단일 모델 검수';},[]);
  const duration=ACTIONS.find(([id])=>id===action)?.[2]??8;
  return <main className="trex-study">
-  <header><a href="/dinosaur-report.html?revision=2"><ArrowLeft size={15}/>제작 기록</a><span>TYRANNOSAURUS REX <b>/</b> ANATOMY STUDY</span><a className="trex-download" href={FILE} download><Download size={15}/>GLB 모델 받기</a></header>
+  <header><a href="./dinosaur-report.html?revision=2"><ArrowLeft size={15}/>제작 기록</a><span>TYRANNOSAURUS REX <b>/</b> ANATOMY STUDY</span><a className="trex-download" href={FILE} download><Download size={15}/>GLB 모델 받기</a></header>
   <section className="trex-stage" aria-label="티라노사우루스 단일 3D 모델 검수">
    <Canvas shadows dpr={[1,1.75]} camera={{position:[4.2,1.9,4.8],fov:35,near:.01,far:100}} gl={{antialias:true,toneMapping:ACESFilmicToneMapping,toneMappingExposure:.95}}>
     <color attach="background" args={['#292b2a']}/><fog attach="fog" args={['#292b2a',18,40]}/>
@@ -48,8 +49,8 @@ export default function TyrannosaurusStudy(){
    <p className="trex-kicker">POSE / 자세·애니메이션</p><div className="trex-options">{ACTIONS.map(([id,label])=><button key={id} aria-pressed={action===id} onClick={()=>{setAction(id);setTime(0);}}>{label}</button>)}</div>
    <div className="trex-playback"><button aria-label={paused?'애니메이션 재생':'애니메이션 정지'} onClick={()=>setPaused(v=>!v)}>{paused?<Play size={15}/>:<Pause size={15}/>}</button><select aria-label="재생 속도" value={speed} onChange={e=>setSpeed(Number(e.target.value))}>{[.25,.5,1,2].map(v=><option key={v} value={v}>{v}×</option>)}</select><span>{time.toFixed(2)} / {duration}s</span></div><input aria-label="자세 타임라인" type="range" min={0} max={duration} step={.01} value={time} onChange={e=>{clock.current=Number(e.target.value);setTime(clock.current);setPaused(true);}}/>
    <article><h2>조형·텍스처 보정</h2><p>공개 리깅 모델을 바탕으로 흉곽 폭을 10% 넓히고, 두개골의 폭·깊이와 황갈색 피부·등 반점을 보정했습니다. 눈 크기를 줄이고 머리 위의 가는 털을 추가했습니다. 원본의 UV, 비늘·주름 맵과 84개 관절을 유지했습니다.</p><p>머리와 몸통 색상은 4K, 머리 법선은 2K, 몸통 법선은 4K입니다. 대기·걷기·빠른 이동·위협은 원작자의 클립이며, 외형 확인 자세를 추가했습니다.</p><a href={REFERENCE} target="_blank" rel="noreferrer">시각 기준: AMNH 성체 복원 확인 ↗</a></article>
-   <details><summary>사용 중인 재질 파일</summary>{[['trex_v3_head_basecolor.jpg','머리 색상 · 4K'],['Tirannosaurus_Rex_v2_PRE_RETOPO_HEAD.fbx_normal.jpg','머리 법선 · 2K'],['trex_v3_body_basecolor.jpg','몸통 색상 · 4K'],['trex_v3_body_normal.jpg','몸통 법선 · 4K'],['trex_v3_body_metallic-trex_v3_body_roughness.jpg','몸통 거칠기 · 2K']].map(([file,label])=><a key={file} href={`/models/tyrannosaurus-study/${file}`} target="_blank" rel="noreferrer">{label} ↗</a>)}</details>
-   <article><h2>모델 원작·사용 조건</h2><p>Tyrannosaurus rex 3D model by <a href="https://animalanimator.com/free-3d-animated-t-rex-reference/" target="_blank" rel="noreferrer">AnimalAnimator.com ↗</a><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0 ↗</a></p><a href="/models/tyrannosaurus-study/CREDITS.txt" target="_blank" rel="noreferrer">출처·수정 내역 받기 ↗</a></article>
+   <details><summary>사용 중인 재질 파일</summary>{[['trex_v3_head_basecolor.jpg','머리 색상 · 4K'],['Tirannosaurus_Rex_v2_PRE_RETOPO_HEAD.fbx_normal.jpg','머리 법선 · 2K'],['trex_v3_body_basecolor.jpg','몸통 색상 · 4K'],['trex_v3_body_normal.jpg','몸통 법선 · 4K'],['trex_v3_body_metallic-trex_v3_body_roughness.jpg','몸통 거칠기 · 2K']].map(([file,label])=><a key={file} href={`./models/tyrannosaurus-study/${file}`} target="_blank" rel="noreferrer">{label} ↗</a>)}</details>
+   <article><h2>모델 원작·사용 조건</h2><p>Tyrannosaurus rex 3D model by <a href="https://animalanimator.com/free-3d-animated-t-rex-reference/" target="_blank" rel="noreferrer">AnimalAnimator.com ↗</a><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0 ↗</a></p><a href="./models/tyrannosaurus-study/CREDITS.txt" target="_blank" rel="noreferrer">출처·수정 내역 받기 ↗</a></article>
    <p className="trex-note">현재는 참조 보정본입니다. AMNH 실물과 머리 윤곽·깃털·반점이 아직 다르며, 동일 외형 재현은 완료되지 않았습니다. 이 화면에서 단일 모델을 검수하며, 메인 디오라마에는 아직 교체하지 않았습니다.</p>
   </aside>
   <output id="trex-diagnostics" hidden>{JSON.stringify({...stats,view,layer,action,paused,time})}</output>

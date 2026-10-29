@@ -1,9 +1,10 @@
+import {publicAsset} from '../publicAsset';
 import { useTexture } from '@react-three/drei';
 import { RepeatWrapping, SRGBColorSpace, Vector2 } from 'three';
 import { useMemo } from 'react';
 import { TIERS } from '../config';
 export function Studio({tier=0}:{tier?:number}){
- const maps=useTexture(['/textures/wood-color.jpg','/textures/wood-normal.jpg','/textures/wood-roughness.jpg']);
+ const maps=useTexture(['/textures/wood-color.jpg','/textures/wood-normal.jpg','/textures/wood-roughness.jpg'].map(publicAsset));
  useMemo(()=>{maps.forEach(t=>{t.wrapS=t.wrapT=RepeatWrapping;t.repeat.set(12,12);t.anisotropy=4;});maps[0].colorSpace=SRGBColorSpace;},[maps]);
  return <><color attach="background" args={['#20221d']}/><fog attach="fog" args={['#20221d',22,55]}/>
  <ambientLight intensity={0.6}/><hemisphereLight args={['#f5dfb5','#4c5050',1.2]}/>

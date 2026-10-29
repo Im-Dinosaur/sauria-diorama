@@ -1,3 +1,4 @@
+import {publicAsset} from '../publicAsset';
 import { useEffect,useLayoutEffect,useMemo,useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useTexture } from '@react-three/drei';
@@ -37,7 +38,7 @@ const waterFragment=`
   #include <colorspace_fragment>
  }`;
 export function ReferenceLandscape({mode,time}:{mode:WorldMode;time:()=>number}){
- const image=useTexture('/textures/reference-valley.png'),mask=useMemo(referenceMask,[]),geometry=useMemo(terrainGeometry,[]),surface=useRef<ShaderMaterial>(null);
+ const image=useTexture(publicAsset('/textures/reference-valley.png')),mask=useMemo(referenceMask,[]),geometry=useMemo(terrainGeometry,[]),surface=useRef<ShaderMaterial>(null);
  image.colorSpace=SRGBColorSpace;image.anisotropy=8;
  const stones=useRef<InstancedMesh>(null),stoneGeometry=useMemo(()=>new RoundedBoxGeometry(1,1,1,3,.07),[]),rockShapes=useMemo(()=>Array.from({length:11},(_,i)=>fracturedSlab(i+17)),[]);
  const stoneMaterial=useMemo(()=>{const m=new MeshStandardMaterial({color:mode==='ice'?'#c6d6dd':mode==='ember'?'#685543':'#a99c7a',roughness:.94});m.onBeforeCompile=shader=>{

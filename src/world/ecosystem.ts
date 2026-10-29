@@ -26,8 +26,11 @@ const homes:[Species,number,number,number,number,boolean,string?][]=[
  ['spinosaurus',-5.6,-1.6,.64,1.5,false],['spinosaurus',9.8,3.2,.59,1.39,false],
 ];
 export const inhabitants:Inhabitant[]=homes.map(([species,x,z,scale,radius,mechanical,herd],i)=>({id:`${mechanical?'machine':'living'}-${species}-${i}`,species,mechanical,scale,organicScale:mechanical?(species==='rex'?.66:.64):scale,radius:mechanical?(species==='rex'?1.04:.98):radius,speed:species==='velociraptor'?.48:species==='rex'?.31:species==='brachiosaurus'?.21:.27,homeX:x,homeZ:z,herd}));
-for(const animal of inhabitants){const factor=speciesSizeFactor(animal.species);animal.scale*=factor;animal.organicScale*=factor;animal.radius*=factor;}
 for(let i=0;i<6;i++)inhabitants.push({id:`living-pterosaur-${i}`,species:'pterosaur',mechanical:false,scale:i===0?.84:.52+(i%3)*.10,organicScale:i===0?.84:.52+(i%3)*.10,radius:i===0?1.61:1.8*(.52+(i%3)*.1),speed:.65,homeX:-12+i*4.7,homeZ:i%2?2:-2,altitude:4.5+(i%3)*1.05});
+for(const animal of inhabitants){const factor=speciesSizeFactor(animal.species);animal.scale*=factor;animal.organicScale*=factor;animal.radius*=factor;
+ // The long tail is not a standing footprint. Match the raptor's foot spread and stride clearance.
+ if(animal.species==='velociraptor')animal.radius=.34*animal.scale/.58;
+}
 
 export const planRoute=planNavigationRoute;
 function safeHome(def:Inhabitant,others:Actor[]){

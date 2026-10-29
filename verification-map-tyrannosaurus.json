@@ -5,14 +5,15 @@
   "bones": 84,
   "independentSkeletons": true,
   "sharedGpuAssets": true,
-  "drinkingCases": 33,
-  "maxNeckLengthError": 0.0000016044751503796473,
+  "drinkingCases": 34,
+  "maxNeckLengthError": 0.0000016065004957155349,
   "maxFootError": 0.000006166666361107076,
-  "maxMouthError": 0.000008797697072107062,
+  "maxMouthError": 0.000008797697071326331,
   "maxJointFrameTravel": 0.017122755429102698,
   "clipsSeen": [
     "01_Idle",
     "02_Walk",
+    "04_Attack",
     "03_Run"
   ],
   "pause": true

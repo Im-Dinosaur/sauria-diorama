@@ -116,7 +116,7 @@
   "maxLoopError": 0,
   "maxFootGroundError": 5.551115123125783e-16,
   "maxMouthWaterError": 0.000011518686722226544,
-  "waterStations": 251,
+  "waterStations": 256,
   "simulationSeconds": 360,
   "behaviors": {
     "rex": [
@@ -124,6 +124,7 @@
       "hunt",
       "alert",
       "drink",
+      "roar",
       "rest"
     ],
     "triceratops": [
@@ -140,8 +141,8 @@
       "browse",
       "escape",
       "alert",
-      "rest",
-      "roar"
+      "drink",
+      "rest"
     ],
     "stegosaurus": [
       "wander",
@@ -154,18 +155,20 @@
     ],
     "velociraptor": [
       "wander",
-      "escape",
       "hunt",
+      "escape",
       "drink",
-      "roar",
+      "alert",
       "rest",
-      "alert"
+      "roar"
     ],
     "spinosaurus": [
       "wander",
       "fish",
       "drink",
-      "roar"
+      "roar",
+      "rest",
+      "alert"
     ],
     "pterosaur": [
       "glide",

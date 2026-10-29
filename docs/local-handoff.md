@@ -32,6 +32,12 @@ For a local standard build: npm run build. For the Pages path build, set GITHUB_
 - The river block came from bank-gravel instances being recreated when a mode-dependent material was passed in constructor args. Geometry/material now use ordinary props, so changing worlds keeps placement matrices. Check peaceful → ice → ember → peaceful and inspect the river after future edits.
 - Full `npm run verify`, `npm run verify:performance`, TypeScript and the Pages production build passed locally. Mode cycling and a river screenshot were checked in the in-app browser. Physical laptop FPS is not a portable benchmark: concurrent tabs and the embedded browser affect it.
 
+## Seven-species physical size audit — 2026-10-29
+
+The user noticed the raptor was nearly as large as T. rex and requested researched sizes for every species. `docs/physical-size-research.md` records museum sources: Brachiosaurus 22m, T. rex 12m, Triceratops 9m, Stegosaurus 9m, Spinosaurus 14m, Velociraptor 1.8m body length; Pteranodon 6m extended flight wingspan. The 300m map and existing younger/adult ratios remain intact. The size guide includes a collapsible source list.
+
+All seven species now receive the calibration factor, including pterosaurs added after the land animals. Pterosaur validation samples the complete flight sweep rather than folded idle width. Small raptors are anchored over their feet and use appropriately sized foot clearance plus lower dry-bank resource stations sampled from the same visible height field. Actual model dimensions, fixed-bone IK, water access and routing are checked by the existing suites.
+
 ## Historical GitHub Pages blocker
 - Workflow: .github/workflows/pages.yml; builds main and deploys via GitHub Pages.
 - Intended URL (NOT confirmed live): https://im-dinosaur.github.io/sauria-diorama/

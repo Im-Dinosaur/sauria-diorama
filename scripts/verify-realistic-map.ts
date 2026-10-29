@@ -19,6 +19,7 @@ for(const species of Object.keys(MAP_MODEL_LENGTHS) as RealisticSpecies[]){
  assert(Math.abs(length-MAP_MODEL_LENGTHS[species])<1e-5,`${species} scale ${length}`);
  const actor=world.actors.filter(a=>a.species===species).sort((a,b)=>b.scale-a.scale)[0];
  const neutralHipY=rig.point(rig.hips).y;
+ if(species==='velociraptor')assert(Math.abs(rig.legs.reduce((sum,leg)=>sum+rig.point(leg.foot).z,0)/rig.legs.length)<1e-8,'Raptor navigation origin must be between its feet');
  const offsets=rig.bones.map(b=>b.position.clone()),scales=rig.bones.map(b=>b.scale.clone());
  let maxLengthError=0;
  for(let f=0;f<120;f++){
@@ -32,6 +33,7 @@ for(const species of Object.keys(MAP_MODEL_LENGTHS) as RealisticSpecies[]){
  rig.pose(actor,'ember',0,true);const frozen=rig.bones.flatMap(b=>[...b.position.toArray(),...b.quaternion.toArray()]);for(let f=0;f<10;f++)rig.pose(actor,'ember',.05,true);assert.deepEqual(rig.bones.flatMap(b=>[...b.position.toArray(),...b.quaternion.toArray()]),frozen,`${species} pause drift`);
  let mouthError:number|undefined,maxFootError:number|undefined;
  const site=hydrationSitesFor(actor)[0];
+ if(species!=='pterosaur')assert(site,`${species}: no reachable water at its physical size`);
  if(site&&species!=='pterosaur'){
   actor.x=site.x;actor.z=site.z;actor.y=habitatGround(site.x,site.z);actor.heading=Math.atan2(site.lookX-site.x,site.lookZ-site.z);actor.target={...site,purpose:'drink'};actor.behavior='drink';actor.drink=1;actor.moving=false;
   for(let f=0;f<60;f++)rig.pose(actor,'peaceful',.05);
@@ -40,6 +42,6 @@ for(const species of Object.keys(MAP_MODEL_LENGTHS) as RealisticSpecies[]){
   assert(mouthError<.035,`${species} mouth contact ${mouthError}`);assert(maxFootError<.035,`${species} foot contact ${maxFootError}`);
  }
  let triangles=0;rig.scene.traverse(o=>{if(o instanceof Mesh)triangles+=(o.geometry.index?.count??o.geometry.attributes.position.count)/3;});
- cases.push({species,adultMetres:length*actor.scale*METRES_PER_UNIT,triangles,mouthError,maxFootError,bones:rig.bones.length,maxLengthError,independentSkeletons:true,sharedGpuAssets:true,pause:true});rig.dispose();other.dispose();
+ cases.push({species,...(species==='pterosaur'?{idleWingspanMetres:length*actor.scale*METRES_PER_UNIT}:{adultMetres:length*actor.scale*METRES_PER_UNIT}),triangles,mouthError,maxFootError,bones:rig.bones.length,maxLengthError,independentSkeletons:true,sharedGpuAssets:true,pause:true});rig.dispose();other.dispose();
 }
 writeFileSync('verification-realistic-map.json',JSON.stringify({result:'PASS',cases},null,2));console.log(JSON.stringify(cases,null,2));

@@ -36,6 +36,11 @@ export class RealisticMapRig{
   this.copyPose();this.root.updateMatrixWorld(true);
   const box=new Box3().setFromObject(this.root,true),length=species==='pterosaur'?box.max.x-box.min.x:box.max.z-box.min.z;
   this.modelScale=MAP_MODEL_LENGTHS[species]/length;this.scene.scale.multiplyScalar(this.modelScale);this.scene.position.y-=box.min.y*this.modelScale;
+  if(species==='velociraptor'){
+   // The imported root is the tail-inclusive bounding-box centre. Navigation is anchored at the feet.
+   this.root.updateMatrixWorld(true);const feet=data.legs.map(names=>this.point(bone(names[3])));
+   this.scene.position.z-=feet.reduce((sum,p)=>sum+p.z,0)/feet.length;this.root.updateMatrixWorld(true);
+  }
   this.baseScenePosition=this.scene.position.clone();this.root.updateMatrixWorld(true);
   this.offsets=this.bones.map(b=>b.position.clone());this.scales=this.bones.map(b=>b.scale.clone());
   this.baseHipY=this.point(this.hips).y;

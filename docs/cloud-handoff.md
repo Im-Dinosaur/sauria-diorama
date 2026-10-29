@@ -61,3 +61,7 @@ The user explicitly requested continued modeling **and main-map application** in
 - `.github/workflows/pages.yml` builds and deploys pushes to `main` with Node 24, `actions/configure-pages` and `actions/deploy-pages`.
 - `GITHUB_PAGES=true npm run build` sets Vite base to `/sauria-diorama/`; `publicAsset()` scopes runtime model/texture requests to that project path. Local development retains `/`.
 - Intended Pages endpoint: `https://im-dinosaur.github.io/sauria-diorama/`. Deployment success must be checked before treating this URL as live. Repository visibility is unchanged.
+
+## Local continuation: researched size calibration
+
+The local continuation enabled public GitHub Pages and subsequently audited all seven species at the user's request. Earlier statements that non-reference species retain prototype dimensions are superseded by `docs/physical-size-research.md` and the complete `SIZE_REFERENCE` table. Velociraptor is 1.8m, Stegosaurus 9m, Spinosaurus 14m, and Pteranodon 6m extended flight wingspan. The original 22/12/9m references and younger/adult ratios remain. Original review assets are preserved.

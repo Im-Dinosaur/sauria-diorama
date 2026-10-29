@@ -2,12 +2,12 @@
   "result": "PASS",
   "maxBoneLengthError": 1.7486012637846216e-15,
   "maxMouthError": 0.000011518686722226544,
-  "maxLiveMouthError": 4.0237927203665215e-15,
-  "maxFootError": 3.4416913763379853e-15,
+  "maxLiveMouthError": 0.0004410903037629355,
+  "maxFootError": 4.884981308350689e-15,
   "maxFrameTravel": 0.04663727723304197,
   "maxJointFrameTravel": 0.07488838123952161,
-  "drinkers": 14,
-  "liveDrinkingSites": 26,
+  "drinkers": 18,
+  "liveDrinkingSites": 52,
   "simulationSeconds": 240,
   "cases": [
     {
@@ -24,7 +24,7 @@
     },
     {
       "id": "living-rex-2",
-      "sites": 126,
+      "sites": 133,
       "bankHeight": 0.3397673489930092,
       "reach": 0.6215700204481304
     },
@@ -66,27 +66,27 @@
     },
     {
       "id": "living-stegosaurus-9",
-      "sites": 1432,
-      "bankHeight": 0.4185233504847247,
-      "reach": 0.887741065073084
+      "sites": 2125,
+      "bankHeight": 0.3244376667727139,
+      "reach": 0.6211799388169496
     },
     {
       "id": "living-stegosaurus-10",
-      "sites": 2035,
-      "bankHeight": 0.37014588892423794,
-      "reach": 0.7812033059554815
+      "sites": 1354,
+      "bankHeight": 0.29333167573772473,
+      "reach": 0.49236179654214146
     },
     {
       "id": "living-stegosaurus-11",
-      "sites": 1405,
-      "bankHeight": 0.393,
-      "reach": 0.8081651401902359
+      "sites": 1620,
+      "bankHeight": 0.3244376667727137,
+      "reach": 0.6211799388169484
     },
     {
       "id": "living-stegosaurus-12",
-      "sites": 1979,
-      "bankHeight": 0.363,
-      "reach": 0.7016979974688923
+      "sites": 1354,
+      "bankHeight": 0.2915270402639112,
+      "reach": 0.49236179654214063
     },
     {
       "id": "living-triceratops-13",
@@ -120,7 +120,7 @@
     },
     {
       "id": "living-triceratops-18",
-      "sites": 860,
+      "sites": 1434,
       "bankHeight": 0.26852227842720583,
       "reach": 0.4184550404108647
     },
@@ -132,39 +132,39 @@
     },
     {
       "id": "living-velociraptor-20",
-      "sites": 1286,
-      "bankHeight": 0.29333167573772473,
-      "reach": 0.49236179654214146
+      "sites": 1395,
+      "bankHeight": 0.1610019531250001,
+      "reach": 0.08302498662937197
     },
     {
       "id": "living-velociraptor-21",
-      "sites": 460,
-      "bankHeight": 0.291,
-      "reach": 0.4485266438612124
+      "sites": 1398,
+      "bankHeight": 0.15601843261718656,
+      "reach": 0.07018162633031438
     },
     {
       "id": "living-velociraptor-22",
-      "sites": 1142,
-      "bankHeight": 0.2915270402639112,
-      "reach": 0.49236179654214063
+      "sites": 1266,
+      "bankHeight": 0.1610187988281236,
+      "reach": 0.07692822634486307
     },
     {
       "id": "living-velociraptor-23",
-      "sites": 337,
-      "bankHeight": 0.2605256828388393,
-      "reach": 0.4149100403638956
+      "sites": 1272,
+      "bankHeight": 0.15100402832031196,
+      "reach": 0.0684625707777684
     },
     {
       "id": "living-spinosaurus-24",
-      "sites": 383,
-      "bankHeight": 0.4119764567082728,
-      "reach": 0.8808214765961028
+      "sites": 360,
+      "bankHeight": 0.4350000000000003,
+      "reach": 0.9609015908054873
     },
     {
       "id": "living-spinosaurus-25",
-      "sites": 194,
-      "bankHeight": 0.3889529134165445,
-      "reach": 0.8007670725184849
+      "sites": 344,
+      "bankHeight": 0.4417690846345529,
+      "reach": 0.9679538179833527
     }
   ]
 }

@@ -40,7 +40,7 @@ function terrainWalkable(x:number,z:number,radius:number,trees:boolean,centerHei
  return true;
 }
 export function walkable(x:number,z:number,radius:number,trees=true){return terrainWalkable(x,z,radius,trees,.425,.40,8);}
-export function bankWalkable(x:number,z:number,radius:number){return terrainWalkable(x,z,radius,true,WATER_LEVEL+.045,WATER_LEVEL+.025,12);}
+export function bankWalkable(x:number,z:number,radius:number){const clearance=Math.min(.045,Math.max(.006,radius*.12));return terrainWalkable(x,z,radius,true,WATER_LEVEL+clearance,WATER_LEVEL+clearance*.55,12);}
 export const drinkingSpots=[] as {x:number;z:number;lookX:number;lookZ:number}[];
 for(let i=0;i<reference.water.length;i+=2){
  const distance=reference.landDistanceCentimeters[i]/100;if(reference.water[i]||distance<.8||distance>1.45)continue;

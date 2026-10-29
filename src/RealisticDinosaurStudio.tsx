@@ -1,19 +1,22 @@
 import {publicAsset} from './publicAsset';
 import {Suspense,useEffect,useMemo,useRef,useState} from 'react';
 import {Canvas,useFrame,useThree} from '@react-three/fiber';
-import {Environment,Lightformer,OrbitControls,useGLTF} from '@react-three/drei';
+import {Environment,Lightformer,OrbitControls} from '@react-three/drei';
+import {useWebGLTF as useGLTF} from './useWebGLTF';
+import delivery from '../public/models/web-delivery.json';
 import {ACESFilmicToneMapping,AnimationMixer,Bone,Box3,Mesh,MeshNormalMaterial,MeshStandardMaterial,SkeletonHelper,SkinnedMesh,Vector3} from 'three';
 import {clone} from 'three/examples/jsm/utils/SkeletonUtils.js';
 import {ArrowLeft,Download,Pause,Play,RotateCcw} from 'lucide-react';
 import manifest from '../public/models/realistic-dinosaurs/manifest.json';
 import './tyrannosaurus-study.css';
+import './review-loading.css';
 
 type View='threequarter'|'side'|'front'|'head';type Layer='skin'|'clay'|'normal';
 const LABELS:Record<string,string>={idle:'대기 · 호흡',walk:'걷기',run:'빠른 이동',roar:'위협 · 턱 벌리기',drink:'물 마시기',rest:'휴식',alert:'주변 살피기',hunt:'먹이 탐색',graze:'낮은 식생 먹기',browse:'높은 잎 먹기',fly:'날갯짓',glide:'활공'};
 const folder=publicAsset('/models/realistic-dinosaurs');
 type Stats={triangles:number;bones:number;meshes:number};
 function Specimen({id,action,paused,speed,clock,onTime,onStats,view,reset,layer,wire,bones}:{id:string;action:string;paused:boolean;speed:number;clock:{current:number};onTime:(t:number)=>void;onStats:(s:Stats)=>void;view:View;reset:number;layer:Layer;wire:boolean;bones:boolean}){
- const data=manifest.find(m=>m.id===id)!,gltf=useGLTF(`${folder}/${id}.glb`),scene=useMemo(()=>clone(gltf.scene),[gltf.scene]),mixer=useMemo(()=>new AnimationMixer(scene),[scene]),helper=useMemo(()=>new SkeletonHelper(scene),[scene]),last=useRef(0),{camera}=useThree(),[target,setTarget]=useState<[number,number,number]>([0,1,0]);
+ const data=manifest.find(m=>m.id===id)!,gltf=useGLTF(`${folder}/${id}-web.glb`),scene=useMemo(()=>clone(gltf.scene),[gltf.scene]),mixer=useMemo(()=>new AnimationMixer(scene),[scene]),helper=useMemo(()=>new SkeletonHelper(scene),[scene]),last=useRef(0),{camera}=useThree(),[target,setTarget]=useState<[number,number,number]>([0,1,0]);
  const originals=useMemo(()=>{const materials=new Map(),meshes=new Map<Mesh,any>();scene.traverse(o=>{if(o instanceof Mesh){const mats=Array.isArray(o.material)?o.material:[o.material],copies=mats.map(m=>{if(!materials.has(m))materials.set(m,m.clone());return materials.get(m);});o.material=Array.isArray(o.material)?copies:copies[0];meshes.set(o,o.material);o.castShadow=o.name!=='Layered_body_wing_tail_feathers';o.receiveShadow=true;o.frustumCulled=false;}});return {materials,meshes};},[scene]);
  const clay=useMemo(()=>new MeshStandardMaterial({color:'#99958a',roughness:.8}),[]),normal=useMemo(()=>new MeshNormalMaterial(),[]);
  const featherClay=useMemo(()=>{const original=[...originals.materials.values()].find(m=>m.alphaTest>0);if(!original)return null;const material=new MeshStandardMaterial({color:'#99958a',roughness:.8,map:original.map,alphaTest:original.alphaTest,side:original.side});material.onBeforeCompile=shader=>{shader.fragmentShader=shader.fragmentShader.replace('#include <map_fragment>','#include <map_fragment>\ndiffuseColor.rgb = diffuse;');};return material;},[originals]);
@@ -33,16 +36,17 @@ export default function RealisticDinosaurStudio(){
  const initial=new URLSearchParams(location.search).get('specimen'),[id,setId]=useState(manifest.some(m=>m.id===initial)?initial!:'triceratops'),[view,setView]=useState<View>('threequarter'),[layer,setLayer]=useState<Layer>('skin'),[wire,setWire]=useState(false),[bones,setBones]=useState(false),[paused,setPaused]=useState(true),[action,setAction]=useState('idle'),[speed,setSpeed]=useState(1),[time,setTime]=useState(0),[reset,setReset]=useState(0),[stats,setStats]=useState<Stats>({triangles:0,bones:0,meshes:0}),clock=useRef(0),data=manifest.find(m=>m.id===id)!,duration=data.clips.find(c=>c.name===action)?.duration??6;
  useEffect(()=>{document.getElementById('boot')?.remove();document.title='SAURIA · 공룡 모델 제작·검수';},[]);
  function choose(next:string){setId(next);setAction('idle');clock.current=0;setTime(0);setPaused(true);setStats({triangles:0,bones:0,meshes:0});setReset(n=>n+1);const url=new URL(location.href);url.searchParams.set('specimen',next);history.replaceState(null,'',url);}
- const file=`${folder}/${id}.glb`,pixelSize=Math.max(...data.textures.filter(t=>t.kind==='map').map(t=>t.width));
+ const file=`${folder}/${id}.glb`,pixelSize=Math.max(...delivery.find(m=>m.id===id&&m.role==='review')!.textures.map(t=>t.width));
  return <main className="trex-study">
   <header><a href="./dinosaur-report.html"><ArrowLeft size={15}/>제작 보고서</a><span>SAURIA <b>/</b> REALISTIC SPECIMENS</span><a className="trex-download" href={file} download><Download size={15}/>GLB 모델 받기</a></header>
   <section className="trex-stage" aria-label="공룡 실사 모델 검수">
-   <Canvas shadows dpr={[1,1.6]} camera={{position:[6,3,6],fov:35,near:.01,far:100}} gl={{antialias:true,toneMapping:ACESFilmicToneMapping,toneMappingExposure:1.02}}>
+   <Canvas shadows frameloop={paused?'demand':'always'} dpr={[1,1.25]} camera={{position:[6,3,6],fov:35,near:.01,far:100}} gl={{antialias:true,toneMapping:ACESFilmicToneMapping,toneMappingExposure:1.02}}>
     <color attach="background" args={['#292d2b']}/><fog attach="fog" args={['#292d2b',16,36]}/><hemisphereLight args={['#e1e5df','#6b6355',.85]}/><directionalLight position={[4,6,5]} intensity={2.8} color="#fff2df" castShadow shadow-mapSize={[2048,2048]} shadow-camera-left={-5} shadow-camera-right={5} shadow-camera-top={6} shadow-camera-bottom={-4} shadow-normalBias={.003}/><directionalLight position={[-4,3,-3]} intensity={1.2} color="#bfd2db"/>
     <Environment resolution={128}><Lightformer form="rect" position={[0,5,1]} rotation={[Math.PI/2,0,0]} scale={[7,7,1]} intensity={2}/><Lightformer form="rect" position={[-4,2,2]} rotation={[0,Math.PI/2,0]} scale={[4,5,1]} intensity={1.3}/></Environment>
     <Suspense fallback={null}><Specimen key={id} id={id} action={action} paused={paused} speed={speed} clock={clock} onTime={setTime} onStats={setStats} view={view} reset={reset} layer={layer} wire={wire} bones={bones}/></Suspense>
     <mesh rotation={[-Math.PI/2,0,0]} position={[0,-.012,0]} receiveShadow><planeGeometry args={[150,150]}/><meshStandardMaterial color="#41463e" roughness={.95}/></mesh>
    </Canvas>
+   {stats.triangles===0&&<div className="review-loading" role="status">공룡을 불러오는 중…</div>}
    <div className="trex-caption"><span>SPECIMEN / {String(manifest.findIndex(m=>m.id===id)+1).padStart(2,'0')}</span><h1>{data.latin}</h1><p>{data.name} · 실사 조형·재질 보정본<br/>피부 · 무채색 조형 · 본 · 동작 검수</p></div>
    <div className="trex-metrics"><span>{stats.triangles.toLocaleString()} TRIANGLES</span><span>{stats.bones} BONES</span><span>{pixelSize}px COLOR</span></div><button className="trex-reset" title="시점 초기화" onClick={()=>setReset(n=>n+1)}><RotateCcw size={16}/></button>
   </section>
@@ -53,7 +57,7 @@ export default function RealisticDinosaurStudio(){
    <p className="trex-kicker">ANIMATION / 동작</p><div className="trex-options">{data.clips.map(c=><button key={c.name} aria-pressed={action===c.name} onClick={()=>{setAction(c.name);setTime(0);}}>{LABELS[c.name]??c.name}</button>)}</div>
    <div className="trex-playback"><button aria-label={paused?'애니메이션 재생':'애니메이션 정지'} onClick={()=>setPaused(v=>!v)}>{paused?<Play size={15}/>:<Pause size={15}/>}</button><select aria-label="재생 속도" value={speed} onChange={e=>setSpeed(Number(e.target.value))}>{[.25,.5,1,2].map(v=><option key={v} value={v}>{v}×</option>)}</select><span>{time.toFixed(2)} / {duration.toFixed(1)}s</span></div><input aria-label="자세 타임라인" type="range" min={0} max={duration} step={.01} value={time} onChange={e=>{clock.current=Number(e.target.value);setTime(clock.current);setPaused(true);}}/>
    <article><h2>종별 제작·참고 기준</h2><p>{data.design}</p><p>{id==='velociraptor'?`몸통·팔·꼬리에 ${data.feathers.toLocaleString()}개의 깃털을 추가하고 ${data.bones}개 관절을 새로 제작했습니다.`:id==='brachiosaurus'?'원본의 조형과 리깅을 유지하고 피부색·비늘·법선·거칠기 재질을 새로 제작했습니다.':'원본의 조형·UV·리깅을 바탕으로 재질을 정리하고 검수용 동작을 구성했습니다.'}</p><a href={data.reference} target="_blank" rel="noreferrer">박물관 복원·형태 자료 ↗</a></article>
-   <details><summary>실제 재질 해상도</summary>{data.textures.map((t,i)=><p key={i} style={{fontSize:9,lineHeight:1.8}}>{t.material} · {t.kind} · {t.width} × {t.height}</p>)}<a href={`${folder}/${id}.json`} target="_blank" rel="noreferrer">상세 제작 내역 JSON ↗</a></details>
+   <details><summary>웹용 재질 해상도</summary>{delivery.find(m=>m.id===id&&m.role==='review')!.textures.map((t,i)=><p key={i} style={{fontSize:9,lineHeight:1.8}}>{t.name||`재질 ${i+1}`} · {t.width} × {t.height}</p>)}<p>다운로드는 원본 모델을 제공합니다.</p><a href={`${folder}/${id}.json`} target="_blank" rel="noreferrer">원본 상세 제작 내역 JSON ↗</a></details>
    <article><h2>원본·출처</h2><p>기본 조형: {data.author}</p><a href={data.source} target="_blank" rel="noreferrer">원작자 모델 · {data.license} ↗</a><a href={`${folder}/CREDITS.txt`} target="_blank" rel="noreferrer">전체 출처·수정 내역 ↗</a><a href={`${folder}/materials/prompts.json`} target="_blank" rel="noreferrer">생성 재질 프롬프트 · built-in image_gen ↗</a></article>
    <p className="trex-note">자료를 참조한 보정본입니다. 색상과 생활 자세는 제작상 해석입니다. 음수 클립은 목을 숙이는 검수 자세이며 맵의 수면·지형 목표 연결은 ‘Zip 파일 확인’ 채팅에서 진행합니다.</p>
   </aside><output id="realistic-dinosaur-diagnostics" hidden>{JSON.stringify({id,...stats,action,paused,time,view,layer,file})}</output>

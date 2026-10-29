@@ -38,7 +38,7 @@ const waterFragment=`
   #include <colorspace_fragment>
  }`;
 export function ReferenceLandscape({mode,time}:{mode:WorldMode;time:()=>number}){
- const image=useTexture(publicAsset('/textures/reference-valley.png')),mask=useMemo(referenceMask,[]),geometry=useMemo(terrainGeometry,[]),surface=useRef<ShaderMaterial>(null);
+ const image=useTexture(publicAsset('/textures/reference-valley-web.webp')),mask=useMemo(referenceMask,[]),geometry=useMemo(terrainGeometry,[]),surface=useRef<ShaderMaterial>(null);
  image.colorSpace=SRGBColorSpace;image.anisotropy=8;
  const stones=useRef<InstancedMesh>(null),stoneGeometry=useMemo(()=>new RoundedBoxGeometry(1,1,1,3,.07),[]),rockShapes=useMemo(()=>Array.from({length:11},(_,i)=>fracturedSlab(i+17)),[]);
  const stoneMaterial=useMemo(()=>{const m=new MeshStandardMaterial({color:mode==='ice'?'#c6d6dd':mode==='ember'?'#685543':'#a99c7a',roughness:.94});m.onBeforeCompile=shader=>{
@@ -65,6 +65,6 @@ export function ReferenceLandscape({mode,time}:{mode:WorldMode;time:()=>number})
   <mesh geometry={geometry} material={material} receiveShadow/>
   <mesh rotation={[-Math.PI/2,0,0]} position={[0,WATER_LEVEL,0]}><planeGeometry args={[DIORAMA.width,DIORAMA.depth]}/><shaderMaterial ref={surface} uniforms={uniforms} vertexShader={waterVertex} fragmentShader={waterFragment}/></mesh>
   {rockOutcrops.map((p,i)=><group key={i} position={[p.x,habitatGround(p.x,p.z),p.z]}>{Array.from({length:11},(_,j)=>{const angle=j*2.399+i*.4,r=Math.sqrt((j+.5)/11)*.65;return <mesh key={j} geometry={rockShapes[j]} material={stoneMaterial} position={[Math.cos(angle)*r*p.rx,.09+noise(i*71+j)*.20,Math.sin(angle)*r*p.rz]} scale={[p.rx*(.30+noise(j+11)*.19),Math.min(p.rx,p.rz)*(.24+noise(j+77)*.18),p.rz*(.25+noise(j+22)*.18)]} rotation={[(noise(j)-.5)*.27,(noise(j+51)-.5)*.6,(noise(j+6)-.5)*.20]} castShadow receiveShadow/>;})}</group>)}
-  <instancedMesh ref={stones} args={[stoneGeometry,stoneMaterial,gravel.length]} receiveShadow/>
+  <instancedMesh name="riverbank-gravel" ref={stones} args={[undefined,undefined,gravel.length]} geometry={stoneGeometry} material={stoneMaterial} receiveShadow/>
  </group>;
 }

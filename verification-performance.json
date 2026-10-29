@@ -1,0 +1,20 @@
+{
+  "result": "PASS",
+  "originalModelBytes": 80997396,
+  "transferredModelBytes": 17509814,
+  "reduction": 0.7838225070840549,
+  "samples": [
+    {
+      "hz": 20,
+      "calls": 40
+    },
+    {
+      "hz": 30,
+      "calls": 60
+    },
+    {
+      "hz": 60,
+      "calls": 120
+    }
+  ]
+}

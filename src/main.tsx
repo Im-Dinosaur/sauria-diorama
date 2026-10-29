@@ -1,7 +1,7 @@
 import React, { Component, Suspense, lazy } from 'react';
 import { createRoot } from 'react-dom/client';
 import type { Root } from 'react-dom/client';
-import App from './EcosystemApp';
+const App=lazy(()=>import('./EcosystemApp'));
 import './ecosystem.css';
 import './reference.css';
 const DinosaurStudio=lazy(()=>import('./DinosaurStudio'));

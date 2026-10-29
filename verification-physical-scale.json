@@ -30,9 +30,9 @@
     },
     {
       "species": "triceratops",
-      "adultMetres": 9,
+      "adultMetres": 9.000000000000002,
       "targetMetres": 9,
-      "mapWidthFraction": 0.03,
+      "mapWidthFraction": 0.030000000000000006,
       "individualMetres": [
         9,
         8.462686567164178,

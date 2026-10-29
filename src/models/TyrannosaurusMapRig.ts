@@ -7,7 +7,7 @@ import type { Actor } from '../world/ecosystem';
 import type { WorldMode } from '../world/layout';
 import { solveNeckJoints } from './dinosaurAnatomy';
 
-export const TYRANNOSAURUS_MODEL='/models/tyrannosaurus-study/tyrannosaurus-reference-study.glb';
+export const TYRANNOSAURUS_MODEL='/models/tyrannosaurus-study/tyrannosaurus-map-web.glb';
 export const TYRANNOSAURUS_SCALE=.82;
 const axisX=new Vector3(1,0,0),axisY=new Vector3(0,1,0);
 const clipNames=['01_Idle','02_Walk','03_Run','04_Attack'] as const;

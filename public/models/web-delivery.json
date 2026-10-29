@@ -1,0 +1,536 @@
+[
+  {
+    "id": "brachiosaurus",
+    "source": "/models/realistic-dinosaurs/brachiosaurus.glb",
+    "output": "/models/realistic-dinosaurs/brachiosaurus-web.glb",
+    "size": 2048,
+    "role": "review",
+    "bytes": 10440028,
+    "transferBytes": 7850891,
+    "originalBytes": 20800468,
+    "reduction": 0.6225618096669747,
+    "geometrySkinAnimationUnchanged": true,
+    "textures": [
+      {
+        "name": "",
+        "width": 1254,
+        "height": 1254,
+        "mimeType": "image/webp"
+      },
+      {
+        "name": "",
+        "width": 1254,
+        "height": 1254,
+        "mimeType": "image/webp"
+      },
+      {
+        "name": "",
+        "width": 1254,
+        "height": 1254,
+        "mimeType": "image/jpeg"
+      }
+    ]
+  },
+  {
+    "id": "brachiosaurus",
+    "source": "/models/realistic-dinosaurs/brachiosaurus-map.glb",
+    "output": "/models/realistic-dinosaurs/brachiosaurus-map-web.glb",
+    "size": 1024,
+    "role": "map",
+    "bytes": 6051976,
+    "transferBytes": 3989366,
+    "originalBytes": 21910684,
+    "reduction": 0.8179259944600543,
+    "geometrySkinAnimationUnchanged": true,
+    "textures": [
+      {
+        "name": "",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/webp"
+      },
+      {
+        "name": "",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/webp"
+      },
+      {
+        "name": "",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/jpeg"
+      }
+    ]
+  },
+  {
+    "id": "triceratops",
+    "source": "/models/realistic-dinosaurs/triceratops.glb",
+    "output": "/models/realistic-dinosaurs/triceratops-web.glb",
+    "size": 2048,
+    "role": "review",
+    "bytes": 6414760,
+    "transferBytes": 5216017,
+    "originalBytes": 12765968,
+    "reduction": 0.5914123394324661,
+    "geometrySkinAnimationUnchanged": true,
+    "textures": [
+      {
+        "name": "",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/webp"
+      },
+      {
+        "name": "",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/webp"
+      },
+      {
+        "name": "",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/webp"
+      },
+      {
+        "name": "",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/jpeg"
+      }
+    ]
+  },
+  {
+    "id": "triceratops",
+    "source": "/models/realistic-dinosaurs/triceratops-map.glb",
+    "output": "/models/realistic-dinosaurs/triceratops-map-web.glb",
+    "size": 1024,
+    "role": "map",
+    "bytes": 3185704,
+    "transferBytes": 2296162,
+    "originalBytes": 13197988,
+    "reduction": 0.826021814840262,
+    "geometrySkinAnimationUnchanged": true,
+    "textures": [
+      {
+        "name": "",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/webp"
+      },
+      {
+        "name": "",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/webp"
+      },
+      {
+        "name": "",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/webp"
+      },
+      {
+        "name": "",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/jpeg"
+      }
+    ]
+  },
+  {
+    "id": "stegosaurus",
+    "source": "/models/realistic-dinosaurs/stegosaurus.glb",
+    "output": "/models/realistic-dinosaurs/stegosaurus-web.glb",
+    "size": 2048,
+    "role": "review",
+    "bytes": 2196436,
+    "transferBytes": 1292705,
+    "originalBytes": 5738348,
+    "reduction": 0.7747252345100019,
+    "geometrySkinAnimationUnchanged": true,
+    "textures": [
+      {
+        "name": "",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/webp"
+      },
+      {
+        "name": "",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/webp"
+      },
+      {
+        "name": "",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/webp"
+      },
+      {
+        "name": "",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/jpeg"
+      },
+      {
+        "name": "",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/webp"
+      },
+      {
+        "name": "",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/webp"
+      }
+    ]
+  },
+  {
+    "id": "spinosaurus",
+    "source": "/models/realistic-dinosaurs/spinosaurus.glb",
+    "output": "/models/realistic-dinosaurs/spinosaurus-web.glb",
+    "size": 2048,
+    "role": "review",
+    "bytes": 4359088,
+    "transferBytes": 2591332,
+    "originalBytes": 9697660,
+    "reduction": 0.7327879096606811,
+    "geometrySkinAnimationUnchanged": true,
+    "textures": [
+      {
+        "name": "",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/webp"
+      },
+      {
+        "name": "",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/webp"
+      },
+      {
+        "name": "",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/jpeg"
+      }
+    ]
+  },
+  {
+    "id": "spinosaurus",
+    "source": "/models/realistic-dinosaurs/spinosaurus-map.glb",
+    "output": "/models/realistic-dinosaurs/spinosaurus-map-web.glb",
+    "size": 1024,
+    "role": "map",
+    "bytes": 3097848,
+    "transferBytes": 1475977,
+    "originalBytes": 9882856,
+    "reduction": 0.850652787008128,
+    "geometrySkinAnimationUnchanged": true,
+    "textures": [
+      {
+        "name": "",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/webp"
+      },
+      {
+        "name": "",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/webp"
+      },
+      {
+        "name": "",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/jpeg"
+      }
+    ]
+  },
+  {
+    "id": "velociraptor",
+    "source": "/models/realistic-dinosaurs/velociraptor.glb",
+    "output": "/models/realistic-dinosaurs/velociraptor-web.glb",
+    "size": 2048,
+    "role": "review",
+    "bytes": 5710360,
+    "transferBytes": 3547870,
+    "originalBytes": 13477016,
+    "reduction": 0.7367466210621105,
+    "geometrySkinAnimationUnchanged": true,
+    "textures": [
+      {
+        "name": "",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/webp"
+      },
+      {
+        "name": "",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/webp"
+      },
+      {
+        "name": "",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/jpeg"
+      },
+      {
+        "name": "",
+        "width": 1024,
+        "height": 1536,
+        "mimeType": "image/webp"
+      }
+    ]
+  },
+  {
+    "id": "velociraptor",
+    "source": "/models/realistic-dinosaurs/velociraptor-map.glb",
+    "output": "/models/realistic-dinosaurs/velociraptor-map-web.glb",
+    "size": 1024,
+    "role": "map",
+    "bytes": 4935440,
+    "transferBytes": 2837000,
+    "originalBytes": 14599392,
+    "reduction": 0.8056768391450821,
+    "geometrySkinAnimationUnchanged": true,
+    "textures": [
+      {
+        "name": "",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/webp"
+      },
+      {
+        "name": "",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/webp"
+      },
+      {
+        "name": "",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/jpeg"
+      },
+      {
+        "name": "",
+        "width": 683,
+        "height": 1024,
+        "mimeType": "image/webp"
+      }
+    ]
+  },
+  {
+    "id": "pterosaur",
+    "source": "/models/realistic-dinosaurs/pterosaur.glb",
+    "output": "/models/realistic-dinosaurs/pterosaur-web.glb",
+    "size": 2048,
+    "role": "review",
+    "bytes": 2375328,
+    "transferBytes": 1603975,
+    "originalBytes": 4256224,
+    "reduction": 0.6231460092325968,
+    "geometrySkinAnimationUnchanged": true,
+    "textures": [
+      {
+        "name": "",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/webp"
+      },
+      {
+        "name": "",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/jpeg"
+      },
+      {
+        "name": "",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/webp"
+      }
+    ]
+  },
+  {
+    "id": "rex",
+    "source": "/models/tyrannosaurus-study/tyrannosaurus-reference-study.glb",
+    "output": "/models/tyrannosaurus-study/tyrannosaurus-web.glb",
+    "size": 2048,
+    "role": "review",
+    "bytes": 8055132,
+    "transferBytes": 7442457,
+    "originalBytes": 11411904,
+    "reduction": 0.34783389345020777,
+    "geometrySkinAnimationUnchanged": true,
+    "textures": [
+      {
+        "name": "trex_v3_body_normal",
+        "width": 2048,
+        "height": 2048,
+        "mimeType": "image/jpeg"
+      },
+      {
+        "name": "trex_v3_body_basecolor",
+        "width": 2048,
+        "height": 2048,
+        "mimeType": "image/webp"
+      },
+      {
+        "name": "trex_v3_body_metallic-trex_v3_body_roughness",
+        "width": 2048,
+        "height": 2048,
+        "mimeType": "image/jpeg"
+      },
+      {
+        "name": "Tirannosaurus_Rex_v2_PRE_RETOPO_HEAD.fbx_normal",
+        "width": 2048,
+        "height": 2048,
+        "mimeType": "image/jpeg"
+      },
+      {
+        "name": "trex_v3_head_basecolor",
+        "width": 2048,
+        "height": 2048,
+        "mimeType": "image/webp"
+      },
+      {
+        "name": "Tirannosaurus_Rex_v2_PRE_RETOPO_HEAD.fbx_metallic-Tirannosaurus_Rex_v2_PRE_RETOPO_HEAD.fbx_roughness",
+        "width": 2048,
+        "height": 2048,
+        "mimeType": "image/jpeg"
+      },
+      {
+        "name": "trex_eye_normal",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/jpeg"
+      },
+      {
+        "name": "trex_eye_basecolor",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/jpeg"
+      },
+      {
+        "name": "trex_eye_roughness",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/webp"
+      },
+      {
+        "name": "trex_v3_tongue_normal",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/jpeg"
+      },
+      {
+        "name": "trex_v3_tongue_basecolor",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/webp"
+      },
+      {
+        "name": "trex_v3_tongue_roughness",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/webp"
+      }
+    ]
+  },
+  {
+    "id": "rex",
+    "source": "/models/tyrannosaurus-study/tyrannosaurus-reference-study.glb",
+    "output": "/models/tyrannosaurus-study/tyrannosaurus-map-web.glb",
+    "size": 1024,
+    "role": "map",
+    "bytes": 4539504,
+    "transferBytes": 4014629,
+    "originalBytes": 11411904,
+    "reduction": 0.6482069074538307,
+    "geometrySkinAnimationUnchanged": true,
+    "textures": [
+      {
+        "name": "trex_v3_body_normal",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/jpeg"
+      },
+      {
+        "name": "trex_v3_body_basecolor",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/webp"
+      },
+      {
+        "name": "trex_v3_body_metallic-trex_v3_body_roughness",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/webp"
+      },
+      {
+        "name": "Tirannosaurus_Rex_v2_PRE_RETOPO_HEAD.fbx_normal",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/jpeg"
+      },
+      {
+        "name": "trex_v3_head_basecolor",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/webp"
+      },
+      {
+        "name": "Tirannosaurus_Rex_v2_PRE_RETOPO_HEAD.fbx_metallic-Tirannosaurus_Rex_v2_PRE_RETOPO_HEAD.fbx_roughness",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/webp"
+      },
+      {
+        "name": "trex_eye_normal",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/jpeg"
+      },
+      {
+        "name": "trex_eye_basecolor",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/jpeg"
+      },
+      {
+        "name": "trex_eye_roughness",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/webp"
+      },
+      {
+        "name": "trex_v3_tongue_normal",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/jpeg"
+      },
+      {
+        "name": "trex_v3_tongue_basecolor",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/webp"
+      },
+      {
+        "name": "trex_v3_tongue_roughness",
+        "width": 1024,
+        "height": 1024,
+        "mimeType": "image/webp"
+      }
+    ]
+  }
+]

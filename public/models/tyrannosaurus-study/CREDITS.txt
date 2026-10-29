@@ -10,3 +10,9 @@ Generated skin-source.png and trex-*.png belong to an earlier procedural materia
 Additional derivative changes: identical chest deformation on both neck material sections; eye mesh size reduced to 78%; 120 rigged cranial filaments added.
 
 Earlier material experiment: skin-source.png was generated using built-in image_gen. Its exact prompt is in material-source-prompt.txt. It and the derived trex-*.png files are preserved but are not used on the current reference study.
+
+Web delivery derivatives, 2026-10-29: tyrannosaurus-web.glb.gz and
+tyrannosaurus-map-web.glb.gz preserve the approved model, skin weights, bone
+transforms and animation samples. Meshopt/gzip compression and resized/re-encoded
+web textures reduce transfer and GPU memory (up to 2048px review / 1024px map).
+Original GLB/textures and the source author credits and CC BY 4.0 license remain.

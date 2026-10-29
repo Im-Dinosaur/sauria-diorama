@@ -70,7 +70,7 @@ export function HabitatForest({mode}:{mode:WorldMode}){
 }
 export function DisasterParticles({mode,time}:{mode:WorldMode;time:()=>number}){
  const particles=useRef<InstancedMesh>(null),smoke=useRef<InstancedMesh>(null),dummy=useMemo(()=>new Object3D(),[]),color=useMemo(()=>new Color(),[]);
- useFrame(()=>{const t=time(),ice=mode==='ice';for(let i=0;i<420;i++){
+ useFrame(()=>{if(mode==='peaceful')return;const t=time(),ice=mode==='ice';for(let i=0;i<420;i++){
   const r=noise(i*7+3),fall=(t*(ice?.13:.07)+r)%1;
   const x=(noise(i*3)-.5)*(DIORAMA.width-1),z=(noise(i*3+1)-.5)*(DIORAMA.depth-1);dummy.position.set(x+Math.sin(t*.4+i)*.4,ice?1+(1-fall)*11:habitatGround(x,z)+.3+fall*4,z);
   dummy.rotation.set(t+i,i*.7,0);dummy.scale.setScalar(ice?.023+r*.035:.012+r*.025);dummy.updateMatrix();particles.current?.setMatrixAt(i,dummy.matrix);

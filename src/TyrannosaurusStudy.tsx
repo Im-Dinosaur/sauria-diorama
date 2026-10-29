@@ -1,13 +1,16 @@
 import {publicAsset} from './publicAsset';
 import { Suspense,useEffect,useMemo,useRef,useState } from 'react';
 import { Canvas,useFrame,useThree } from '@react-three/fiber';
-import { Environment,Lightformer,OrbitControls,useGLTF } from '@react-three/drei';
+import { Environment,Lightformer,OrbitControls } from '@react-three/drei';
+import {useWebGLTF as useGLTF} from './useWebGLTF';
 import { ACESFilmicToneMapping,AnimationMixer,Mesh,MeshNormalMaterial,MeshStandardMaterial,SkeletonHelper,SkinnedMesh } from 'three';
 import { ArrowLeft,Download,Pause,Play,RotateCcw } from 'lucide-react';
 import './tyrannosaurus-study.css';
+import './review-loading.css';
 
 type View='threequarter'|'side'|'front'|'head';type Layer='skin'|'clay'|'normal';
 const FILE=publicAsset('/models/tyrannosaurus-study/tyrannosaurus-reference-study.glb');
+const WEB_FILE=publicAsset('/models/tyrannosaurus-study/tyrannosaurus-web.glb');
 const REFERENCE='https://www.amnh.org/explore/news-blogs/t-rex-size-evolution';
 const ACTIONS=[['reference','외형 확인 자세',8],['01_Idle','대기 · 호흡',8],['02_Walk','걷기',3],['03_Run','빠른 이동',1.2],['04_Attack','턱 벌리기 · 위협',4]] as const;
 function Camera({view,reset}:{view:View;reset:number}){
@@ -15,7 +18,7 @@ function Camera({view,reset}:{view:View;reset:number}){
  return <OrbitControls key={`${view}-${reset}`} makeDefault target={view==='head'?[-.1,1.23,1.02]:[0,.88,-.4]} enablePan minDistance={view==='head'?.65:2} maxDistance={12} maxPolarAngle={Math.PI*.51} enableDamping dampingFactor={.08}/>;
 }
 function Specimen({action,paused,speed,layer,wire,bones,clock,onTime,onStats}:{action:string;paused:boolean;speed:number;layer:Layer;wire:boolean;bones:boolean;clock:{current:number};onTime:(t:number)=>void;onStats:(v:{triangles:number;bones:number;meshes:number})=>void}){
- const gltf=useGLTF(FILE),mixer=useMemo(()=>new AnimationMixer(gltf.scene),[gltf.scene]),helper=useMemo(()=>new SkeletonHelper(gltf.scene),[gltf.scene]),last=useRef(0);
+ const gltf=useGLTF(WEB_FILE),mixer=useMemo(()=>new AnimationMixer(gltf.scene),[gltf.scene]),helper=useMemo(()=>new SkeletonHelper(gltf.scene),[gltf.scene]),last=useRef(0);
  const originals=useMemo(()=>{const map=new Map<Mesh,MeshStandardMaterial|MeshStandardMaterial[]>();gltf.scene.traverse(o=>{if(o instanceof Mesh){map.set(o,o.material as MeshStandardMaterial);o.castShadow=true;o.receiveShadow=true;o.frustumCulled=false;}});return map;},[gltf.scene]);
  const clay=useMemo(()=>new MeshStandardMaterial({color:'#918b80',roughness:.76}),[]),normal=useMemo(()=>new MeshNormalMaterial(),[]);
  useEffect(()=>{let triangles=0,boneCount=0,meshes=0;gltf.scene.traverse(o=>{if(o instanceof Mesh){meshes++;triangles+=(o.geometry.index?.count??o.geometry.getAttribute('position').count)/3;}if(o instanceof SkinnedMesh)boneCount=Math.max(boneCount,o.skeleton.bones.length);});onStats({triangles,bones:boneCount,meshes});return()=>{mixer.stopAllAction();helper.dispose();clay.dispose();normal.dispose();};},[gltf.scene,mixer,helper,clay,normal,onStats]);
@@ -31,15 +34,16 @@ export default function TyrannosaurusStudy(){
  return <main className="trex-study">
   <header><a href="./dinosaur-report.html?revision=2"><ArrowLeft size={15}/>제작 기록</a><span>TYRANNOSAURUS REX <b>/</b> ANATOMY STUDY</span><a className="trex-download" href={FILE} download><Download size={15}/>GLB 모델 받기</a></header>
   <section className="trex-stage" aria-label="티라노사우루스 단일 3D 모델 검수">
-   <Canvas shadows dpr={[1,1.75]} camera={{position:[4.2,1.9,4.8],fov:35,near:.01,far:100}} gl={{antialias:true,toneMapping:ACESFilmicToneMapping,toneMappingExposure:.95}}>
+   <Canvas shadows frameloop={paused?'demand':'always'} dpr={[1,1.25]} camera={{position:[4.2,1.9,4.8],fov:35,near:.01,far:100}} gl={{antialias:true,toneMapping:ACESFilmicToneMapping,toneMappingExposure:.95}}>
     <color attach="background" args={['#292b2a']}/><fog attach="fog" args={['#292b2a',18,40]}/>
     <hemisphereLight args={['#e1e4df','#6b6256',.65]}/><directionalLight position={[3.5,5,4]} intensity={2.2} color="#fff3df" castShadow shadow-mapSize={[2048,2048]} shadow-camera-left={-4} shadow-camera-right={4} shadow-camera-top={4} shadow-camera-bottom={-4} shadow-normalBias={.004}/><directionalLight position={[-3,2,-3]} intensity={1.3} color="#b7cedb"/>
     <Environment resolution={128}><Lightformer form="rect" position={[0,4,1]} rotation={[Math.PI/2,0,0]} scale={[5,5,1]} intensity={2}/><Lightformer form="rect" position={[-4,2,1]} rotation={[0,Math.PI/2,0]} scale={[3,4,1]} intensity={1.2}/></Environment>
     <Suspense fallback={null}><Specimen action={action} paused={paused} speed={speed} layer={layer} wire={wire} bones={bones} clock={clock} onTime={setTime} onStats={setStats}/></Suspense>
     <mesh rotation={[-Math.PI/2,0,0]} position={[0,-.012,0]} receiveShadow><planeGeometry args={[100,100]}/><meshStandardMaterial color="#3b3c38" roughness={.92}/></mesh><Camera view={view} reset={reset}/>
    </Canvas>
+   {stats.triangles===0&&<div className="review-loading" role="status">공룡을 불러오는 중…</div>}
    <div className="trex-caption"><span>ADULT SPECIMEN / 01</span><h1>Tyrannosaurus rex</h1><p>AMNH 성체 복원을 시각 기준으로 삼은<br/>티라노사우루스 참조 보정본</p></div>
-   <div className="trex-metrics"><span>{stats.triangles.toLocaleString()} TRIANGLES</span><span>{stats.bones} BONES</span><span>4K COLOR / 2–4K NORMAL</span></div>
+   <div className="trex-metrics"><span>{stats.triangles.toLocaleString()} TRIANGLES</span><span>{stats.bones} BONES</span><span>2K WEB / 원본 GLB 다운로드</span></div>
    <button className="trex-reset" title="시점 초기화" onClick={()=>setReset(n=>n+1)}><RotateCcw size={16}/></button>
   </section>
   <aside>

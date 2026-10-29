@@ -12,7 +12,7 @@ import {solveNeckJoints} from './dinosaurAnatomy';
 export type RealisticSpecies=Exclude<Species,'rex'>;
 // Neutral rendered lengths of the previous map rigs, before individual scaling.
 export const MAP_MODEL_LENGTHS:Record<RealisticSpecies,number>={brachiosaurus:3.407539618877635,triceratops:2.8968732712496577,stegosaurus:3.230002991207847,spinosaurus:3.803583816860927,velociraptor:2.941741335618999,pterosaur:3.4728037174572672};
-export const realisticModel=(species:RealisticSpecies)=>`/models/realistic-dinosaurs/${species}${['brachiosaurus','triceratops','velociraptor','spinosaurus'].includes(species)?'-map':''}.glb`;
+export const realisticModel=(species:RealisticSpecies)=>`/models/realistic-dinosaurs/${species}${['brachiosaurus','triceratops','velociraptor','spinosaurus'].includes(species)?'-map':''}-web.glb`;
 const up=new Vector3(0,1,0);
 /** Shared GPU assets, independent sampling and rendered skeletons. IK never edits bind offsets. */
 export class RealisticMapRig{

@@ -1,0 +1,57 @@
+import { Color, DataTexture, LinearFilter, LinearMipmapLinearFilter, RepeatWrapping, RGBAFormat, SRGBColorSpace, UnsignedByteType } from 'three';
+import type { Species } from '../world/paths';
+
+export const SKIN_PALETTES: Record<Species, {back:string; belly:string; marking:string; iris:string}> = {
+ rex:{back:'#68715a',belly:'#c1b593',marking:'#343f36',iris:'#b99138'},
+ triceratops:{back:'#82715c',belly:'#b6a78a',marking:'#494d42',iris:'#8c713d'},
+ stegosaurus:{back:'#626b53',belly:'#aaa284',marking:'#833f2c',iris:'#a67c39'},
+ brachiosaurus:{back:'#777b66',belly:'#b7b09a',marking:'#424d43',iris:'#907b49'},
+ velociraptor:{back:'#86715a',belly:'#c3b7a1',marking:'#343632',iris:'#c2913c'},
+ pterosaur:{back:'#736652',belly:'#c2ac87',marking:'#534439',iris:'#b78236'},
+ spinosaurus:{back:'#68685c',belly:'#bbb29a',marking:'#793f30',iris:'#bb883e'},
+};
+export const TEXTURE_SIZE=512;
+const cache=new Map<Species,ReturnType<typeof makeSkin>>();
+const hash=(x:number,y:number)=>{const v=Math.sin(x*127.1+y*311.7)*43758.5453;return v-Math.floor(v);};
+const wrap=(x:number,n:number)=>(x%n+n)%n;
+
+function texture(data:Uint8Array,name:string,color=false){
+ const t=new DataTexture(data,TEXTURE_SIZE,TEXTURE_SIZE,RGBAFormat,UnsignedByteType);
+ t.name=name;t.wrapS=t.wrapT=RepeatWrapping;t.anisotropy=4;t.generateMipmaps=true;t.minFilter=LinearMipmapLinearFilter;t.magFilter=LinearFilter;
+ if(color)t.colorSpace=SRGBColorSpace;t.needsUpdate=true;return t;
+}
+
+function makeSkin(species:Species){
+ const n=TEXTURE_SIZE,base=new Uint8Array(n*n*4),normal=new Uint8Array(n*n*4),roughness=new Uint8Array(n*n*4),height=new Float32Array(n*n);
+ const feathered=species==='velociraptor',membrane=species==='pterosaur',cells=feathered?48:membrane?32:40;
+ for(let y=0;y<n;y++)for(let x=0;x<n;x++){
+  const u=x/n*cells,v=y/n*cells;let first=10,second=10;
+  for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){
+   const gx=Math.floor(u)+dx,gy=Math.floor(v)+dy,px=gx+.5+(hash(wrap(gx,cells),wrap(gy,cells))-.5)*.65,py=gy+.5+(hash(wrap(gx+31,cells),wrap(gy+17,cells))-.5)*.65;
+   const d=Math.hypot(u-px,(v-py)*(feathered?2:1));if(d<first){second=first;first=d;}else if(d<second)second=d;
+  }
+  const edge=Math.min(1,(second-first)*7),grain=hash(x,y);
+  const vein=membrane?Math.pow(Math.max(0,Math.sin(x/n*Math.PI*24+Math.sin(y/n*Math.PI*8)*.45)),28)*.26:0;
+  height[y*n+x]=membrane?.45+grain*.08-vein:.12+edge*.64+grain*.10;
+  const tone=membrane?.91-vein:.76+edge*.22+(grain-.5)*.07;
+  const i=(y*n+x)*4;base[i]=Math.round(255*tone);base[i+1]=Math.round(251*tone);base[i+2]=Math.round(242*tone);base[i+3]=255;
+  const r=Math.round(((membrane?.62:.74)+(1-edge)*.16+grain*.06)*255);
+  roughness[i]=0;roughness[i+1]=Math.min(255,r);roughness[i+2]=0;roughness[i+3]=255;
+ }
+ for(let y=0;y<n;y++)for(let x=0;x<n;x++){
+  const dx=(height[y*n+wrap(x+1,n)]-height[y*n+wrap(x-1,n)])*.85,dy=(height[wrap(y+1,n)*n+x]-height[wrap(y-1,n)*n+x])*.85,l=Math.hypot(dx,dy,1),i=(y*n+x)*4;
+  normal[i]=Math.round((.5-dx/l*.5)*255);normal[i+1]=Math.round((.5-dy/l*.5)*255);normal[i+2]=Math.round((.5+.5/l)*255);normal[i+3]=255;
+ }
+ return {map:texture(base,`${species}-scale-albedo`,true),normalMap:texture(normal,`${species}-scale-normal`),roughnessMap:texture(roughness,`${species}-roughness-metalness`)};
+}
+
+/** Shared immutable maps. Each animal owns its material, not these textures. */
+export function dinosaurSkin(species:Species){if(!cache.has(species))cache.set(species,makeSkin(species));return cache.get(species)!;}
+
+/** Vertex pigmentation is independent from the tileable microstructure UVs. */
+export function skinPigment(species:Species,x:number,y:number,z:number,belly:number){
+ const p=SKIN_PALETTES[species],c=new Color(p.back),light=new Color(p.belly),dark=new Color(p.marking);
+ const stripes=.5+.5*Math.sin(z*(species==='brachiosaurus'?12:19)+Math.sin(y*12)*.85+x*3);
+ const shade=Math.max(0,(stripes-.53)*1.1)*(1-belly);
+ c.lerp(dark,shade).lerp(light,Math.min(.95,belly));return c;
+}

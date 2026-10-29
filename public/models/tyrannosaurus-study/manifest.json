@@ -1,0 +1,33 @@
+{
+  "result": "BUILT",
+  "target": "AMNH The Ultimate Predator adult reconstruction",
+  "geometry": [
+    {
+      "name": "continuous_body",
+      "triangles": 188508,
+      "vertices": 101344
+    },
+    {
+      "name": "mandible",
+      "triangles": 71148,
+      "vertices": 36898
+    }
+  ],
+  "bones": 32,
+  "clips": [
+    "idle",
+    "reference",
+    "roar"
+  ],
+  "textureSize": [
+    2048,
+    2048
+  ],
+  "sourceSize": [
+    1254,
+    1254
+  ],
+  "glbBytes": 39877960,
+  "continuousSkin": true,
+  "sourceImagePreserved": true
+}

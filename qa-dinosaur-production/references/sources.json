@@ -1,0 +1,44 @@
+[
+  {
+    "species": "rex",
+    "url": "https://www.port.ac.uk/news-events-and-blogs/blogs/building-an-inclusive-and-growth-led-economy-and-society/tyrannosaurus-rex-our-new-research-shows-it-covered-its-enormous-teeth-with-lips",
+    "status": 200,
+    "imageUrl": "https://www.port.ac.uk/sites/default/files/media/images/Tyrannosaurus%20lipped%20open%20mouth%20%C2%A9%20Witton%202023_0.jpg",
+    "file": "qa-dinosaur-production/references/rex.jpg"
+  },
+  {
+    "species": "triceratops",
+    "url": "https://www.nhm.ac.uk/discover/dino-directory/triceratops.html",
+    "status": 200,
+    "image": null
+  },
+  {
+    "species": "velociraptor",
+    "url": "https://www.nhm.ac.uk/discover/velociraptor-facts.html",
+    "status": 200,
+    "image": null
+  },
+  {
+    "species": "brachiosaurus",
+    "url": "https://www.nhm.ac.uk/discover/dino-directory/brachiosaurus.html",
+    "status": 200,
+    "image": null
+  },
+  {
+    "species": "stegosaurus",
+    "url": "https://www.nhm.ac.uk/discover/dino-directory/stegosaurus.html",
+    "status": 200,
+    "image": null
+  },
+  {
+    "species": "pterosaur",
+    "url": "https://www.amnh.org/content/download/73117/1340865/file/pterosaurs-science-literacy-activity-for-grades-9-12.pdf",
+    "type": "PDF reference"
+  },
+  {
+    "species": "spinosaurus",
+    "url": "https://www.nature.com/articles/s41586-020-2190-3/figures/1",
+    "status": 200,
+    "image": null
+  }
+]

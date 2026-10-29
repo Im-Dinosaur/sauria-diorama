@@ -1,0 +1,277 @@
+[
+  {
+    "id": "triceratops",
+    "name": "트리케라톱스",
+    "latin": "Triceratops horridus",
+    "sourceFile": "triceratops-daniel",
+    "author": "DanielWalsh / IagoMendez",
+    "source": "https://sketchfab.com/3d-models/triceratops-horridus-cb7bad2c70dc4748a9c58ef9db5fce5e",
+    "license": "CC BY 4.0",
+    "reference": "https://www.nhm.ac.uk/discover/dino-directory/triceratops.html",
+    "dimension": 3.8,
+    "yaw": 3.141592653589793,
+    "head": "Bone003_3",
+    "jaw": "Bone014_0",
+    "hips": "Bone_16",
+    "chest": "Bone001_15",
+    "neck": [
+      "Bone002_4"
+    ],
+    "tail": [
+      "Bone005_24",
+      "Bone006_23",
+      "Bone007_22",
+      "Bone008_21",
+      "Bone009_20",
+      "Bone010_19",
+      "Bone011_18",
+      "Bone012_17"
+    ],
+    "legs": [
+      [
+        "Bone017_8",
+        "Bone018_7",
+        "Bone019_6",
+        "Bone020_5"
+      ],
+      [
+        "Bone027_13",
+        "Bone028_12",
+        "Bone029_11",
+        "Bone030_10"
+      ],
+      [
+        "Bone022_30",
+        "Bone023_29",
+        "Bone024_28",
+        "Bone025_27"
+      ],
+      [
+        "Bone032_39",
+        "Bone033_38",
+        "Bone034_37",
+        "Bone035_36"
+      ]
+    ],
+    "design": "세 뿔, 뼈 프릴과 각질 부리, 무거운 흉곽과 네 발을 기준으로 검수. 피부색은 제작상 해석."
+  },
+  {
+    "id": "stegosaurus",
+    "name": "스테고사우루스",
+    "latin": "Stegosaurus stenops",
+    "sourceFile": "stegosaurus-ferocious",
+    "author": "Ferocious Industries",
+    "source": "https://sketchfab.com/3d-models/pbr-stegasaurus-animated-ec254ea1554941fe8a131f62db0faf3d",
+    "redistributor": "https://leon-made-this.work/museum/en/",
+    "license": "CC BY 4.0",
+    "reference": "https://www.nhm.ac.uk/discover/putting-the-skin-on-stegosaurus.html",
+    "dimension": 4,
+    "yaw": 0,
+    "head": "Head_09",
+    "jaw": "Jaw_010",
+    "hips": "Pelvis_02",
+    "chest": "Spine3_05",
+    "neck": [
+      "Neck1_00",
+      "Neck2_06",
+      "Neck3_07",
+      "Neck4_08"
+    ],
+    "tail": [
+      "TailBase_026",
+      "Tail1_027",
+      "Tail2_028",
+      "Tail3_029",
+      "Tail4_030",
+      "Tail5_031",
+      "Tail6_032",
+      "Tail7_033"
+    ],
+    "legs": [
+      [
+        "UpperArmL_016",
+        "LowerArmL_017",
+        "FootL_018",
+        "ToesL_019"
+      ],
+      [
+        "UpperArmR_021",
+        "LowerArmR_022",
+        "FootR_023",
+        "ToesR_024"
+      ],
+      [
+        "UpperLegL_035",
+        "LowerLegL_036",
+        "BackFootL_037",
+        "BackToesL_038"
+      ],
+      [
+        "UpperLegR_040",
+        "LowerLegR_041",
+        "BackFootR_042",
+        "BackToesR_043"
+      ]
+    ],
+    "design": "작고 낮은 머리, 앞다리보다 긴 뒷다리, 교대로 선 등판과 네 개의 꼬리 가시를 확인. 피부의 채도와 광택을 낮춰 보정."
+  },
+  {
+    "id": "spinosaurus",
+    "name": "스피노사우루스",
+    "latin": "Spinosaurus aegyptiacus",
+    "sourceFile": "spinosaurus-pedro",
+    "author": "Pedro B. Goulart / Pebegou",
+    "source": "https://sketchfab.com/3d-models/spinosaurus-2a325726dd7b4a7c888277f262fd09bc",
+    "license": "CC BY 4.0",
+    "reference": "https://www.nhm.ac.uk/discover/dino-directory/spinosaurus.html",
+    "dimension": 4.8,
+    "yaw": 0,
+    "head": "Head_010",
+    "jaw": "Jaw_011",
+    "hips": "Hip_01",
+    "chest": "Torax_05",
+    "neck": [
+      "Neck1_06",
+      "Neck2_07",
+      "Neck3_08",
+      "Neck4_09"
+    ],
+    "tail": [
+      "TailBase_037",
+      "Tail1_038",
+      "Tail2_039",
+      "Tail3_040",
+      "Tail4_041",
+      "Tail5_042",
+      "Tail6_043",
+      "Tail7_044",
+      "Tail8_045",
+      "Tail9_046",
+      "Tail10_047",
+      "Tail11_048",
+      "Tail12_049",
+      "Tail13_050",
+      "Tail14_051",
+      "Tail15_052",
+      "Tail16_053"
+    ],
+    "legs": [
+      [
+        "FemurL_054",
+        "ShinL_055",
+        "MetacarpalL_056",
+        "FeetL_057"
+      ],
+      [
+        "FemurR_067",
+        "ShinR_068",
+        "MetacarpalR_069",
+        "FeetR_070"
+      ]
+    ],
+    "design": "길고 좁은 주둥이·원뿔형 치아·등 돛·높은 꼬리를 확인. 수중 추적 동작은 확정 사실로 재현하지 않음."
+  },
+  {
+    "id": "brachiosaurus",
+    "name": "브라키오사우루스",
+    "latin": "Brachiosaurus altithorax",
+    "sourceFile": "brachiosaurus-reimer",
+    "author": "Richard Reimer",
+    "source": "https://sketchfab.com/3d-models/brachiosaurus-v1-3e6df1cb11f243cc926ee049de5feb2c",
+    "license": "CC BY 4.0",
+    "reference": "https://www.nhm.ac.uk/discover/dino-directory/brachiosaurus.html",
+    "dimension": 4.6,
+    "yaw": 0,
+    "head": "head_100",
+    "jaw": "jawlower_89",
+    "hips": "controllerback_145",
+    "chest": "ribs002_120",
+    "neck": [
+      "neckbase_111",
+      "neck1_110",
+      "neck2_109",
+      "neck3_108",
+      "neck4_107",
+      "neck5_106",
+      "neck6_105",
+      "neck7_104",
+      "neck8_103",
+      "neck9_102",
+      "necktop_101"
+    ],
+    "tail": [
+      "tailbase_143",
+      "tailbase001_142",
+      "tailbase002_141",
+      "tailbase003_140",
+      "tailbase004_139",
+      "tailbase005_138"
+    ],
+    "legs": [
+      [
+        "armupperl_113",
+        "armlowerl_112",
+        "controllerhandl_47",
+        "controllerhandl_47"
+      ],
+      [
+        "armupperr_117",
+        "armlowerr_116",
+        "controllerhandr_78",
+        "controllerhandr_78"
+      ],
+      [
+        "legupperl_132",
+        "leglowerl_131",
+        "footl_130",
+        "controllerfootl_32"
+      ],
+      [
+        "legupperr_136",
+        "leglowerr_135",
+        "footr_134",
+        "controllerfootr_63"
+      ]
+    ],
+    "design": "긴 앞다리와 상승하는 어깨, 작은 머리, 긴 목의 체형을 확인. 조형 원본에 없던 비늘·피부색·법선 재질을 새로 제작."
+  },
+  {
+    "id": "velociraptor",
+    "name": "벨로시랩터",
+    "latin": "Velociraptor mongoliensis",
+    "sourceFile": "velociraptor-tomas",
+    "author": "Tomas Ibar",
+    "source": "https://sketchfab.com/3d-models/velociraptor-b227da6c817043ab9a249dbbd127db67",
+    "license": "CC BY 4.0",
+    "reference": "https://www.amnh.org/explore/news-blogs/velociraptor-feather-evidence",
+    "dimension": 3.2,
+    "yaw": 0,
+    "design": "긴 두개골과 균형 꼬리, 들린 둘째 발가락의 발톱을 검수. 원본에 없는 리깅과 몸통·팔·꼬리의 깃털을 새로 제작."
+  },
+  {
+    "id": "pterosaur",
+    "name": "프테라노돈",
+    "latin": "Pteranodon longiceps",
+    "sourceFile": "pteranodon-chistodrako",
+    "author": "Chistodrako._. / DogexorRexUwU",
+    "source": "https://sketchfab.com/3d-models/pteranodon-animated-7d7683df41d1405283f160e81a5dff1b",
+    "license": "CC BY 4.0",
+    "reference": "https://www.amnh.org/content/download/342020/5312520/file/flying-pterosaurs.pdf",
+    "dimension": 5,
+    "yaw": 0,
+    "head": "head15_15",
+    "jaw": "jaw16_16",
+    "hips": "center5_5",
+    "chest": "chest9_9",
+    "neck": [
+      "neck_0110_10",
+      "neck_0211_11",
+      "neck_0312_12",
+      "neck_0413_13",
+      "neck_0514_14"
+    ],
+    "tail": [],
+    "legs": [],
+    "design": "공룡이 아닌 익룡. 이빨 없는 부리와 머리 볏, 짧은 꼬리, 늘어난 손가락이 지지하는 날개막을 확인. 기존 비행·보행·서기 클립 보존."
+  }
+]

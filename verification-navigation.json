@@ -1,0 +1,171 @@
+{
+  "result": "PASS",
+  "reproducedUnsafeEdges": 5,
+  "verifiedDetours": 5,
+  "rejectedUnreachableEdges": 0,
+  "checkedSweptSegments": 10,
+  "headOnPassage": true,
+  "minimumHeadOnSeparation": 0.02592649873495434,
+  "simulationSeconds": 120,
+  "maximumReversals": 3,
+  "maximumConsecutiveReversals": 1,
+  "minimumGround": 0.2611975092114426,
+  "actors": [
+    {
+      "id": "living-rex-0",
+      "reversals": 0,
+      "consecutiveReversals": 0,
+      "locomotionTransitions": 11
+    },
+    {
+      "id": "living-triceratops-1",
+      "reversals": 0,
+      "consecutiveReversals": 0,
+      "locomotionTransitions": 8
+    },
+    {
+      "id": "living-rex-2",
+      "reversals": 1,
+      "consecutiveReversals": 1,
+      "locomotionTransitions": 8
+    },
+    {
+      "id": "living-rex-3",
+      "reversals": 0,
+      "consecutiveReversals": 0,
+      "locomotionTransitions": 2
+    },
+    {
+      "id": "living-brachiosaurus-4",
+      "reversals": 0,
+      "consecutiveReversals": 0,
+      "locomotionTransitions": 8
+    },
+    {
+      "id": "living-brachiosaurus-5",
+      "reversals": 0,
+      "consecutiveReversals": 0,
+      "locomotionTransitions": 4
+    },
+    {
+      "id": "living-brachiosaurus-6",
+      "reversals": 0,
+      "consecutiveReversals": 0,
+      "locomotionTransitions": 4
+    },
+    {
+      "id": "living-brachiosaurus-7",
+      "reversals": 0,
+      "consecutiveReversals": 0,
+      "locomotionTransitions": 2
+    },
+    {
+      "id": "living-brachiosaurus-8",
+      "reversals": 0,
+      "consecutiveReversals": 0,
+      "locomotionTransitions": 2
+    },
+    {
+      "id": "living-stegosaurus-9",
+      "reversals": 0,
+      "consecutiveReversals": 0,
+      "locomotionTransitions": 4
+    },
+    {
+      "id": "living-stegosaurus-10",
+      "reversals": 2,
+      "consecutiveReversals": 1,
+      "locomotionTransitions": 26
+    },
+    {
+      "id": "living-stegosaurus-11",
+      "reversals": 0,
+      "consecutiveReversals": 0,
+      "locomotionTransitions": 2
+    },
+    {
+      "id": "living-stegosaurus-12",
+      "reversals": 0,
+      "consecutiveReversals": 0,
+      "locomotionTransitions": 3
+    },
+    {
+      "id": "living-triceratops-13",
+      "reversals": 0,
+      "consecutiveReversals": 0,
+      "locomotionTransitions": 6
+    },
+    {
+      "id": "living-triceratops-14",
+      "reversals": 0,
+      "consecutiveReversals": 0,
+      "locomotionTransitions": 2
+    },
+    {
+      "id": "living-triceratops-15",
+      "reversals": 0,
+      "consecutiveReversals": 0,
+      "locomotionTransitions": 6
+    },
+    {
+      "id": "living-triceratops-16",
+      "reversals": 0,
+      "consecutiveReversals": 0,
+      "locomotionTransitions": 9
+    },
+    {
+      "id": "living-triceratops-17",
+      "reversals": 1,
+      "consecutiveReversals": 1,
+      "locomotionTransitions": 14
+    },
+    {
+      "id": "living-triceratops-18",
+      "reversals": 2,
+      "consecutiveReversals": 1,
+      "locomotionTransitions": 14
+    },
+    {
+      "id": "living-triceratops-19",
+      "reversals": 2,
+      "consecutiveReversals": 1,
+      "locomotionTransitions": 25
+    },
+    {
+      "id": "living-velociraptor-20",
+      "reversals": 2,
+      "consecutiveReversals": 1,
+      "locomotionTransitions": 6
+    },
+    {
+      "id": "living-velociraptor-21",
+      "reversals": 2,
+      "consecutiveReversals": 1,
+      "locomotionTransitions": 10
+    },
+    {
+      "id": "living-velociraptor-22",
+      "reversals": 2,
+      "consecutiveReversals": 1,
+      "locomotionTransitions": 8
+    },
+    {
+      "id": "living-velociraptor-23",
+      "reversals": 3,
+      "consecutiveReversals": 1,
+      "locomotionTransitions": 37
+    },
+    {
+      "id": "living-spinosaurus-24",
+      "reversals": 0,
+      "consecutiveReversals": 0,
+      "locomotionTransitions": 4
+    },
+    {
+      "id": "living-spinosaurus-25",
+      "reversals": 0,
+      "consecutiveReversals": 0,
+      "locomotionTransitions": 6
+    }
+  ]
+}

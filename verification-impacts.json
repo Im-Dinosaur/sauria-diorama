@@ -1,0 +1,24 @@
+{
+  "result": "PASS",
+  "unit": "scene units",
+  "sampleStepSeconds": 0.0125,
+  "checkedDroplets": 31461,
+  "checkedWaveVertices": 279462,
+  "minimumSplashSeaClearance": 0.01837,
+  "minimumSplashWallClearance": 0.05343,
+  "minimumCrownSeaClearance": 0.082,
+  "minimumWaveSeaClearance": 0.03878,
+  "maximumSplashHeight": 2.0697,
+  "impactStartSeconds": [
+    8.3,
+    8.850000000000001,
+    9.4,
+    9.950000000000001,
+    10.5,
+    11.05
+  ],
+  "impactDurationSeconds": 2.65,
+  "flowCrustEastwardUnitsPerSecond": 0.17600000000000002,
+  "flowMoltenSeamSpeedMultiplier": 1.35,
+  "flowDisplacementInTwoSeconds": 0.35200000000000004
+}

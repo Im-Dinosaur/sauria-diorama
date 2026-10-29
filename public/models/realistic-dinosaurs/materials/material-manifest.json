@@ -1,0 +1,17 @@
+{
+  "generationMode": "built-in image_gen",
+  "hideSourcePixels": [
+    1254,
+    1254
+  ],
+  "normalAndRoughnessPixels": [
+    1254,
+    1254
+  ],
+  "derivation": "Numerical gradients and luminance-derived roughness; original source image preserved.",
+  "featherPixels": [
+    1024,
+    1536
+  ],
+  "featherAlpha": true
+}

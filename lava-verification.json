@@ -1,0 +1,20 @@
+{
+  "unit": "scene units",
+  "riverSamples": 802,
+  "visitorTimeSamples": 3000,
+  "minimumRiverWallClearance": 0.17299,
+  "minimumRiverTerrainOffset": 0.022,
+  "minimumRiverPropClearance": 0.04449,
+  "minimumRiverCreatureLaneClearance": 0.08241,
+  "minimumVisitorWallClearance": 0.285,
+  "minimumVisitorObstacleClearance": 0.10397,
+  "minimumVisitorSeabedDepth": 0.69119,
+  "minimumVisitorLandCreatureClearance": 0.62583,
+  "minimumBoilingEffectWallClearance": 0.27857,
+  "minimumBoilingEffectSeabedDepth": 0.14026,
+  "visitorCycleSeconds": 22,
+  "visibleDurationSeconds": 6.8,
+  "firstAppearanceSeconds": 12,
+  "simultaneousVisitors": 1,
+  "result": "PASS"
+}

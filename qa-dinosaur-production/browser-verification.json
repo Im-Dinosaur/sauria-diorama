@@ -1,0 +1,14 @@
+{
+  "errors": [],
+  "missingResources": [],
+  "pauseTimeline": true,
+  "scrubbing": true,
+  "boneToggle": true,
+  "wireframeToggle": true,
+  "mobileHorizontalOverflow": false,
+  "ecosystem": {
+    "total": 32,
+    "species": 7,
+    "mode": "peaceful"
+  }
+}

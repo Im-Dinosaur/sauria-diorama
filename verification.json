@@ -1,0 +1,27 @@
+{
+  "samplesPerPath": 1440,
+  "independentLanePairs": 2073600,
+  "unit": "scene units",
+  "minimumWallClearance": 0.44,
+  "minimumStaticObstacleClearance": 0.07558,
+  "minimumIndependentLaneClearance": 0.53378,
+  "minimumAirborneTerrainAndPropClearance": 1.46373,
+  "minimumBodyTerrainClearance": 0.3078,
+  "minimumFootHeightAboveLava": 0.264,
+  "maximumSoleTerrainError": 0,
+  "minimumEjectaWallClearance": 0.87587,
+  "landAreaIncreasePercent": 36.60318,
+  "eruptionPeriodSeconds": 26,
+  "eruptionFirstStartSeconds": 6,
+  "scaleIncrease": {
+    "rex": "50%",
+    "triceratops": "50%",
+    "pterosaur": "38.46%"
+  },
+  "footPlacement": "Every sole stays on the flat walking shelf; each foot follows the exact rendered triangle height.",
+  "blockDimensions": [
+    12,
+    6
+  ],
+  "result": "PASS"
+}

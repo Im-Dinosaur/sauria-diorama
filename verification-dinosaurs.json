@@ -1,0 +1,51 @@
+{
+  "result": "PASS",
+  "durationSeconds": 120,
+  "deterministicPause": true,
+  "unit": "scene units",
+  "method": "Every unique rendered vertex is transformed through the actual animated rig. The retained conservative envelopes feed the full path/obstacle/lane checks.",
+  "species": [
+    {
+      "species": "rex",
+      "poseSamples": 720,
+      "vertexSamples": 3499200,
+      "meshes": 62,
+      "triangles": 8544,
+      "maximumAnimatedRadius": 1.00895,
+      "reservedRadius": 1.04,
+      "radiusMargin": 0.03105,
+      "minimumActualWallClearance": 0.670258,
+      "minimumVertexTerrainClearance": 0,
+      "maximumSoleTerrainError": 0,
+      "minimumLocalVertexY": 0
+    },
+    {
+      "species": "triceratops",
+      "poseSamples": 720,
+      "vertexSamples": 4029120,
+      "meshes": 110,
+      "triangles": 9732,
+      "maximumAnimatedRadius": 0.864615,
+      "reservedRadius": 0.98,
+      "radiusMargin": 0.115385,
+      "minimumActualWallClearance": 1.588157,
+      "minimumVertexTerrainClearance": 0,
+      "maximumSoleTerrainError": 0,
+      "minimumLocalVertexY": 0
+    },
+    {
+      "species": "pterosaur",
+      "poseSamples": 720,
+      "vertexSamples": 1182240,
+      "meshes": 19,
+      "triangles": 2850,
+      "maximumAnimatedRadius": 1.586971,
+      "reservedRadius": 1.61,
+      "radiusMargin": 0.023029,
+      "minimumActualWallClearance": 0.550055,
+      "minimumVertexTerrainClearance": 1.775779,
+      "maximumSoleTerrainError": 0,
+      "minimumLocalVertexY": -0.277934
+    }
+  ]
+}

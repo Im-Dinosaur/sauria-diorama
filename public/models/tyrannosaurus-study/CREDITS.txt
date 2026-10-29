@@ -1,0 +1,12 @@
+Tyrannosaurus rex 3D model by AnimalAnimator.com (https://animalanimator.com), licensed under CC BY 4.0.
+
+Source and download: https://animalanimator.com/free-3d-animated-t-rex-reference/
+License: https://creativecommons.org/licenses/by/4.0/
+Changes: expanded ribcage; widened/deepened skull using the existing skin rig; warmer pigmentation and dorsal patches; sampled reference pose; scale and placement. Original UV-mapped textures, anatomy, rig and four animated clips are by the credited author.
+
+Visual target: AMNH The Ultimate Predator adult reconstruction. This derivative is not an AMNH scan or an exact reproduction of the museum object.
+Generated skin-source.png and trex-*.png belong to an earlier procedural material test and are not used on this model.
+
+Additional derivative changes: identical chest deformation on both neck material sections; eye mesh size reduced to 78%; 120 rigged cranial filaments added.
+
+Earlier material experiment: skin-source.png was generated using built-in image_gen. Its exact prompt is in material-source-prompt.txt. It and the derived trex-*.png files are preserved but are not used on the current reference study.

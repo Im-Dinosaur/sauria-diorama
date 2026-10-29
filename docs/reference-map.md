@@ -1,0 +1,15 @@
+# Reference valley
+
+The user supplied `public/textures/reference-valley.png` is the fixed composition reference (1672 × 941). The original PNG is copied without alteration; its hash is saved with the terrain data and checked by `npm run verify`.
+
+The world is 60 × 33.7679426 scene units. This preserves the image aspect ratio. The user-defined physical interpretation is now 5 metres per scene unit (300m map width), calibrated against their dinosaur size chart in `physicalScale.ts`; it is not a surveyed real location. The top-left of the image maps to negative X / negative Z. The comparison camera is orthographic and looks straight down the Y axis. Open `/?compare=1` for a paused, UI-free view with the original aspect ratio. The regular page retains top, oblique, close and orbit views.
+
+`scripts/analyze-reference.py` reads the source and saves aligned water, canopy and wetland classification, shoreline distance and nearest-water data in `src/world/reference-map.json`. Tree/shadow brightness is not used as ground elevation. River beds are assigned up to 0.58 units of depth beneath water level 0.116; the highest flat ground is 0.486. `habitatGround` interpolates the same triangles used by the visible 224 × 126 terrain grid, so navigation and foot placement share the render surface.
+
+The reference contributes the macro ground coloration and the exact river/sandbar composition. Forest pixels are substantially replaced with litter shading to reduce painted crowns beneath the actual vegetation. Palms, branching conifers, layered broadleaf crowns and low ferns are separate instanced geometry. The four principal rock outcrops are registered to image coordinates and use irregular, fractured slab meshes with weathering/bump shading. Gravel is separate geometry along selected banks. Water is a separate animated shader surface; ice and lava retain the same banks.
+
+A single overhead image does not supply tree heights, hidden surfaces or true bathymetry. Those parts are reconstructed rather than photogrammetrically recovered. Close views therefore differ from the supplied aerial image. The original composition, assigned terrain heights and vegetation distribution remain reproducible from saved data.
+
+The current app starts in `EcosystemApp.tsx` / `EcosystemScene.tsx`. Earlier `App.tsx`, `Scene.tsx` and legacy volcano scripts are retained as source history from the ZIP; current verification covers the new ecosystem, production dinosaur rigs and reference map. The ZIP remains available as the original backup.
+
+Navigation uses a 0.5-unit clearance grid and validates the whole swept footprint between nodes and at resource destinations. It shares the bank/tree/rock predicate with actual movement. Local avoidance scores forward velocities against a snapshot of other animals instead of adding a repulsion vector that can invert the goal direction each frame. Stable passing sides, acceleration/stop blending and progress-based replanning prevent oscillation at obstacles. `verify-navigation.ts` checks the five original obstructed edges, two-way passage and 120 seconds of movement stability; it runs in `npm run verify`.

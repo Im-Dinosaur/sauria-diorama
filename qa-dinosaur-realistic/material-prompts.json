@@ -1,0 +1,13 @@
+{
+  "mode": "built-in image_gen",
+  "assets": [
+    {
+      "key": "brachiosaurus-hide",
+      "prompt": "Use case: photorealistic-natural. Asset type: seamless base-color skin tile for a realistic Brachiosaurus 3D model. Generate one square image entirely filled edge to edge by supple living dinosaur hide. Orthographic macro surface texture, diffuse cross-polarized lighting, extremely even illumination, without shadows or highlights. Fine irregular pebbled epidermal scales, 60 to 90 tiny rounded scales across the square, many sizes, very shallow subtle pores, soft thin intersecting skin wrinkles, subtle pliable folds, no hard raised plates. Restrained neutral warm grey and taupe with a hint of olive; low contrast, delicate natural pigmentation. Natural skin similar in softness to the underside of a large reptile and fine elephant skin but with tiny irregular pebble scales. All four edges must tile seamlessly. No creature face or body, no objects, no words or labels. Avoid stone, cobblestone, dried cracked earth, crocodile armor, alligator plates, regular honeycomb, large deep cracks, saturated brown or directional baked lighting. This is a material used on an actual animated 3D dinosaur."
+    },
+    {
+      "key": "velociraptor-feather",
+      "prompt": "Use case: photorealistic-natural. Asset type: RGBA feather card texture for an actual feathered Velociraptor 3D model. Create exactly ONE realistic long narrow pennaceous body/wing feather, perfectly straight and vertical, tip at the top and a short quill at the bottom, centered and taking up about 88 percent of image height. Show the flat dorsal face with no perspective. Medium warm umber and taupe feather, restrained fine dark transverse barring, fine natural individual barbs, gently asymmetric vane, visible slender rachis. Feather silhouette softly tapering, clearly separated delicate barb tips at the outer edges, subtle natural fraying. Flat diffuse scan illumination, no cast shadow, no highlight. All space outside the single feather is genuinely transparent alpha, including between separated barb tips. No background, no checkerboard image, no text, no tools, no additional feathers, no decorations. The feather is a reconstruction material, not a fossil photograph. Keep the quill clean and feather long and slim so it can be UV-mapped onto layered 3D feather cards."
+    }
+  ]
+}

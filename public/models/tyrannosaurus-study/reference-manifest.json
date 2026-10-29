@@ -1,0 +1,122 @@
+{
+  "target": "AMNH The Ultimate Predator adult reconstruction",
+  "status": "reference-based derivative; exact match not achieved",
+  "credit": "Tyrannosaurus rex 3D model by AnimalAnimator.com (https://animalanimator.com), licensed under CC BY 4.0.",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "source": "https://animalanimator.com/free-3d-animated-t-rex-reference/",
+  "sourceBytes": 10320144,
+  "glbBytes": 11411904,
+  "bones": 84,
+  "triangles": 42676,
+  "clips": [
+    {
+      "name": "01_Idle",
+      "duration": 8
+    },
+    {
+      "name": "02_Walk",
+      "duration": 3
+    },
+    {
+      "name": "03_Run",
+      "duration": 1.2
+    },
+    {
+      "name": "04_Attack",
+      "duration": 4
+    },
+    {
+      "name": "reference",
+      "duration": 8
+    }
+  ],
+  "images": [
+    {
+      "name": "trex_v3_body_normal",
+      "file": "trex_v3_body_normal.jpg",
+      "width": 4096,
+      "height": 4096
+    },
+    {
+      "name": "trex_v3_body_basecolor",
+      "file": "trex_v3_body_basecolor.jpg",
+      "width": 4096,
+      "height": 4096
+    },
+    {
+      "name": "trex_v3_body_metallic-trex_v3_body_roughness",
+      "file": "trex_v3_body_metallic-trex_v3_body_roughness.jpg",
+      "width": 2048,
+      "height": 2048
+    },
+    {
+      "name": "Tirannosaurus_Rex_v2_PRE_RETOPO_HEAD.fbx_normal",
+      "file": "Tirannosaurus_Rex_v2_PRE_RETOPO_HEAD.fbx_normal.jpg",
+      "width": 2048,
+      "height": 2048
+    },
+    {
+      "name": "trex_v3_head_basecolor",
+      "file": "trex_v3_head_basecolor.jpg",
+      "width": 4096,
+      "height": 4096
+    },
+    {
+      "name": "Tirannosaurus_Rex_v2_PRE_RETOPO_HEAD.fbx_metallic-Tirannosaurus_Rex_v2_PRE_RETOPO_HEAD.fbx_roughness",
+      "file": "Tirannosaurus_Rex_v2_PRE_RETOPO_HEAD.fbx_metallic-Tirannosaurus_Rex_v2_PRE_RETOPO_HEAD.fbx_roughness.jpg",
+      "width": 2048,
+      "height": 2048
+    },
+    {
+      "name": "trex_eye_normal",
+      "file": "trex_eye_normal.jpg",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "name": "trex_eye_basecolor",
+      "file": "trex_eye_basecolor.jpg",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "name": "trex_eye_roughness",
+      "file": "trex_eye_roughness.jpg",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "name": "trex_v3_tongue_normal",
+      "file": "trex_v3_tongue_normal.jpg",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "name": "trex_v3_tongue_basecolor",
+      "file": "trex_v3_tongue_basecolor.jpg",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "name": "trex_v3_tongue_roughness",
+      "file": "trex_v3_tongue_roughness.jpg",
+      "width": 1024,
+      "height": 1024
+    }
+  ],
+  "changes": {
+    "skullScale": [
+      1.08,
+      0.97,
+      1.1
+    ],
+    "upperRibcageWidth": 1.1,
+    "pigment": "warm amber with dorsal patches, source UV maps retained",
+    "referencePoseSampleTime": 1.399999976158142
+  },
+  "limits": [
+    "Not a digitization of the AMNH physical exhibit.",
+    "Head profile, feathers and skin patterns still differ from the selected reference.",
+    "The earlier generated 2K skin test is not used on this derivative."
+  ]
+}

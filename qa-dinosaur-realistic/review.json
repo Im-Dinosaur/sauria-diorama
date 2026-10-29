@@ -1,0 +1,18 @@
+[
+  {
+    "id": "pterosaur",
+    "errors": [],
+    "diagnostics": {
+      "id": "pterosaur",
+      "triangles": 13494,
+      "bones": 125,
+      "meshes": 1,
+      "action": "fly",
+      "paused": true,
+      "time": 1,
+      "view": "threequarter",
+      "layer": "skin",
+      "file": "/models/realistic-dinosaurs/pterosaur.glb"
+    }
+  }
+]

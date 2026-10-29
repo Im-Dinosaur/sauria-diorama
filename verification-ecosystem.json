@@ -1,0 +1,57 @@
+{
+  "result": "PASS",
+  "map": [
+    60,
+    33.76794258373206
+  ],
+  "animals": 32,
+  "species": 7,
+  "mechanical": 0,
+  "trees": 2450,
+  "peacefulSimulationSeconds": 120,
+  "animalsObservedDrinking": 13,
+  "animalsMoving": 32,
+  "minimumDryGroundAboveWater": 0.15119784386037777,
+  "minimumWallClearance": 0.6001189180865554,
+  "minimumAvoidanceClearance": 0.03095559374277379,
+  "modeSwitchPreservesPositions": true,
+  "pauseFreezesSimulation": true,
+  "disasterSpeedMultiplier": 2.8,
+  "models": [
+    {
+      "species": "rex",
+      "triangles": 37980,
+      "curvedMeshes": 8
+    },
+    {
+      "species": "triceratops",
+      "triangles": 34464,
+      "curvedMeshes": 8
+    },
+    {
+      "species": "pterosaur",
+      "triangles": 16228,
+      "curvedMeshes": 8
+    },
+    {
+      "species": "stegosaurus",
+      "triangles": 27392,
+      "curvedMeshes": 8
+    },
+    {
+      "species": "brachiosaurus",
+      "triangles": 24196,
+      "curvedMeshes": 8
+    },
+    {
+      "species": "velociraptor",
+      "triangles": 59236,
+      "curvedMeshes": 8
+    },
+    {
+      "species": "spinosaurus",
+      "triangles": 47992,
+      "curvedMeshes": 8
+    }
+  ]
+}

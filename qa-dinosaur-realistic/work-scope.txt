@@ -1,0 +1,3 @@
+User scope: Map integration is delegated to the existing chat titled Zip 파일 확인 (thread 01a18534-20b9-7c32-a2cc-a4da9a410cda), with explicit user authorization. Handoff sent with approved T. rex GLB and all rig measurements. This chat owns modeling, textures, rigging, animation exports and review of triceratops, velociraptor, pteranodon, brachiosaurus, spinosaurus and stegosaurus. Do not edit EcosystemScene/ecosystem/navigation/map runtime here.
+
+Asset quality target: Match the approved Tyrannosaurus reference-study quality. Use actual sculpted licensed models, carefully corrected, not new primitive proxies. Record original author and corrections honestly. Original 1K textures from Objaverse remain 1K; do not label upscaled images as native 4K.

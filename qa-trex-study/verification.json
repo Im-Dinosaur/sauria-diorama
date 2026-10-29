@@ -1,0 +1,170 @@
+{
+  "result": "PASS",
+  "ui": {
+    "playPause": true,
+    "scrub": true,
+    "surfaceAndSkeleton": true,
+    "download": true,
+    "mobileOverflow": false,
+    "errors": []
+  },
+  "asset": {
+    "vertices": 36610,
+    "weights": 32984,
+    "sampled": 793390,
+    "meshes": 8,
+    "bones": 84,
+    "textures": [
+      {
+        "material": "TRex_Body_v3",
+        "key": "map",
+        "width": 4096,
+        "height": 4096
+      },
+      {
+        "material": "TRex_Body_v3",
+        "key": "normalMap",
+        "width": 4096,
+        "height": 4096
+      },
+      {
+        "material": "TRex_Body_v3",
+        "key": "roughnessMap",
+        "width": 2048,
+        "height": 2048
+      },
+      {
+        "material": "TRex_Head_v3",
+        "key": "map",
+        "width": 4096,
+        "height": 4096
+      },
+      {
+        "material": "TRex_Head_v3",
+        "key": "normalMap",
+        "width": 2048,
+        "height": 2048
+      },
+      {
+        "material": "TRex_Head_v3",
+        "key": "roughnessMap",
+        "width": 2048,
+        "height": 2048
+      },
+      {
+        "material": "TRex_Tongue_v3",
+        "key": "map",
+        "width": 1024,
+        "height": 1024
+      },
+      {
+        "material": "TRex_Tongue_v3",
+        "key": "normalMap",
+        "width": 1024,
+        "height": 1024
+      },
+      {
+        "material": "TRex_Tongue_v3",
+        "key": "roughnessMap",
+        "width": 1024,
+        "height": 1024
+      },
+      {
+        "material": "Eye_Baked",
+        "key": "map",
+        "width": 1024,
+        "height": 1024
+      },
+      {
+        "material": "Eye_Baked",
+        "key": "normalMap",
+        "width": 1024,
+        "height": 1024
+      },
+      {
+        "material": "Eye_Baked",
+        "key": "roughnessMap",
+        "width": 1024,
+        "height": 1024
+      }
+    ],
+    "clips": [
+      {
+        "name": "01_Idle",
+        "duration": 8,
+        "min": [
+          -0.6110884062240689,
+          0.000004823873949806844,
+          -2.440389449826907
+        ],
+        "max": [
+          0.5202920522153246,
+          1.7550730362926568,
+          1.5777421809356216
+        ],
+        "jawMotion": 0.01305006460620467
+      },
+      {
+        "name": "02_Walk",
+        "duration": 3,
+        "min": [
+          -0.5647866379236679,
+          -0.0005391450161398026,
+          -2.4704988355660813
+        ],
+        "max": [
+          0.5315575702001081,
+          1.756373898767371,
+          1.5362878442026715
+        ],
+        "jawMotion": 0.007838327427462134
+      },
+      {
+        "name": "03_Run",
+        "duration": 1.2000000476837158,
+        "min": [
+          -0.5629304543495076,
+          -0.00936953415111589,
+          -2.4700630453906824
+        ],
+        "max": [
+          0.5322123696029825,
+          1.5515456300274113,
+          1.5469961891025892
+        ],
+        "jawMotion": 0.013089789310470223
+      },
+      {
+        "name": "04_Attack",
+        "duration": 4,
+        "min": [
+          -0.5680588097532753,
+          -0.0000010641305137332253,
+          -2.43068367244381
+        ],
+        "max": [
+          0.5392976561679178,
+          1.8712689013428454,
+          1.702690710185222
+        ],
+        "jawMotion": 0.46496084210375077
+      },
+      {
+        "name": "reference",
+        "duration": 8,
+        "min": [
+          -0.513693486543526,
+          0.000005181859534124361,
+          -2.43068367244381
+        ],
+        "max": [
+          0.5090629919878007,
+          1.7401087724011324,
+          1.5217884009588627
+        ],
+        "jawMotion": 0
+      }
+    ],
+    "problems": []
+  }
+}

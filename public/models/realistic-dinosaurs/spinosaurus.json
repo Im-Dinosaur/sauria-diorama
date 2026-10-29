@@ -1,0 +1,150 @@
+{
+  "id": "spinosaurus",
+  "name": "스피노사우루스",
+  "latin": "Spinosaurus aegyptiacus",
+  "sourceFile": "spinosaurus-pedro",
+  "author": "Pedro B. Goulart / Pebegou",
+  "source": "https://sketchfab.com/3d-models/spinosaurus-2a325726dd7b4a7c888277f262fd09bc",
+  "license": "CC BY 4.0",
+  "reference": "https://www.nhm.ac.uk/discover/dino-directory/spinosaurus.html",
+  "dimension": 4.8,
+  "yaw": 0,
+  "head": "Head_010",
+  "jaw": "Jaw_011",
+  "hips": "Hip_01",
+  "chest": "Torax_05",
+  "neck": [
+    "Neck1_06",
+    "Neck2_07",
+    "Neck3_08",
+    "Neck4_09"
+  ],
+  "tail": [
+    "TailBase_037",
+    "Tail1_038",
+    "Tail2_039",
+    "Tail3_040",
+    "Tail4_041",
+    "Tail5_042",
+    "Tail6_043",
+    "Tail7_044",
+    "Tail8_045",
+    "Tail9_046",
+    "Tail10_047",
+    "Tail11_048",
+    "Tail12_049",
+    "Tail13_050",
+    "Tail14_051",
+    "Tail15_052",
+    "Tail16_053"
+  ],
+  "legs": [
+    [
+      "FemurL_054",
+      "ShinL_055",
+      "MetacarpalL_056",
+      "FeetL_057"
+    ],
+    [
+      "FemurR_067",
+      "ShinR_068",
+      "MetacarpalR_069",
+      "FeetR_070"
+    ]
+  ],
+  "design": "길고 좁은 주둥이·원뿔형 치아·등 돛·높은 꼬리를 확인. 수중 추적 동작은 확정 사실로 재현하지 않음.",
+  "credit": "Spinosaurus aegyptiacus base model by Pedro B. Goulart / Pebegou, CC BY 4.0. Modified for this project.",
+  "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+  "triangles": 70018,
+  "bones": 99,
+  "meshes": 1,
+  "feathers": 0,
+  "normalization": {
+    "scale": 0.0044191795080138945,
+    "yaw": 0,
+    "units": "display units; preserve relative proportions"
+  },
+  "bounds": {
+    "min": [
+      -0.4890276007881167,
+      1.0583435386748996e-11,
+      -2.399999994422556
+    ],
+    "max": [
+      0.48902760329760975,
+      1.9578942144681148,
+      2.3999999999999986
+    ]
+  },
+  "textures": [
+    {
+      "material": "Spino",
+      "kind": "map",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "material": "Spino",
+      "kind": "normalMap",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "material": "Spino",
+      "kind": "roughnessMap",
+      "width": 1024,
+      "height": 1024
+    }
+  ],
+  "clips": [
+    {
+      "name": "idle",
+      "duration": 6,
+      "origin": "project-authored"
+    },
+    {
+      "name": "walk",
+      "duration": 2.8,
+      "origin": "project-authored"
+    },
+    {
+      "name": "run",
+      "duration": 1.5,
+      "origin": "project-authored"
+    },
+    {
+      "name": "roar",
+      "duration": 3.2,
+      "origin": "project-authored"
+    },
+    {
+      "name": "drink",
+      "duration": 5,
+      "origin": "project-authored"
+    },
+    {
+      "name": "rest",
+      "duration": 6,
+      "origin": "project-authored"
+    },
+    {
+      "name": "alert",
+      "duration": 4,
+      "origin": "project-authored"
+    },
+    {
+      "name": "hunt",
+      "duration": 4,
+      "origin": "project-authored"
+    }
+  ],
+  "geometryOrigin": "Licensed original sculpt; not a museum scan.",
+  "materialOrigin": "Original source UV textures",
+  "rigOrigin": "Original author rig, with project-authored actions",
+  "limits": [
+    "Reference-based reconstruction. Skin colors and detailed behavior are interpretations.",
+    "Animation file validation does not establish scientific accuracy."
+  ],
+  "integration": "Asset and review only; map integration belongs to Zip 파일 확인 chat.",
+  "glbBytes": 9697660
+}

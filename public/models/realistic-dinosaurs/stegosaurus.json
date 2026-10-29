@@ -1,0 +1,160 @@
+{
+  "id": "stegosaurus",
+  "name": "스테고사우루스",
+  "latin": "Stegosaurus stenops",
+  "sourceFile": "stegosaurus-ferocious",
+  "author": "Ferocious Industries",
+  "source": "https://sketchfab.com/3d-models/pbr-stegasaurus-animated-ec254ea1554941fe8a131f62db0faf3d",
+  "redistributor": "https://leon-made-this.work/museum/en/",
+  "license": "CC BY 4.0",
+  "reference": "https://www.nhm.ac.uk/discover/putting-the-skin-on-stegosaurus.html",
+  "dimension": 4,
+  "yaw": 0,
+  "head": "Head_09",
+  "jaw": "Jaw_010",
+  "hips": "Pelvis_02",
+  "chest": "Spine3_05",
+  "neck": [
+    "Neck1_00",
+    "Neck2_06",
+    "Neck3_07",
+    "Neck4_08"
+  ],
+  "tail": [
+    "TailBase_026",
+    "Tail1_027",
+    "Tail2_028",
+    "Tail3_029",
+    "Tail4_030",
+    "Tail5_031",
+    "Tail6_032",
+    "Tail7_033"
+  ],
+  "legs": [
+    [
+      "UpperArmL_016",
+      "LowerArmL_017",
+      "FootL_018",
+      "ToesL_019"
+    ],
+    [
+      "UpperArmR_021",
+      "LowerArmR_022",
+      "FootR_023",
+      "ToesR_024"
+    ],
+    [
+      "UpperLegL_035",
+      "LowerLegL_036",
+      "BackFootL_037",
+      "BackToesL_038"
+    ],
+    [
+      "UpperLegR_040",
+      "LowerLegR_041",
+      "BackFootR_042",
+      "BackToesR_043"
+    ]
+  ],
+  "design": "작고 낮은 머리, 앞다리보다 긴 뒷다리, 교대로 선 등판과 네 개의 꼬리 가시를 확인. 피부의 채도와 광택을 낮춰 보정.",
+  "credit": "Stegosaurus stenops base model by Ferocious Industries, CC BY 4.0. Modified for this project.",
+  "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+  "triangles": 19839,
+  "bones": 53,
+  "meshes": 3,
+  "feathers": 0,
+  "normalization": {
+    "scale": 0.4488211303710213,
+    "yaw": 0,
+    "units": "display units; preserve relative proportions"
+  },
+  "bounds": {
+    "min": [
+      -0.45985286632904926,
+      -6.895525817007808e-17,
+      -1.9999999999999996
+    ],
+    "max": [
+      0.45985286632904915,
+      2.064516025093037,
+      2.0000000000000004
+    ]
+  },
+  "textures": [
+    {
+      "material": "Eyes",
+      "kind": "map",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "material": "Material",
+      "kind": "map",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "material": "Material",
+      "kind": "normalMap",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "material": "Material",
+      "kind": "roughnessMap",
+      "width": 1024,
+      "height": 1024
+    }
+  ],
+  "clips": [
+    {
+      "name": "idle",
+      "duration": 6,
+      "origin": "project-authored"
+    },
+    {
+      "name": "walk",
+      "duration": 2.8,
+      "origin": "project-authored"
+    },
+    {
+      "name": "run",
+      "duration": 1.5,
+      "origin": "project-authored"
+    },
+    {
+      "name": "roar",
+      "duration": 3.2,
+      "origin": "project-authored"
+    },
+    {
+      "name": "drink",
+      "duration": 5,
+      "origin": "project-authored"
+    },
+    {
+      "name": "rest",
+      "duration": 6,
+      "origin": "project-authored"
+    },
+    {
+      "name": "alert",
+      "duration": 4,
+      "origin": "project-authored"
+    },
+    {
+      "name": "graze",
+      "duration": 4,
+      "origin": "project-authored"
+    }
+  ],
+  "geometryOrigin": "Licensed original sculpt; not a museum scan.",
+  "materialOrigin": "Original source UV textures",
+  "rigOrigin": "Original author rig, with project-authored actions",
+  "limits": [
+    "Reference-based reconstruction. Skin colors and detailed behavior are interpretations.",
+    "Animation file validation does not establish scientific accuracy."
+  ],
+  "integration": "Asset and review only; map integration belongs to Zip 파일 확인 chat.",
+  "glbBytes": 5738348
+}

@@ -1,0 +1,147 @@
+{
+  "id": "velociraptor",
+  "name": "벨로시랩터",
+  "latin": "Velociraptor mongoliensis",
+  "sourceFile": "velociraptor-tomas",
+  "author": "Tomas Ibar",
+  "source": "https://sketchfab.com/3d-models/velociraptor-b227da6c817043ab9a249dbbd127db67",
+  "license": "CC BY 4.0",
+  "reference": "https://www.amnh.org/explore/news-blogs/velociraptor-feather-evidence",
+  "dimension": 3.2,
+  "yaw": 0,
+  "design": "긴 두개골과 균형 꼬리, 들린 둘째 발가락의 발톱을 검수. 원본에 없는 리깅과 몸통·팔·꼬리의 깃털을 새로 제작.",
+  "hips": "hips",
+  "chest": "chest",
+  "head": "head",
+  "jaw": "jaw",
+  "neck": [
+    "neck0",
+    "neck1"
+  ],
+  "tail": [
+    "tail0",
+    "tail1",
+    "tail2",
+    "tail3",
+    "tail4",
+    "tail5",
+    "tail6",
+    "tail7",
+    "tail8",
+    "tail9"
+  ],
+  "legs": [
+    [
+      "thighL",
+      "shinL",
+      "hockL",
+      "footL"
+    ],
+    [
+      "thighR",
+      "shinR",
+      "hockR",
+      "footR"
+    ]
+  ],
+  "credit": "Velociraptor mongoliensis base model by Tomas Ibar, CC BY 4.0. Modified for this project.",
+  "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+  "triangles": 122058,
+  "bones": 31,
+  "meshes": 8,
+  "feathers": 10042,
+  "normalization": {
+    "scale": 0.959963271592615,
+    "yaw": 0,
+    "units": "display units; preserve relative proportions"
+  },
+  "bounds": {
+    "min": [
+      -0.4265968283320368,
+      3.4711946927945547e-9,
+      -1.6
+    ],
+    "max": [
+      0.42659682836781626,
+      1.6773436410043274,
+      1.6
+    ]
+  },
+  "textures": [
+    {
+      "material": "Velo_skin",
+      "kind": "map",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "material": "Velo_skin",
+      "kind": "normalMap",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "material": "Velo_skin",
+      "kind": "roughnessMap",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "material": "Reconstructed_pennaceous_feathers",
+      "kind": "map",
+      "width": 1024,
+      "height": 1536
+    }
+  ],
+  "clips": [
+    {
+      "name": "idle",
+      "duration": 6,
+      "origin": "project-authored"
+    },
+    {
+      "name": "walk",
+      "duration": 2.8,
+      "origin": "project-authored"
+    },
+    {
+      "name": "run",
+      "duration": 1.5,
+      "origin": "project-authored"
+    },
+    {
+      "name": "roar",
+      "duration": 3.2,
+      "origin": "project-authored"
+    },
+    {
+      "name": "drink",
+      "duration": 5,
+      "origin": "project-authored"
+    },
+    {
+      "name": "rest",
+      "duration": 6,
+      "origin": "project-authored"
+    },
+    {
+      "name": "alert",
+      "duration": 4,
+      "origin": "project-authored"
+    },
+    {
+      "name": "hunt",
+      "duration": 4,
+      "origin": "project-authored"
+    }
+  ],
+  "geometryOrigin": "Licensed original sculpt; not a museum scan.",
+  "materialOrigin": "Original skin maps plus built-in image_gen RGBA feathers",
+  "rigOrigin": "New anatomical capsule-weighted skeleton and layered feather skinning",
+  "limits": [
+    "Reference-based reconstruction. Skin colors and detailed behavior are interpretations.",
+    "Animation file validation does not establish scientific accuracy."
+  ],
+  "integration": "Asset and review only; map integration belongs to Zip 파일 확인 chat.",
+  "glbBytes": 13477016
+}

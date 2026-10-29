@@ -1,0 +1,94 @@
+{
+  "id": "pterosaur",
+  "name": "프테라노돈",
+  "latin": "Pteranodon longiceps",
+  "sourceFile": "pteranodon-chistodrako",
+  "author": "Chistodrako._. / DogexorRexUwU",
+  "source": "https://sketchfab.com/3d-models/pteranodon-animated-7d7683df41d1405283f160e81a5dff1b",
+  "license": "CC BY 4.0",
+  "reference": "https://www.amnh.org/content/download/342020/5312520/file/flying-pterosaurs.pdf",
+  "dimension": 5,
+  "yaw": 0,
+  "head": "head15_15",
+  "jaw": "jaw16_16",
+  "hips": "center5_5",
+  "chest": "chest9_9",
+  "neck": [
+    "neck_0110_10",
+    "neck_0211_11",
+    "neck_0312_12",
+    "neck_0413_13",
+    "neck_0514_14"
+  ],
+  "tail": [],
+  "legs": [],
+  "design": "공룡이 아닌 익룡. 이빨 없는 부리와 머리 볏, 짧은 꼬리, 늘어난 손가락이 지지하는 날개막을 확인. 기존 비행·보행·서기 클립 보존.",
+  "credit": "Pteranodon longiceps base model by Chistodrako._. / DogexorRexUwU, CC BY 4.0. Modified for this project.",
+  "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+  "triangles": 13494,
+  "bones": 125,
+  "meshes": 1,
+  "feathers": 0,
+  "normalization": {
+    "scale": 5.098684529001604,
+    "yaw": 0,
+    "units": "display units; preserve relative proportions"
+  },
+  "bounds": {
+    "min": [
+      -2.499999999999999,
+      -3.8163916471489756e-17,
+      -0.9553741652658903
+    ],
+    "max": [
+      2.5,
+      0.7884326522035913,
+      0.9553741652658904
+    ]
+  },
+  "textures": [
+    {
+      "material": "material_0",
+      "kind": "map",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "material": "material_0",
+      "kind": "normalMap",
+      "width": 1024,
+      "height": 1024
+    }
+  ],
+  "clips": [
+    {
+      "name": "fly",
+      "duration": 10.699999809265137,
+      "origin": "original author"
+    },
+    {
+      "name": "walk",
+      "duration": 6.266666889190674,
+      "origin": "original author"
+    },
+    {
+      "name": "idle",
+      "duration": 8.333333015441895,
+      "origin": "original author"
+    },
+    {
+      "name": "glide",
+      "duration": 5,
+      "origin": "project-authored"
+    }
+  ],
+  "geometryOrigin": "Licensed original sculpt; not a museum scan.",
+  "materialOrigin": "Original source UV textures",
+  "rigOrigin": "Original author rig, with project-authored actions",
+  "limits": [
+    "Reference-based reconstruction. Skin colors and detailed behavior are interpretations.",
+    "Animation file validation does not establish scientific accuracy."
+  ],
+  "integration": "Asset and review only; map integration belongs to Zip 파일 확인 chat.",
+  "glbBytes": 4256224
+}

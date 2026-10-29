@@ -1,0 +1,31 @@
+{
+  "result": "PASS",
+  "sourceImageUnmodified": true,
+  "referencePixels": [
+    1672,
+    941
+  ],
+  "sourceSHA256": "6eec72f7c165bed5a0f3c4e41df50dd9453215770b71761833cd20ccb007d548",
+  "worldSize": [
+    60,
+    33.76794258373206
+  ],
+  "aspectPreserved": true,
+  "grid": [
+    224,
+    126
+  ],
+  "sampledVertices": 28575,
+  "maximumTerrainVertexError": 4.884981308350689e-15,
+  "waterAreaPercent": 8.671916010498688,
+  "noRectangularWaterBorder": true,
+  "treeCount": 2450,
+  "treesInsideReferenceForest": true,
+  "registeredRockOutcrops": 4,
+  "terrainHeightRange": [
+    -0.464,
+    0.486
+  ],
+  "waterLevel": 0.116,
+  "checkedOutwardRockFaces": 385
+}

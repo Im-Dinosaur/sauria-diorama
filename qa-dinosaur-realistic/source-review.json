@@ -1,0 +1,97 @@
+[
+  {
+    "name": "brachiosaurus-ar",
+    "tris": 20940,
+    "meshes": 2,
+    "bones": 66,
+    "size": [
+      21.238748779284645,
+      7.080390519498658,
+      5.016608776545495
+    ],
+    "scale": 0.17891826112215967,
+    "textures": [
+      {
+        "material": "mamenxilong",
+        "key": "map",
+        "size": [
+          512,
+          512
+        ]
+      },
+      {
+        "material": "mamenxilong",
+        "key": "normalMap",
+        "size": [
+          512,
+          512
+        ]
+      }
+    ],
+    "clips": [
+      {
+        "name": "Bip001|Take 001|BaseLayer",
+        "duration": 13.623332977294922
+      }
+    ],
+    "nodeNames": [],
+    "errors": []
+  },
+  {
+    "name": "brachiosaurus-reimer",
+    "tris": 791832,
+    "meshes": 43,
+    "bones": 109,
+    "size": [
+      11.798661294301967,
+      15.883997040413611,
+      13.949205422138958
+    ],
+    "scale": 0.23923449433613403,
+    "textures": [],
+    "clips": [],
+    "nodeNames": [],
+    "errors": []
+  },
+  {
+    "name": "velociraptor-tomas",
+    "tris": 41722,
+    "meshes": 7,
+    "bones": 0,
+    "size": [
+      0.8395026210061616,
+      1.7311269945399381,
+      3.3145858786720197
+    ],
+    "scale": 1.1464478939741516,
+    "textures": [
+      {
+        "material": "Velo_skin",
+        "key": "map",
+        "size": [
+          1024,
+          1024
+        ]
+      },
+      {
+        "material": "Velo_skin",
+        "key": "normalMap",
+        "size": [
+          1024,
+          1024
+        ]
+      },
+      {
+        "material": "Velo_skin",
+        "key": "roughnessMap",
+        "size": [
+          1024,
+          1024
+        ]
+      }
+    ],
+    "clips": [],
+    "nodeNames": [],
+    "errors": []
+  }
+]

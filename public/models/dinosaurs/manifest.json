@@ -1,0 +1,223 @@
+{
+  "version": 2,
+  "date": "2026-10-29",
+  "format": "glTF 2.0 binary",
+  "textureResolution": 1024,
+  "units": "diorama units; not metres",
+  "kind": "museum/research-guided procedural real-time reconstruction",
+  "assets": [
+    {
+      "species": "rex",
+      "file": "sauria-rex.glb",
+      "bytes": 8748308,
+      "bones": 22,
+      "animations": [
+        "idle",
+        "walk",
+        "run",
+        "roar",
+        "drink",
+        "rest",
+        "alert",
+        "hunt"
+      ],
+      "embeddedImages": 3,
+      "roundTrip": {
+        "skinnedMeshes": 5,
+        "clips": [
+          "idle",
+          "walk",
+          "run",
+          "roar",
+          "drink",
+          "rest",
+          "alert",
+          "hunt"
+        ],
+        "skinSamples": 10440
+      }
+    },
+    {
+      "species": "triceratops",
+      "file": "sauria-triceratops.glb",
+      "bytes": 8514692,
+      "bones": 26,
+      "animations": [
+        "idle",
+        "walk",
+        "run",
+        "roar",
+        "drink",
+        "rest",
+        "alert",
+        "graze",
+        "display"
+      ],
+      "embeddedImages": 3,
+      "roundTrip": {
+        "skinnedMeshes": 4,
+        "clips": [
+          "idle",
+          "walk",
+          "run",
+          "roar",
+          "drink",
+          "rest",
+          "alert",
+          "graze",
+          "display"
+        ],
+        "skinSamples": 8568
+      }
+    },
+    {
+      "species": "velociraptor",
+      "file": "sauria-velociraptor.glb",
+      "bytes": 7278720,
+      "bones": 22,
+      "animations": [
+        "idle",
+        "walk",
+        "run",
+        "roar",
+        "drink",
+        "rest",
+        "alert",
+        "hunt"
+      ],
+      "embeddedImages": 3,
+      "roundTrip": {
+        "skinnedMeshes": 6,
+        "clips": [
+          "idle",
+          "walk",
+          "run",
+          "roar",
+          "drink",
+          "rest",
+          "alert",
+          "hunt"
+        ],
+        "skinSamples": 24624
+      }
+    },
+    {
+      "species": "pterosaur",
+      "file": "sauria-pterosaur.glb",
+      "bytes": 4594084,
+      "bones": 18,
+      "animations": [
+        "fly",
+        "glide",
+        "roar"
+      ],
+      "embeddedImages": 3,
+      "roundTrip": {
+        "skinnedMeshes": 5,
+        "clips": [
+          "fly",
+          "glide",
+          "roar"
+        ],
+        "skinSamples": 1665
+      }
+    },
+    {
+      "species": "brachiosaurus",
+      "file": "sauria-brachiosaurus.glb",
+      "bytes": 8344552,
+      "bones": 27,
+      "animations": [
+        "idle",
+        "walk",
+        "run",
+        "roar",
+        "drink",
+        "rest",
+        "alert",
+        "browse"
+      ],
+      "embeddedImages": 3,
+      "roundTrip": {
+        "skinnedMeshes": 4,
+        "clips": [
+          "idle",
+          "walk",
+          "run",
+          "roar",
+          "drink",
+          "rest",
+          "alert",
+          "browse"
+        ],
+        "skinSamples": 5312
+      }
+    },
+    {
+      "species": "spinosaurus",
+      "file": "sauria-spinosaurus.glb",
+      "bytes": 9336252,
+      "bones": 22,
+      "animations": [
+        "idle",
+        "walk",
+        "run",
+        "roar",
+        "drink",
+        "rest",
+        "alert",
+        "fish",
+        "hunt"
+      ],
+      "embeddedImages": 3,
+      "roundTrip": {
+        "skinnedMeshes": 6,
+        "clips": [
+          "idle",
+          "walk",
+          "run",
+          "roar",
+          "drink",
+          "rest",
+          "alert",
+          "fish",
+          "hunt"
+        ],
+        "skinSamples": 17982
+      }
+    },
+    {
+      "species": "stegosaurus",
+      "file": "sauria-stegosaurus.glb",
+      "bytes": 8699624,
+      "bones": 26,
+      "animations": [
+        "idle",
+        "walk",
+        "run",
+        "roar",
+        "drink",
+        "rest",
+        "alert",
+        "graze",
+        "display"
+      ],
+      "embeddedImages": 3,
+      "roundTrip": {
+        "skinnedMeshes": 5,
+        "clips": [
+          "idle",
+          "walk",
+          "run",
+          "roar",
+          "drink",
+          "rest",
+          "alert",
+          "graze",
+          "display"
+        ],
+        "skinSamples": 8775
+      }
+    }
+  ]
+}

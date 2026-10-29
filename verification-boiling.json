@@ -1,0 +1,23 @@
+{
+  "result": "PASS",
+  "checks": [
+    "0x emits none; 3x emits three times as many events without speeding up droplets",
+    "Pause freezes particles and emission credit",
+    "Zero frequency drains existing events; strength changes preserve airborne particles; resume does not catch up",
+    "Maximum-frequency pools stay bounded; stretched droplets and complete ripples clear terrain, rocks and walls",
+    "0x strength hides sparks while the bubble remains; stronger sparks rise higher",
+    "Inputs clamp to 0–3x frequency and 0–2x spark strength"
+  ],
+  "emissionsPerMinuteAt0x1x3x": [
+    0,
+    79,
+    237
+  ],
+  "verifiedRandomEvents": 711,
+  "maxConcurrentEvents": 12,
+  "poolCapacity": 24,
+  "minimumSeaClearance": 0.1319562505839913,
+  "minimumSparkWallClearance": 0.41441646431547013,
+  "maximumSparkHeight": 0.7139899213623259,
+  "unit": "scene units"
+}

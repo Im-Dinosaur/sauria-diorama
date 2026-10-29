@@ -1,0 +1,16 @@
+{
+  "result": "PASS",
+  "sampleStepSeconds": 0.02,
+  "checkedSmokeInstances": 146603,
+  "checkedEjectaAndTrailInstances": 134235,
+  "minimumSmokeWallClearance": 0.43318,
+  "minimumEjectaAndTrailWallClearance": 0.85673,
+  "minimumEjectaAndTrailTerrainClearance": 0.05203,
+  "maximumSmokeHeight": 8.26325,
+  "smokeInstanceCount": 68,
+  "ejectaInstanceCount": 120,
+  "trailInstanceCount": 480,
+  "eruptionBursts": 3,
+  "deterministicPause": true,
+  "unit": "scene units"
+}

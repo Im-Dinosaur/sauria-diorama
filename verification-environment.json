@@ -1,0 +1,31 @@
+{
+  "result": "PASS",
+  "checks": [
+    "0–6 requested meteors produce exactly that many falls and impacts; settings are captured at ignition",
+    "Intensity clamps to 0.5–2x and changes jet power without changing timing",
+    "Default first eruption at 6 s, subsequent starts 26 s apart",
+    "Interval edit waits for the complete 9 s sequence and does not restart it",
+    "Returning the slider to its original value cancels a pending interval",
+    "Editing an idle interval starts a fresh countdown without moving world or flow time",
+    "Automatic off lets an existing eruption finish and creates no later explosions",
+    "Manual explosion works with auto off, blocks reentry, and keeps all 3 meteor impacts synchronized",
+    "Pause freezes eruption age, countdown and integrated flow time",
+    "Re-enabling automatic eruptions starts a full interval",
+    "Flow 0x stops advection only; 2x advances twice as fast without any texture jump",
+    "Minimum 15 s and maximum 120 s intervals repeat without overlapping sequences",
+    "Numeric input is clamped to supported ranges",
+    "Development bookmarks synchronize world, eruption and flow timelines"
+  ],
+  "intervalSeconds": {
+    "minimum": 15,
+    "maximum": 120,
+    "default": 26
+  },
+  "flowSpeed": {
+    "minimum": 0,
+    "maximum": 2,
+    "default": 1
+  },
+  "completeEruptionSequenceSeconds": 9,
+  "manualTriggerResetsWorld": false
+}

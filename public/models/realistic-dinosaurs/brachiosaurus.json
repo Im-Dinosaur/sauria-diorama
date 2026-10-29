@@ -1,0 +1,158 @@
+{
+  "id": "brachiosaurus",
+  "name": "브라키오사우루스",
+  "latin": "Brachiosaurus altithorax",
+  "sourceFile": "brachiosaurus-reimer",
+  "author": "Richard Reimer",
+  "source": "https://sketchfab.com/3d-models/brachiosaurus-v1-3e6df1cb11f243cc926ee049de5feb2c",
+  "license": "CC BY 4.0",
+  "reference": "https://www.nhm.ac.uk/discover/dino-directory/brachiosaurus.html",
+  "dimension": 4.6,
+  "yaw": 0,
+  "head": "head_100",
+  "jaw": "jawlower_89",
+  "hips": "controllerback_145",
+  "chest": "ribs002_120",
+  "neck": [
+    "neckbase_111",
+    "neck1_110",
+    "neck2_109",
+    "neck3_108",
+    "neck4_107",
+    "neck5_106",
+    "neck6_105",
+    "neck7_104",
+    "neck8_103",
+    "neck9_102",
+    "necktop_101"
+  ],
+  "tail": [
+    "tailbase_143",
+    "tailbase001_142",
+    "tailbase002_141",
+    "tailbase003_140",
+    "tailbase004_139",
+    "tailbase005_138"
+  ],
+  "legs": [
+    [
+      "armupperl_113",
+      "armlowerl_112",
+      "controllerhandl_47",
+      "controllerhandl_47"
+    ],
+    [
+      "armupperr_117",
+      "armlowerr_116",
+      "controllerhandr_78",
+      "controllerhandr_78"
+    ],
+    [
+      "legupperl_132",
+      "leglowerl_131",
+      "footl_130",
+      "controllerfootl_32"
+    ],
+    [
+      "legupperr_136",
+      "leglowerr_135",
+      "footr_134",
+      "controllerfootr_63"
+    ]
+  ],
+  "design": "긴 앞다리와 상승하는 어깨, 작은 머리, 긴 목의 체형을 확인. 조형 원본에 없던 비늘·피부색·법선 재질을 새로 제작.",
+  "credit": "Brachiosaurus altithorax base model by Richard Reimer, CC BY 4.0. Modified for this project.",
+  "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+  "triangles": 326988,
+  "bones": 109,
+  "meshes": 30,
+  "feathers": 0,
+  "normalization": {
+    "scale": 0.2896014257444122,
+    "yaw": 0,
+    "units": "display units; preserve relative proportions"
+  },
+  "bounds": {
+    "min": [
+      -0.49038880252242756,
+      9.814149493081459e-11,
+      -2.0198548891265653
+    ],
+    "max": [
+      0.4903888025224471,
+      4.600000000039257,
+      2.0198548891265644
+    ]
+  },
+  "textures": [
+    {
+      "material": "New_brachiosaurus_skin",
+      "kind": "map",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "material": "New_brachiosaurus_skin",
+      "kind": "normalMap",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "material": "New_brachiosaurus_skin",
+      "kind": "roughnessMap",
+      "width": 1254,
+      "height": 1254
+    }
+  ],
+  "clips": [
+    {
+      "name": "idle",
+      "duration": 6,
+      "origin": "project-authored"
+    },
+    {
+      "name": "walk",
+      "duration": 2.8,
+      "origin": "project-authored"
+    },
+    {
+      "name": "run",
+      "duration": 1.5,
+      "origin": "project-authored"
+    },
+    {
+      "name": "roar",
+      "duration": 3.2,
+      "origin": "project-authored"
+    },
+    {
+      "name": "drink",
+      "duration": 5,
+      "origin": "project-authored"
+    },
+    {
+      "name": "rest",
+      "duration": 6,
+      "origin": "project-authored"
+    },
+    {
+      "name": "alert",
+      "duration": 4,
+      "origin": "project-authored"
+    },
+    {
+      "name": "browse",
+      "duration": 4,
+      "origin": "project-authored"
+    }
+  ],
+  "geometryOrigin": "Licensed original sculpt; not a museum scan.",
+  "materialOrigin": "Built-in image_gen skin with numerical normal/roughness derivatives",
+  "rigOrigin": "Original author rig, with project-authored actions",
+  "limits": [
+    "Reference-based reconstruction. Skin colors and detailed behavior are interpretations.",
+    "Animation file validation does not establish scientific accuracy."
+  ],
+  "integration": "Asset and review only; map integration belongs to Zip 파일 확인 chat.",
+  "glbBytes": 20800468
+}

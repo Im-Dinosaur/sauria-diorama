@@ -1,0 +1,181 @@
+{
+  "result": "PASS",
+  "models": [
+    {
+      "species": "rex",
+      "triangles": 37980,
+      "vertices": 20614,
+      "bones": 22,
+      "clips": [
+        "idle",
+        "walk",
+        "run",
+        "roar",
+        "drink",
+        "rest",
+        "alert",
+        "hunt"
+      ]
+    },
+    {
+      "species": "triceratops",
+      "triangles": 34464,
+      "vertices": 18757,
+      "bones": 26,
+      "clips": [
+        "idle",
+        "walk",
+        "run",
+        "roar",
+        "drink",
+        "rest",
+        "alert",
+        "graze",
+        "display"
+      ]
+    },
+    {
+      "species": "pterosaur",
+      "triangles": 16228,
+      "vertices": 8751,
+      "bones": 18,
+      "clips": [
+        "fly",
+        "glide",
+        "roar"
+      ]
+    },
+    {
+      "species": "stegosaurus",
+      "triangles": 27392,
+      "vertices": 15329,
+      "bones": 26,
+      "clips": [
+        "idle",
+        "walk",
+        "run",
+        "roar",
+        "drink",
+        "rest",
+        "alert",
+        "graze",
+        "display"
+      ]
+    },
+    {
+      "species": "brachiosaurus",
+      "triangles": 24196,
+      "vertices": 13073,
+      "bones": 27,
+      "clips": [
+        "idle",
+        "walk",
+        "run",
+        "roar",
+        "drink",
+        "rest",
+        "alert",
+        "browse"
+      ]
+    },
+    {
+      "species": "velociraptor",
+      "triangles": 59236,
+      "vertices": 40498,
+      "bones": 22,
+      "clips": [
+        "idle",
+        "walk",
+        "run",
+        "roar",
+        "drink",
+        "rest",
+        "alert",
+        "hunt"
+      ]
+    },
+    {
+      "species": "spinosaurus",
+      "triangles": 47992,
+      "vertices": 26282,
+      "bones": 22,
+      "clips": [
+        "idle",
+        "walk",
+        "run",
+        "roar",
+        "drink",
+        "rest",
+        "alert",
+        "fish",
+        "hunt"
+      ]
+    }
+  ],
+  "poseSamples": 1296,
+  "maxLoopError": 0,
+  "maxFootGroundError": 5.551115123125783e-16,
+  "maxMouthWaterError": 0.000011518686722226544,
+  "waterStations": 251,
+  "simulationSeconds": 360,
+  "behaviors": {
+    "rex": [
+      "wander",
+      "hunt",
+      "alert",
+      "drink",
+      "rest"
+    ],
+    "triceratops": [
+      "wander",
+      "graze",
+      "drink",
+      "roar",
+      "alert",
+      "escape",
+      "rest"
+    ],
+    "brachiosaurus": [
+      "wander",
+      "browse",
+      "escape",
+      "alert",
+      "rest",
+      "roar"
+    ],
+    "stegosaurus": [
+      "wander",
+      "graze",
+      "drink",
+      "display",
+      "roar",
+      "alert",
+      "rest"
+    ],
+    "velociraptor": [
+      "wander",
+      "escape",
+      "hunt",
+      "drink",
+      "roar",
+      "rest",
+      "alert"
+    ],
+    "spinosaurus": [
+      "wander",
+      "fish",
+      "drink",
+      "roar"
+    ],
+    "pterosaur": [
+      "glide",
+      "fly"
+    ]
+  },
+  "normalizedWeights": true,
+  "finiteSkin": true,
+  "loopContinuity": true,
+  "deterministicPose": true,
+  "pause": true,
+  "disasterInterruptsResources": true
+}

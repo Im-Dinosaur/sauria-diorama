@@ -1,0 +1,55 @@
+Triceratops horridus base model by DanielWalsh / IagoMendez, CC BY 4.0. Modified for this project.
+Source: https://sketchfab.com/3d-models/triceratops-horridus-cb7bad2c70dc4748a9c58ef9db5fce5e
+License: https://creativecommons.org/licenses/by/4.0/
+Research: https://www.nhm.ac.uk/discover/dino-directory/triceratops.html
+Modifications: 세 뿔, 뼈 프릴과 각질 부리, 무거운 흉곽과 네 발을 기준으로 검수. 피부색은 제작상 해석.
+Rig: Original author rig, with project-authored actions
+Material: Original source UV textures
+Animation: idle (project-authored), walk (project-authored), run (project-authored), roar (project-authored), drink (project-authored), rest (project-authored), alert (project-authored), graze (project-authored)
+
+Stegosaurus stenops base model by Ferocious Industries, CC BY 4.0. Modified for this project.
+Source: https://sketchfab.com/3d-models/pbr-stegasaurus-animated-ec254ea1554941fe8a131f62db0faf3d
+License: https://creativecommons.org/licenses/by/4.0/
+Research: https://www.nhm.ac.uk/discover/putting-the-skin-on-stegosaurus.html
+Modifications: 작고 낮은 머리, 앞다리보다 긴 뒷다리, 교대로 선 등판과 네 개의 꼬리 가시를 확인. 피부의 채도와 광택을 낮춰 보정.
+Rig: Original author rig, with project-authored actions
+Material: Original source UV textures
+Animation: idle (project-authored), walk (project-authored), run (project-authored), roar (project-authored), drink (project-authored), rest (project-authored), alert (project-authored), graze (project-authored)
+
+Spinosaurus aegyptiacus base model by Pedro B. Goulart / Pebegou, CC BY 4.0. Modified for this project.
+Source: https://sketchfab.com/3d-models/spinosaurus-2a325726dd7b4a7c888277f262fd09bc
+License: https://creativecommons.org/licenses/by/4.0/
+Research: https://www.nhm.ac.uk/discover/dino-directory/spinosaurus.html
+Modifications: 길고 좁은 주둥이·원뿔형 치아·등 돛·높은 꼬리를 확인. 수중 추적 동작은 확정 사실로 재현하지 않음.
+Rig: Original author rig, with project-authored actions
+Material: Original source UV textures
+Animation: idle (project-authored), walk (project-authored), run (project-authored), roar (project-authored), drink (project-authored), rest (project-authored), alert (project-authored), hunt (project-authored)
+
+Brachiosaurus altithorax base model by Richard Reimer, CC BY 4.0. Modified for this project.
+Source: https://sketchfab.com/3d-models/brachiosaurus-v1-3e6df1cb11f243cc926ee049de5feb2c
+License: https://creativecommons.org/licenses/by/4.0/
+Research: https://www.nhm.ac.uk/discover/dino-directory/brachiosaurus.html
+Modifications: 긴 앞다리와 상승하는 어깨, 작은 머리, 긴 목의 체형을 확인. 조형 원본에 없던 비늘·피부색·법선 재질을 새로 제작.
+Rig: Original author rig, with project-authored actions
+Material: Built-in image_gen skin with numerical normal/roughness derivatives
+Animation: idle (project-authored), walk (project-authored), run (project-authored), roar (project-authored), drink (project-authored), rest (project-authored), alert (project-authored), browse (project-authored)
+
+Velociraptor mongoliensis base model by Tomas Ibar, CC BY 4.0. Modified for this project.
+Source: https://sketchfab.com/3d-models/velociraptor-b227da6c817043ab9a249dbbd127db67
+License: https://creativecommons.org/licenses/by/4.0/
+Research: https://www.amnh.org/explore/news-blogs/velociraptor-feather-evidence
+Modifications: 긴 두개골과 균형 꼬리, 들린 둘째 발가락의 발톱을 검수. 원본에 없는 리깅과 몸통·팔·꼬리의 깃털을 새로 제작.
+Rig: New anatomical capsule-weighted skeleton and layered feather skinning
+Material: Original skin maps plus built-in image_gen RGBA feathers
+Animation: idle (project-authored), walk (project-authored), run (project-authored), roar (project-authored), drink (project-authored), rest (project-authored), alert (project-authored), hunt (project-authored)
+
+Pteranodon longiceps base model by Chistodrako._. / DogexorRexUwU, CC BY 4.0. Modified for this project.
+Source: https://sketchfab.com/3d-models/pteranodon-animated-7d7683df41d1405283f160e81a5dff1b
+License: https://creativecommons.org/licenses/by/4.0/
+Research: https://www.amnh.org/content/download/342020/5312520/file/flying-pterosaurs.pdf
+Modifications: 공룡이 아닌 익룡. 이빨 없는 부리와 머리 볏, 짧은 꼬리, 늘어난 손가락이 지지하는 날개막을 확인. 기존 비행·보행·서기 클립 보존.
+Rig: Original author rig, with project-authored actions
+Material: Original source UV textures
+Animation: fly (original author), walk (original author), idle (original author), glide (project-authored)
+
+Generated material mode: built-in image_gen. Exact prompts: materials/prompts.json. Source images preserved: materials/brachiosaurus-hide-source.png and materials/velociraptor-feather-source.png.

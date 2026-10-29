@@ -1,0 +1,50 @@
+[
+  {
+    "name": "triceratops-daniel",
+    "id": "cb7bad2c70dc4748a9c58ef9db5fce5e",
+    "file": "qa-dinosaur-realistic/sources/triceratops-daniel.glb",
+    "url": "https://huggingface.co/datasets/allenai/objaverse/resolve/main/glbs/000-127/cb7bad2c70dc4748a9c58ef9db5fce5e.glb",
+    "bytes": 11840948,
+    "sha256": "f7c84076f3874857abbb77249b70e8de8035f8e9d64707001c4405d947b32e16"
+  },
+  {
+    "name": "triceratops-daily",
+    "id": "909bf645de1746829ab19acd1ae31767",
+    "file": "qa-dinosaur-realistic/sources/triceratops-daily.glb",
+    "url": "https://huggingface.co/datasets/allenai/objaverse/resolve/main/glbs/000-094/909bf645de1746829ab19acd1ae31767.glb",
+    "bytes": 5946968,
+    "sha256": "a5a0a2021b7725fbb4a18821fb66559cb1b4f101112267460218eeed8ce8c57b"
+  },
+  {
+    "name": "stegosaurus-daily",
+    "id": "1924052361fb4bd49b714d296a34d2ab",
+    "file": "qa-dinosaur-realistic/sources/stegosaurus-daily.glb",
+    "url": "https://huggingface.co/datasets/allenai/objaverse/resolve/main/glbs/000-013/1924052361fb4bd49b714d296a34d2ab.glb",
+    "bytes": 6773460,
+    "sha256": "23e29eaaa2a441a6b0c321d60bbe31c9f84750bd5de16e3284045ee946e922f1"
+  },
+  {
+    "name": "pteranodon-chistodrako",
+    "id": "7d7683df41d1405283f160e81a5dff1b",
+    "file": "qa-dinosaur-realistic/sources/pteranodon-chistodrako.glb",
+    "url": "https://huggingface.co/datasets/allenai/objaverse/resolve/main/glbs/000-121/7d7683df41d1405283f160e81a5dff1b.glb",
+    "bytes": 7485240,
+    "sha256": "2a28d2d47b2fd85d5beffdee24c44a58541edefa40f5edc439270e55e38c44bf"
+  },
+  {
+    "name": "spinosaurus-pedro",
+    "id": "2a325726dd7b4a7c888277f262fd09bc",
+    "file": "qa-dinosaur-realistic/sources/spinosaurus-pedro.glb",
+    "url": "https://huggingface.co/datasets/allenai/objaverse/resolve/main/glbs/000-156/2a325726dd7b4a7c888277f262fd09bc.glb",
+    "bytes": 7181240,
+    "sha256": "86e6a7795ee587cbea241b40f7455c9a7e38bc04cd8f741c08618a3b71d67ca2"
+  },
+  {
+    "name": "velociraptor-tsu",
+    "id": "615636112921445a9696464c491d2086",
+    "file": "qa-dinosaur-realistic/sources/velociraptor-tsu.glb",
+    "url": "https://huggingface.co/datasets/allenai/objaverse/resolve/main/glbs/000-143/615636112921445a9696464c491d2086.glb",
+    "bytes": 28073180,
+    "sha256": "b59f70c659357616d20c17b18d90b705c7fe930105086a4a2e413b7c2218502b"
+  }
+]

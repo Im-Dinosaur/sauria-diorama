@@ -1,0 +1,218 @@
+import { AnimationClip,Bone,BufferGeometry,CatmullRomCurve3,Color,DoubleSide,Float32BufferAttribute,Group,MeshStandardMaterial,Quaternion,QuaternionKeyframeTrack,Skeleton,SkinnedMesh,Uint16BufferAttribute,Vector2,Vector3,VectorKeyframeTrack } from 'three';
+import type { Species } from '../world/paths';
+import { habitatGround,WATER_LEVEL } from '../world/habitat';
+import { dinosaurSkin,SKIN_PALETTES,skinPigment } from './DinosaurSkin';
+
+type V=[number,number,number];
+type Finish='skin'|'horn'|'mouth'|'eye'|'iris'|'feather'|'membrane';
+export type DinosaurAction='idle'|'walk'|'run'|'roar'|'drink'|'graze'|'browse'|'rest'|'alert'|'hunt'|'fish'|'fly'|'glide'|'display';
+export interface Leg {hip:V;knee:V;foot:V;phase:number;upper:Bone;lower:Bone;toe:Bone;front:boolean;}
+export interface OrganicRig {
+ species:Species;root:Group;mesh:SkinnedMesh;skeleton:Skeleton;bones:Bone[];materials:Record<Finish,MeshStandardMaterial>;
+ hips:Bone;chest:Bone;head:Bone;jaw:Bone;tail:Bone;tailBones:Bone[];neckBones:Bone[];wings:Bone[];wingTips:Bone[];legs:Leg[];headOrigin:V;
+ rest:Map<Bone,Vector3>;absolute:Map<Bone,Vector3>;clips:AnimationClip[];
+}
+interface Shape {y:number;width:number;height:number;length:number;head:V;neck:V[];biped:boolean;}
+const shapes:Record<Species,Shape>={
+ rex:{y:.94,width:.30,height:.33,length:.72,head:[0,1.42,.58],neck:[[0,1.04,.30],[0,1.26,.36],[0,1.42,.58]],biped:true},
+ velociraptor:{y:.64,width:.17,height:.21,length:.48,head:[0,.91,.53],neck:[[0,.66,.24],[0,.83,.35],[0,.91,.53]],biped:true},
+ triceratops:{y:.66,width:.41,height:.35,length:.76,head:[0,.62,.68],neck:[[0,.69,.39],[0,.67,.53],[0,.62,.68]],biped:false},
+ stegosaurus:{y:.66,width:.40,height:.40,length:.83,head:[0,.35,1.02],neck:[[0,.64,.52],[0,.47,.77],[0,.35,1.02]],biped:false},
+ brachiosaurus:{y:1.12,width:.46,height:.47,length:.86,head:[0,3.12,.87],neck:[[0,1.36,.42],[0,1.92,.55],[0,2.58,.70],[0,3.12,.87]],biped:false},
+ spinosaurus:{y:.79,width:.30,height:.30,length:.87,head:[0,1.04,.87],neck:[[0,.87,.43],[0,1.01,.65],[0,1.04,.87]],biped:true},
+ pterosaur:{y:0,width:.12,height:.13,length:.38,head:[0,.16,.36],neck:[[0,.04,.20],[0,.14,.28],[0,.16,.36]],biped:true},
+};
+export const MOUTH_TIPS:Record<Species,V>={rex:[0,-.063,.52],velociraptor:[0,-.063,.35],spinosaurus:[0,-.063,.73],triceratops:[0,-.13,.63],stegosaurus:[0,-.05,.30],brachiosaurus:[0,-.10,.35],pterosaur:[0,-.03,.68]};
+const finishes:Finish[]=['skin','horn','mouth','eye','iris','feather','membrane'];
+const vec=(v:V)=>new Vector3(...v),tuple=(v:Vector3)=>v.toArray() as V;
+const clamp=(v:number,a=0,b=1)=>Math.max(a,Math.min(b,v));
+
+/** Indexed smooth surfaces, blended bone weights, UV microstructure and vertex pigmentation. */
+class Surface {
+ positions:number[]=[];uvs:number[]=[];colors:number[]=[];indices:number[]=[];joints:number[]=[];weights:number[]=[];
+ groups:{start:number;count:number;materialIndex:number}[]=[];
+ constructor(private rig:OrganicRig){}
+ boneIndex(b:Bone){return this.rig.bones.indexOf(b);}
+ vertex(p:Vector3,u:number,v:number,a:Bone,b=a,w=0,finish:Finish='skin',belly=0){
+  const index=this.positions.length/3;this.positions.push(p.x,p.y,p.z);this.uvs.push(u,v);
+  const c=finish==='skin'?skinPigment(this.rig.species,p.x,p.y,p.z,belly):new Color(finish==='feather'?SKIN_PALETTES[this.rig.species].marking:'#ffffff');
+  this.colors.push(c.r,c.g,c.b);this.joints.push(this.boneIndex(a),this.boneIndex(b),0,0);this.weights.push(1-w,w,0,0);return index;
+ }
+ group(start:number,finish:Finish){this.groups.push({start,count:this.indices.length-start,materialIndex:finishes.indexOf(finish)});}
+ tube(points:V[],radii:[number,number][],bones:Bone[],finish:Finish='skin',steps=32,sides=20){
+  const curve=new CatmullRomCurve3(points.map(vec)),offset=this.positions.length/3,start=this.indices.length,length=curve.getLength();
+  for(let i=0;i<=steps;i++){
+   const t=i/steps,p=curve.getPoint(t),tangent=curve.getTangent(t),axisX=Math.abs(tangent.x)>.85?new Vector3(0,0,1):new Vector3(1,0,0),axisY=new Vector3().crossVectors(tangent,axisX).normalize();axisX.crossVectors(axisY,tangent).normalize();
+   const k=t*(radii.length-1),j=Math.min(radii.length-2,Math.floor(k)),f=k-j,rx=radii[j][0]*(1-f)+radii[j+1][0]*f,ry=radii[j][1]*(1-f)+radii[j+1][1]*f;
+   const bk=t*(bones.length-1),bi=Math.min(bones.length-1,Math.floor(bk)),bw=bk-bi;
+   for(let a=0;a<=sides;a++){
+    const angle=a/sides*Math.PI*2,cs=Math.cos(angle),sn=Math.sin(angle),q=p.clone().addScaledVector(axisX,cs*rx).addScaledVector(axisY,sn*ry);
+    const fold=1+Math.sin(t*60)*.008*Math.sin(angle*2)**2;q.sub(p).multiplyScalar(fold).add(p);
+    this.vertex(q,a/sides*Math.max(.5,(rx+ry)*5),t*length*3,bones[bi],bones[Math.min(bi+1,bones.length-1)],bw,finish,clamp(-sn*.9-.1));
+   }
+  }
+  for(let i=0;i<steps;i++)for(let a=0;a<sides;a++){const j=offset+i*(sides+1)+a,b=j+sides+1;this.indices.push(j,j+1,b,b,j+1,b+1);}
+  const first=this.vertex(vec(points[0]),0,0,bones[0],bones[0],0,finish),last=this.vertex(vec(points[points.length-1]),0,1,bones[bones.length-1],bones[bones.length-1],0,finish);
+  for(let a=0;a<sides;a++){this.indices.push(first,offset+a+1,offset+a);const end=offset+steps*(sides+1);this.indices.push(last,end+a,end+a+1);}this.group(start,finish);
+ }
+ ellipsoid(at:V,size:V,bone:Bone,finish:Finish='skin',sides=20,rings=12){
+  const start=this.indices.length,offset=this.positions.length/3;
+  for(let j=0;j<=rings;j++)for(let i=0;i<=sides;i++){
+   const a=i/sides*Math.PI*2,b=j/rings*Math.PI,p=new Vector3(at[0]+Math.cos(a)*Math.sin(b)*size[0],at[1]+Math.cos(b)*size[1],at[2]+Math.sin(a)*Math.sin(b)*size[2]);
+   this.vertex(p,i/sides*size[0]*7,j/rings*size[1]*7,bone,bone,0,finish,clamp(-Math.cos(b)*.85));
+  }
+  for(let j=0;j<rings;j++)for(let i=0;i<sides;i++){const a=offset+j*(sides+1)+i,b=a+sides+1;this.indices.push(a,a+1,b,b,a+1,b+1);}this.group(start,finish);
+ }
+ horn(a:V,b:V,r:number,bone:Bone,finish:Finish='horn',bend=.04){this.tube([a,[(a[0]+b[0])/2,(a[1]+b[1])/2+bend,(a[2]+b[2])/2],b],[[r,r],[r*.6,r*.6],[.001,.001]],[bone],finish,12,10);}
+ sheet(points:V[],bone:Bone,finish:Finish='skin',tipBone=bone){
+  const start=this.indices.length,base=this.positions.length/3;points.forEach((p,i)=>this.vertex(vec(p),i%2,Math.floor(i/2),bone,tipBone,i>1?1:0,finish));
+  for(let i=1;i<points.length-1;i++)this.indices.push(base,base+i,base+i+1);this.group(start,finish);
+ }
+ finish(){
+  const g=new BufferGeometry();g.setAttribute('position',new Float32BufferAttribute(this.positions,3));g.setAttribute('uv',new Float32BufferAttribute(this.uvs,2));g.setAttribute('color',new Float32BufferAttribute(this.colors,3));g.setAttribute('skinIndex',new Uint16BufferAttribute(this.joints,4));g.setAttribute('skinWeight',new Float32BufferAttribute(this.weights,4));
+  const sorted:number[]=[];for(let m=0;m<finishes.length;m++){const start=sorted.length;for(const group of this.groups)if(group.materialIndex===m)for(let i=group.start;i<group.start+group.count;i++)sorted.push(this.indices[i]);if(sorted.length>start)g.addGroup(start,sorted.length-start,m);}g.setIndex(sorted);g.computeVertexNormals();g.computeBoundingSphere();return g;
+ }
+}
+function addBone(rig:OrganicRig,name:string,position:V,parent?:Bone){
+ const b=new Bone();b.name=name;const absolute=vec(position);b.position.copy(absolute);if(parent)b.position.sub(rig.absolute.get(parent)!);(parent??rig.root).add(b);rig.bones.push(b);rig.rest.set(b,b.position.clone());rig.absolute.set(b,absolute);return b;
+}
+function makeMaterials(species:Species,variant:number){
+ const maps=dinosaurSkin(species),palette=SKIN_PALETTES[species];
+ const skin=new MeshStandardMaterial({...maps,vertexColors:true,roughness:1,metalness:0,normalScale:new Vector2(.25,.25)});skin.color.offsetHSL((variant%3-1)*.008,0,(variant%4-1.5)*.012);
+ const materials={skin,horn:new MeshStandardMaterial({color:'#b4a487',roughness:.58,metalness:0,vertexColors:true}),mouth:new MeshStandardMaterial({color:'#54302b',roughness:.55}),eye:new MeshStandardMaterial({color:'#121611',roughness:.16}),iris:new MeshStandardMaterial({color:palette.iris,roughness:.3}),feather:new MeshStandardMaterial({color:'#b7a184',vertexColors:true,roughness:.87,side:DoubleSide}),membrane:new MeshStandardMaterial({...maps,color:palette.belly,vertexColors:true,roughness:1,normalScale:new Vector2(.25,.25),side:DoubleSide})};
+ for(const [name,m] of Object.entries(materials))m.name=`${species}-${name}`;return materials;
+}
+function buildLeg(rig:OrganicRig,s:Surface,side:number,z:number,front:boolean,phase:number){
+ const shape=shapes[rig.species],biped=shape.biped,raptor=rig.species==='velociraptor',width=shape.width*(biped?.80:.78),hip:V=[side*width,shape.y*(front?1.02:.96),z],foot:V=[side*width*1.12,.075,z+(biped?.12:.015)],knee:V=[side*width*1.18,shape.y*.51,z+(front?-.10:biped?.24:.12)];
+ const prefix=`${front?'front':'hind'}_${side<0?'L':'R'}`,upper=addBone(rig,`${prefix}_thigh`,hip,rig.hips),lower=addBone(rig,`${prefix}_shin`,knee,upper),toe=addBone(rig,`${prefix}_foot`,foot,lower),r=shape.width*(biped?.48:.35);
+ rig.legs.push({hip,knee,foot,phase,upper,lower,toe,front});
+ s.tube([[hip[0]*.62,hip[1]+.12,hip[2]],hip,knee,foot],[[r*.10,r*.10],[r*1.18,r*1.34],[r*.62,r*.70],[r*.44,r*.45]],[upper,upper,lower,toe],'skin',24,16);
+ s.ellipsoid([foot[0],.065,foot[2]+.045],[r*.75,.067,biped?r*1.45:r*.9],toe);
+ const count=biped?3:4;for(let i=0;i<count;i++){
+  const x=foot[0]+(i-(count-1)/2)*r*.43,tipZ=foot[2]+r*(biped?2.35:1.05)-Math.abs(i-(count-1)/2)*r*.22;
+  s.tube([[x,.065,foot[2]+.035],[x,.035,tipZ]],[[r*.22,r*.24],[r*.14,r*.12]],[toe],'skin',5,8);s.horn([x,.045,tipZ-.025],[x,.02,tipZ+.065],r*.19,toe,'horn',.018);
+ }
+ if(raptor)s.horn([foot[0]-side*.07,.11,foot[2]+.10],[foot[0]-side*.07,.22,foot[2]+.21],.026,toe,'horn',.12);
+}
+function eyes(s:Surface,head:Bone,at:V,width:number,small=false){
+ for(const side of [-1,1]){
+  const x=at[0]+side*width,y=at[1],z=at[2];s.ellipsoid([x,y,z],[.020,.030,.035],head,'skin');s.ellipsoid([x+side*.014,y,z+.007],[.012,.020,.022],head,'iris',16,10);s.ellipsoid([x+side*.023,y,z+.010],[.006,.016,.012],head,'eye',12,8);
+  if(!small)s.tube([[x-side*.025,y+.032,z-.045],[x+side*.003,y+.047,z+.025]],[[.035,.024],[.028,.017]],[head],'skin',8,10);
+ }
+}
+function buildHead(rig:OrganicRig,s:Surface){
+ const species=rig.species,[,y,z]=rig.headOrigin,p=(dy:number,dz:number):V=>[0,y+dy,z+dz];
+ if(species==='rex'||species==='velociraptor'||species==='spinosaurus'){
+  const raptor=species==='velociraptor',spino=species==='spinosaurus',w=raptor?.105:spino?.135:.235,l=raptor?.35:spino?.73:.52;
+  s.tube([p(.06,-.08),p(.085,.10),p(.055,l*.65),p(.015,l)],[[w*.62,w*.7],[w,w*.85],[w*(spino?.57:.77),w*.57],[w*.56,w*.38]],[rig.head],'skin',26,20);
+  s.ellipsoid(p(-.048,l*.44),[w*.76,.028,l*.48],rig.head,'mouth');s.tube([p(-.07,-.01),p(-.095,l*.44),p(-.063,l*.96)],[[w*.74,w*.23],[w*.79,w*.26],[w*.53,w*.17]],[rig.jaw],'skin',20,16);eyes(s,rig.head,[0,y+.12,z+.06],w*.96,raptor);
+  for(const side of [-1,1]){
+   s.ellipsoid([side*w*.48,y+.065,z+l*.87],[.012,.016,.025],rig.head,'eye',12,8);
+   for(let i=0;i<(raptor?10:spino?17:12);i++){
+    const f=i/(raptor?10:spino?17:12),tz=z+.12+f*(l-.16),x=side*w*(.77-.23*f),len=(raptor?.026:spino?.045:.062)*(1-.35*f);
+    s.horn([x,y-.034,tz],[x,y-.034-len,tz+.008],raptor?.006:.012,rig.head,'horn',0);s.horn([x*.95,y-.067,tz],[x*.95,y-.067+len*.7,tz+.004],raptor?.005:.009,rig.jaw,'horn',0);
+   }
+  }
+ }else if(species==='triceratops'){
+  s.tube([p(.03,-.13),p(.015,.20),p(-.09,.51)],[[.27,.24],[.25,.22],[.12,.095]],[rig.head],'skin',26,24);s.ellipsoid(p(-.15,.34),[.18,.07,.24],rig.jaw);s.horn(p(-.06,.46),p(-.13,.63),.12,rig.head,'horn',.02);s.ellipsoid(p(.29,-.11),[.46,.49,.085],rig.head,'skin',32,20);
+  for(let i=0;i<13;i++){const a=i/12*Math.PI;s.horn([Math.cos(a)*.43,y+.29+Math.sin(a)*.47,z-.11],[Math.cos(a)*.49,y+.30+Math.sin(a)*.54,z-.12],.035,rig.head);}
+  for(const side of [-1,1])s.horn([side*.17,y+.20,z+.12],[side*.25,y+.55,z+.75],.065,rig.head,'horn',.03);s.horn(p(.14,.38),p(.35,.57),.055,rig.head);eyes(s,rig.head,[0,y+.11,z+.17],.251);
+ }else if(species==='stegosaurus'){
+  s.tube([p(0,-.12),p(.015,.14),p(-.02,.31)],[[.10,.11],[.105,.10],[.06,.065]],[rig.head],'skin',16,16);s.ellipsoid(p(-.07,.14),[.08,.03,.17],rig.jaw);eyes(s,rig.head,[0,y+.04,z+.04],.10,true);
+ }else if(species==='brachiosaurus'){
+  s.tube([p(.03,-.10),p(.015,.13),p(-.06,.35)],[[.13,.18],[.17,.15],[.12,.075]],[rig.head],'skin',20,20);s.ellipsoid(p(-.10,.16),[.13,.055,.21],rig.jaw);eyes(s,rig.head,[0,y+.06,z+.04],.148,true);for(const side of [-1,1])s.ellipsoid([side*.09,y+.012,z+.30],[.013,.016,.025],rig.head,'eye',12,8);
+ }else{
+  s.ellipsoid(p(.02,0),[.10,.12,.16],rig.head);s.horn(p(.015,.06),p(-.03,.68),.085,rig.head,'horn',0);s.horn(p(-.035,.04),p(-.06,.65),.06,rig.jaw,'horn',0);s.tube([p(.08,-.04),p(.25,-.24),p(.30,-.43)],[[.023,.095],[.015,.09],[.002,.006]],[rig.head],'skin',16,12);eyes(s,rig.head,[0,y+.06,z+.015],.095,true);
+ }
+}
+function buildDetails(rig:OrganicRig,s:Surface){
+ const species=rig.species,shape=shapes[species];
+ if(species==='stegosaurus'){
+  for(let i=0;i<15;i++){const t=i/14,z=-.91+t*1.64,h=.14+Math.sin(t*Math.PI)*.53,x=i%2?.085:-.085,y=shape.y+shape.height*Math.sqrt(Math.max(0,1-(z/.91)**2))-.045;s.tube([[x,y,z-.12],[x,y+h*.6,z],[x,y+h,z+.03]],[[.031,.17],[.026,.14],[.003,.01]],[z>0?rig.chest:rig.hips],'horn',10,10);}
+  for(const side of [-1,1])for(const i of [5,6]){const a=rig.absolute.get(rig.tailBones[i])!;s.horn(tuple(a),[a.x+side*.28,a.y+.27,a.z-.12],.042,rig.tailBones[i]);}
+ }
+ if(species==='spinosaurus'){
+  const y=shape.y+shape.height*.75;for(let i=0;i<14;i++){
+   const t=i/13,z=-.77+t*1.35,h=.13+Math.sin(Math.PI*t)*.80,b=z>0?rig.chest:rig.hips;s.tube([[0,y,z],[0,y+h*.48,z],[0,y+h,z]],[[.04,.065],[.028,.06],[.005,.018]],[b],'skin',12,10);
+   if(i<13){const nz=z+1.35/13,nh=.13+Math.sin(Math.PI*(i+1)/13)*.80;s.sheet([[-.002,y,z],[-.002,y+h,z],[-.002,y+nh,nz],[-.002,y,nz]],b,'membrane');}
+  }
+ }
+ if(species==='velociraptor'){
+  for(const side of [-1,1])for(let i=0;i<12;i++){const x=side*(.17+i*.012),y=.57-i*.003,z=.31-i*.021,len=.16+i*.006;s.sheet([[x,y,z],[x+side*.045,y+.015,z-.03],[x+side*len,y-.025,z-.12],[x+side*(len*.7),y-.04,z-.14]],rig.chest,'feather');}
+  for(let j=4;j<8;j++){const p=rig.absolute.get(rig.tailBones[j])!;for(const side of [-1,1])s.sheet([[p.x,p.y,p.z+.03],[p.x+side*.06,p.y+.015,p.z],[p.x+side*.15,p.y,p.z-.20],[p.x,p.y,p.z-.22]],rig.tailBones[j],'feather');}
+  for(let i=0;i<50;i++){const t=i/49,z=-.45+t*.75,a=i*2.399,x=Math.cos(a)*shape.width*.94,y=shape.y+Math.sin(a)*shape.height*.9;s.sheet([[x,y,z],[x+.018,y+.02,z],[x+Math.cos(a)*.055,y+Math.sin(a)*.065,z-.07]],z>0?rig.chest:rig.hips,'feather');}
+ }
+}
+function buildWings(rig:OrganicRig,s:Surface){
+ for(const side of [-1,1]){
+  s.tube([[side*.055,-.04,-.18],[side*.12,-.17,-.39],[side*.15,-.12,-.50]],[[.033,.035],[.021,.022],[.009,.010]],[rig.hips],'skin',12,10);
+  for(let i=0;i<3;i++)s.horn([side*.15+(i-1)*.015,-.12,-.50],[side*.15+(i-1)*.026,-.13,-.57],.008,rig.hips);
+ }
+ for(const side of [-1,1]){
+  const shoulder:V=[side*.10,.015,.05],elbow:V=[side*.56,.045,-.04],wrist:V=[side*.83,.025,-.12],tip:V=[side*1.74,-.04,-.50],wing=addBone(rig,`wing_${side<0?'L':'R'}`,shoulder,rig.chest),distal=addBone(rig,`wingtip_${side<0?'L':'R'}`,wrist,wing);rig.wings.push(wing);rig.wingTips.push(distal);s.tube([shoulder,elbow,wrist,tip],[[.045,.05],[.035,.035],[.025,.028],[.004,.004]],[wing,wing,distal,distal],'skin',24,12);
+  const start=s.indices.length,base=s.positions.length/3,nx=20,ny=10;
+  for(let i=0;i<=nx;i++)for(let j=0;j<=ny;j++){const u=i/nx,v=j/ny,x=side*(.10+1.64*u),front=.05-.55*u,back=-.43-.20*Math.sin(u*Math.PI)-.07*u,y=-Math.sin(v*Math.PI)*Math.sin(u*Math.PI)*.09;s.vertex(new Vector3(x,y,front*(1-v)+back*v),u*2,v,wing,distal,clamp((u-.30)/.30),'membrane');}
+  for(let i=0;i<nx;i++)for(let j=0;j<ny;j++){const a=base+i*(ny+1)+j,b=a+ny+1;s.indices.push(a,b,a+1,b,b+1,a+1);}s.group(start,'membrane');
+ }
+}
+export function createOrganicDinosaur(species:Species,variant=0):OrganicRig{
+ const shape=shapes[species],root=new Group();root.name=`organic-${species}`;
+ const rig={species,root,bones:[],materials:makeMaterials(species,variant),legs:[],tailBones:[],neckBones:[],wings:[],wingTips:[],headOrigin:shape.head,rest:new Map(),absolute:new Map(),clips:[]} as unknown as OrganicRig;
+ rig.hips=addBone(rig,'hips',[0,shape.y,-.15]);rig.chest=addBone(rig,'chest',[0,shape.y+.03,.28],rig.hips);
+ let parent=rig.chest;for(let i=0;i<shape.neck.length-1;i++){parent=addBone(rig,`neck_${i}`,shape.neck[i],parent);rig.neckBones.push(parent);}rig.head=addBone(rig,'head',shape.head,parent);rig.jaw=addBone(rig,'jaw',[0,shape.head[1]-.06,shape.head[2]+.02],rig.head);
+ const s=new Surface(rig),p:V[]=[],r:[number,number][]=[];
+ for(let i=0;i<=12;i++){const t=i/12,z=-shape.length+t*(shape.length+(shape.biped?.58:.72)),bulge=Math.sin(Math.PI*t)**.55;p.push([0,shape.y+.04*Math.sin(t*Math.PI),z]);r.push([Math.max(.012,shape.width*bulge),Math.max(.012,shape.height*bulge)]);}s.tube(p,r,[rig.hips,rig.hips,rig.chest],'skin',40,28);
+ const neckR=species==='brachiosaurus'?.235:species==='rex'?.20:species==='triceratops'?.22:species==='spinosaurus'?.17:.10;
+ s.tube([[0,shape.y,.25],...shape.neck],[[shape.width*.72,shape.height*.72],...shape.neck.map((_,i)=>[neckR*(1-i/shape.neck.length*.55),neckR*(1-i/shape.neck.length*.45)] as [number,number])],[rig.chest,...rig.neckBones,rig.head],'skin',32,20);
+ const tailLength=species==='pterosaur'?.13:species==='velociraptor'?1.19:species==='brachiosaurus'?1.30:species==='triceratops'?.69:species==='spinosaurus'?1.28:1.08,tailPoints:V[]=[],tailR:[number,number][]=[];parent=rig.hips;
+ for(let i=0;i<8;i++){const t=i/7,at:V=[0,shape.y-.06+Math.sin(t*Math.PI*.7)*.12,-shape.length*.78-tailLength*t];parent=addBone(rig,`tail_${i}`,at,parent);rig.tailBones.push(parent);tailPoints.push(at);const radius=Math.max(.005,shape.width*.65*(1-t)**1.4);tailR.push([radius,species==='spinosaurus'?Math.max(.01,.22*Math.sin(t*Math.PI)+radius):radius]);}rig.tail=rig.tailBones[0];s.tube(tailPoints,tailR,rig.tailBones,'skin',36,18);
+ if(species==='pterosaur')buildWings(rig,s);else for(const side of [-1,1]){
+  buildLeg(rig,s,side,shape.biped?-.20:-.48,false,side<0?0:Math.PI);if(!shape.biped)buildLeg(rig,s,side,.41,true,side<0?Math.PI*.72:Math.PI*1.72);
+  else {const small=species==='rex',a:V=[side*shape.width*.78,shape.y+.07,.30],b:V=[side*(shape.width+.075),shape.y-(small?.10:.15),.46],c:V=[side*(shape.width+.055),shape.y-(small?.15:.12),small?.55:.66];s.tube([a,b,c],[[small?.052:.065,small?.065:.075],[.035,.035],[.018,.022]],[rig.chest],'skin',12,12);for(let i=0;i<(small?2:3);i++)s.horn([c[0]+(i-1)*.025,c[1],c[2]],[c[0]+(i-1)*.032,c[1]-.045,c[2]+.08],.014,rig.chest);}
+ }
+ buildHead(rig,s);buildDetails(rig,s);rig.mesh=new SkinnedMesh(s.finish(),finishes.map(f=>rig.materials[f]));rig.mesh.name=`${species}_skinned_surface`;rig.mesh.castShadow=true;rig.mesh.receiveShadow=true;rig.mesh.frustumCulled=false;root.add(rig.mesh);root.updateMatrixWorld(true);rig.skeleton=new Skeleton(rig.bones);rig.mesh.bind(rig.skeleton);rig.mesh.normalizeSkinWeights();
+ root.userData={species,assetVersion:2,textureResolution:512,units:'diorama units; not metres',reconstruction:'procedural real-time reconstruction; pigmentation and exact behaviour are artistic hypotheses'};return rig;
+}
+function resetRig(rig:OrganicRig){for(const b of rig.bones){b.position.copy(rig.rest.get(b)!);b.quaternion.identity();b.scale.setScalar(1);}}
+const qa=new Quaternion(),qb=new Quaternion(),p0=new Vector3();
+function placeBone(rig:OrganicRig,bone:Bone,at:Vector3,rotation=new Quaternion()){
+ rig.root.updateWorldMatrix(true,false);bone.parent!.updateWorldMatrix(true,false);p0.copy(at).applyMatrix4(rig.root.matrixWorld);bone.position.copy(bone.parent!.worldToLocal(p0));rig.root.getWorldQuaternion(qa);qa.multiply(rotation);bone.parent!.getWorldQuaternion(qb);bone.quaternion.copy(qb.invert().multiply(qa));bone.updateWorldMatrix(false,false);
+}
+export const ACTION_DURATIONS:Record<DinosaurAction,number>={idle:4,walk:1.6,run:.86,roar:3.2,drink:5,graze:4,browse:5,rest:6,alert:3,hunt:2.4,fish:4,fly:1.4,glide:4,display:3.2};
+export function speciesActions(species:Species):DinosaurAction[]{
+ if(species==='pterosaur')return ['fly','glide','roar'];const base:DinosaurAction[]=['idle','walk','run','roar','drink','rest','alert'];if(species==='brachiosaurus')base.push('browse');else if(species==='triceratops'||species==='stegosaurus')base.push('graze','display');else if(species==='spinosaurus')base.push('fish','hunt');else base.push('hunt');return base;
+}
+interface PoseOptions {path?:{x:number;y:number;z:number;heading:number};scale?:number;ground?:boolean;drink?:number;reach?:number;}
+export function poseDinosaurAction(rig:OrganicRig,time:number,action:DinosaurAction='idle',options:PoseOptions={}){
+ resetRig(rig);const shape=shapes[rig.species],duration=ACTION_DURATIONS[action],phase=(time%duration)/duration*Math.PI*2,moving=action==='walk'||action==='run',run=action==='run',breath=Math.sin(phase),bob=moving?Math.sin(phase*2)*(run?.025:.009):0;
+ rig.hips.position.y+=bob;rig.chest.rotation.z=moving?Math.sin(phase)*.014:0;rig.chest.scale.y=1+breath*.009;const rest=action==='rest'?.75+Math.sin(phase)*.025:0;rig.hips.position.y-=rest*shape.y*.22;rig.root.updateMatrixWorld(true);
+ for(const leg of rig.legs){
+  const cycle=(phase+leg.phase)/(Math.PI*2),u=cycle-Math.floor(cycle),stance=.64,stride=moving?(run?.22:rig.species==='brachiosaurus'?.13:.16):0;let zOffset=0,lift=0;
+  if(u<stance)zOffset=stride*(1-u/stance*2);else{const f=(u-stance)/(1-stance);zOffset=-stride*Math.cos(f*Math.PI);lift=Math.sin(f*Math.PI)*(run?.15:.09);}
+  const target=vec(leg.foot);target.z+=zOffset;target.y+=moving?lift:0;
+  if(options.ground&&options.path){const p=options.path,k=options.scale??1,c=Math.cos(p.heading),sn=Math.sin(p.heading),wx=p.x+(target.x*c+target.z*sn)*k,wz=p.z+(-target.x*sn+target.z*c)*k;target.y+=(habitatGround(wx,wz)-p.y)/k;}
+  const hip=vec(leg.hip);hip.y+=bob-rest*shape.y*.22;const l1=vec(leg.knee).distanceTo(vec(leg.hip)),l2=vec(leg.foot).distanceTo(vec(leg.knee)),direction=target.clone().sub(hip),d=clamp(direction.length(),Math.abs(l1-l2)+.001,l1+l2-.001);direction.normalize();target.copy(hip).addScaledVector(direction,d);
+  const along=(l1*l1-l2*l2+d*d)/(2*d),height=Math.sqrt(Math.max(0,l1*l1-along*along)),bend=new Vector3(0,0,leg.front?-1:1).addScaledVector(direction,-direction.z*(leg.front?-1:1)).normalize(),knee=hip.clone().addScaledVector(direction,along).addScaledVector(bend,height);
+  const upperRot=new Quaternion().setFromUnitVectors(vec(leg.knee).sub(vec(leg.hip)).normalize(),knee.clone().sub(hip).normalize()),lowerRot=new Quaternion().setFromUnitVectors(vec(leg.foot).sub(vec(leg.knee)).normalize(),target.clone().sub(knee).normalize());placeBone(rig,leg.upper,hip,upperRot);placeBone(rig,leg.lower,knee,lowerRot);placeBone(rig,leg.toe,target);
+ }
+ let drink=options.drink??0;if(action==='drink')drink=Math.sin(phase*.5)**2;
+ const grazing=action==='graze'?Math.sin(phase*.5)**2:0,browse=action==='browse'?Math.sin(phase)*.12:0,fish=action==='fish'?Math.pow(Math.max(0,Math.sin(phase)),6):0,head=vec(rig.headOrigin);head.y+=bob+breath*.006+browse;head.z+=browse*.3;
+ const pitch=drink*(rig.species==='brachiosaurus'?.45:.70)+grazing*.7+fish*.65+(action==='display'&&rig.species==='triceratops'?.22:0)+(action==='hunt'?.14+.055*Math.sin(phase):0),mouth=vec(MOUTH_TIPS[rig.species]).applyAxisAngle(new Vector3(1,0,0),pitch),waterReach=Math.max(drink,fish);
+ if(waterReach>0){const path=options.path,k=options.scale??1,targetY=(path?(WATER_LEVEL-path.y)/k:.10)+.018-mouth.y;head.y=head.y*(1-waterReach)+targetY*waterReach;head.z=head.z*(1-waterReach)+((options.reach??1.25)/k-mouth.z)*waterReach;}
+ if(grazing>0)head.y=head.y*(1-grazing)+(.10-mouth.y)*grazing;
+ head.y-=rest*.08;
+ const neckStart=vec(shape.neck[0]);neckStart.y+=bob;const mid=neckStart.clone().lerp(head,.5);mid.y+=(rig.species==='brachiosaurus'?.18:.035)*(1-drink);const neckCurve=new CatmullRomCurve3([neckStart,mid,head]);
+ rig.neckBones.forEach((bone,i)=>{const t=i/rig.neckBones.length,at=neckCurve.getPoint(t),next=neckCurve.getPoint(Math.min(1,t+.05)),original=rig.absolute.get(i===rig.neckBones.length-1?rig.head:rig.neckBones[i+1])!.clone().sub(rig.absolute.get(bone)!).normalize();placeBone(rig,bone,at,new Quaternion().setFromUnitVectors(original,next.sub(at).normalize()));});
+ const headRot=new Quaternion().setFromAxisAngle(new Vector3(1,0,0),pitch+(action==='roar'?-.13*Math.sin(phase*.5)**2:0));headRot.multiply(new Quaternion().setFromAxisAngle(new Vector3(0,1,0),(drink?0:Math.sin(phase)*.055)+(action==='alert'?.18*Math.sin(phase):0)));placeBone(rig,rig.head,head,headRot);
+ rig.jaw.rotation.x=action==='roar'?Math.sin(phase*.5)**4*.48:action==='fish'?fish*.38:action==='graze'?.055*(.5+.5*Math.sin(phase*7)):action==='browse'?.025*Math.max(0,Math.sin(phase)):drink*.035;
+ rig.tailBones.forEach((bone,i)=>{bone.rotation.y=Math.sin(phase-i*.48)*(action==='display'?.14:moving?.035:.018);bone.rotation.x=Math.sin(phase-i*.3)*.006;});rig.wings.forEach((wing,i)=>{const side=i===0?-1:1,amplitude=action==='glide'?.035:.30;wing.rotation.z=side*(Math.sin(phase)*amplitude+.04);rig.wingTips[i].rotation.z=side*Math.sin(phase-.6)*amplitude*.55;});rig.root.updateMatrixWorld(true);rig.skeleton.update();
+}
+export function poseOrganicDinosaur(rig:OrganicRig,time:number,path:{x:number;y:number;z:number;heading:number},scale:number,drink=0,alert=false,reach=1.15,action?:DinosaurAction){poseDinosaurAction(rig,time,action??(rig.species==='pterosaur'?'fly':drink>0?'idle':alert?'run':'walk'),{path,scale,drink,reach,ground:rig.species!=='pterosaur'});}
+export function bakeDinosaurClips(rig:OrganicRig){
+ const clips:AnimationClip[]=[];for(const action of speciesActions(rig.species)){
+  const duration=ACTION_DURATIONS[action],frames=Math.ceil(duration*24),times:number[]=[],positions=rig.bones.map(()=>[] as number[]),rotations=rig.bones.map(()=>[] as number[]),scales=rig.bones.map(()=>[] as number[]);
+  for(let f=0;f<=frames;f++){const t=f/frames*duration;poseDinosaurAction(rig,t,action);times.push(t);rig.bones.forEach((b,i)=>{positions[i].push(...b.position.toArray());rotations[i].push(...b.quaternion.toArray());scales[i].push(...b.scale.toArray());});}
+  const tracks=rig.bones.flatMap((b,i)=>[new VectorKeyframeTrack(`${b.name}.position`,times,positions[i]),new QuaternionKeyframeTrack(`${b.name}.quaternion`,times,rotations[i]),new VectorKeyframeTrack(`${b.name}.scale`,times,scales[i])]);clips.push(new AnimationClip(action,duration,tracks));
+ }resetRig(rig);rig.root.updateMatrixWorld(true);rig.skeleton.update();rig.clips=clips;return clips;
+}
+export function disposeOrganicDinosaur(rig:OrganicRig){rig.mesh.geometry.dispose();rig.skeleton.dispose();Object.values(rig.materials).forEach(m=>m.dispose());}

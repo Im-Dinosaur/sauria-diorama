@@ -1,0 +1,513 @@
+{
+  "result": "PASS",
+  "assets": [
+    {
+      "id": "triceratops",
+      "vertices": 93165,
+      "weighted": 72875,
+      "sampled": 570024,
+      "maxWeightError": 4.842877388000488e-8,
+      "textures": [
+        {
+          "material": "material",
+          "kind": "map",
+          "width": 1024,
+          "height": 1024
+        },
+        {
+          "material": "Material",
+          "kind": "map",
+          "width": 1024,
+          "height": 1024
+        },
+        {
+          "material": "Material",
+          "kind": "normalMap",
+          "width": 1024,
+          "height": 1024
+        },
+        {
+          "material": "Material",
+          "kind": "roughnessMap",
+          "width": 1024,
+          "height": 1024
+        }
+      ],
+      "clips": [
+        {
+          "name": "idle",
+          "duration": 6,
+          "minY": 0.002067913142894673,
+          "maxY": 1.720853087332031,
+          "motion": 1.9869396686553955
+        },
+        {
+          "name": "walk",
+          "duration": 2.799999952316284,
+          "minY": 0.0020628808454352665,
+          "maxY": 1.7208530873947594,
+          "motion": 1.9869396686553955
+        },
+        {
+          "name": "run",
+          "duration": 1.5,
+          "minY": 0.0020678259735300575,
+          "maxY": 1.720853087332031,
+          "motion": 1.9869396686553955
+        },
+        {
+          "name": "roar",
+          "duration": 3.200000047683716,
+          "minY": 0.002067913142894451,
+          "maxY": 1.7208530870846412,
+          "motion": 1.9869396483886472
+        },
+        {
+          "name": "drink",
+          "duration": 5,
+          "minY": -0.013626969969764646,
+          "maxY": 1.7208530870846412,
+          "motion": 1.9869396686553955
+        },
+        {
+          "name": "rest",
+          "duration": 6,
+          "minY": 0.002067913142894673,
+          "maxY": 1.6408530873289622,
+          "motion": 1.9869396686553955
+        },
+        {
+          "name": "alert",
+          "duration": 4,
+          "minY": 0.002067913142894673,
+          "maxY": 1.7208530872770054,
+          "motion": 1.9869396686553955
+        },
+        {
+          "name": "graze",
+          "duration": 4,
+          "minY": -0.013626969969764646,
+          "maxY": 1.7208530870846412,
+          "motion": 1.9869396686553955
+        }
+      ],
+      "problems": []
+    },
+    {
+      "id": "stegosaurus",
+      "vertices": 11016,
+      "weighted": 11016,
+      "sampled": 67496,
+      "maxWeightError": 2.220446049250313e-16,
+      "textures": [
+        {
+          "material": "Eyes",
+          "kind": "map",
+          "width": 1024,
+          "height": 1024
+        },
+        {
+          "material": "Material",
+          "kind": "map",
+          "width": 1024,
+          "height": 1024
+        },
+        {
+          "material": "Material",
+          "kind": "normalMap",
+          "width": 1024,
+          "height": 1024
+        },
+        {
+          "material": "Material",
+          "kind": "roughnessMap",
+          "width": 1024,
+          "height": 1024
+        }
+      ],
+      "clips": [
+        {
+          "name": "idle",
+          "duration": 6,
+          "minY": 0.0037844028240274527,
+          "maxY": 2.012939841142778,
+          "motion": 0.386321185156703
+        },
+        {
+          "name": "walk",
+          "duration": 2.799999952316284,
+          "minY": 0.0037478131220010933,
+          "maxY": 2.017328371390626,
+          "motion": 0.4116589619674722
+        },
+        {
+          "name": "run",
+          "duration": 1.5,
+          "minY": 0.003784402117470639,
+          "maxY": 2.0193809879989058,
+          "motion": 0.5725354366004467
+        },
+        {
+          "name": "roar",
+          "duration": 3.200000047683716,
+          "minY": 0.0037844028240274527,
+          "maxY": 2.012939815773888,
+          "motion": 0.3860261680376415
+        },
+        {
+          "name": "drink",
+          "duration": 5,
+          "minY": 0.0037844028240274527,
+          "maxY": 2.0106431651511136,
+          "motion": 0.5521772104010351
+        },
+        {
+          "name": "rest",
+          "duration": 6,
+          "minY": 0.003784463124650689,
+          "maxY": 1.923078544092597,
+          "motion": 0.18374192714691162
+        },
+        {
+          "name": "alert",
+          "duration": 4,
+          "minY": 0.0037844028240273603,
+          "maxY": 2.012939841142778,
+          "motion": 0.386321182484763
+        },
+        {
+          "name": "graze",
+          "duration": 4,
+          "minY": 0.0037844028240274527,
+          "maxY": 2.0106431651511136,
+          "motion": 0.5521772267016943
+        }
+      ],
+      "problems": []
+    },
+    {
+      "id": "spinosaurus",
+      "vertices": 38680,
+      "weighted": 38680,
+      "sampled": 236704,
+      "maxWeightError": 5.21540641784668e-8,
+      "textures": [
+        {
+          "material": "Spino",
+          "kind": "map",
+          "width": 1024,
+          "height": 1024
+        },
+        {
+          "material": "Spino",
+          "kind": "normalMap",
+          "width": 1024,
+          "height": 1024
+        },
+        {
+          "material": "Spino",
+          "kind": "roughnessMap",
+          "width": 1024,
+          "height": 1024
+        }
+      ],
+      "clips": [
+        {
+          "name": "idle",
+          "duration": 6,
+          "minY": 0.0009839469396371407,
+          "maxY": 1.9423211558310371,
+          "motion": 0.17253631353378296
+        },
+        {
+          "name": "walk",
+          "duration": 2.799999952316284,
+          "minY": 0.000973804703980833,
+          "maxY": 1.9423211558310371,
+          "motion": 0.30040708816657613
+        },
+        {
+          "name": "run",
+          "duration": 1.5,
+          "minY": 0.0009838767759762874,
+          "maxY": 1.9423211558310371,
+          "motion": 0.4591130316257477
+        },
+        {
+          "name": "roar",
+          "duration": 3.200000047683716,
+          "minY": 0.0009839469396371366,
+          "maxY": 1.9423211558310371,
+          "motion": 0.1858415462228492
+        },
+        {
+          "name": "drink",
+          "duration": 5,
+          "minY": 0.0009838723775413226,
+          "maxY": 1.9423211558310371,
+          "motion": 0.19008365239683322
+        },
+        {
+          "name": "rest",
+          "duration": 6,
+          "minY": 0.0009839647045486778,
+          "maxY": 1.917321202464458,
+          "motion": 0.15359124541282654
+        },
+        {
+          "name": "alert",
+          "duration": 4,
+          "minY": 0.0009839469396371407,
+          "maxY": 1.9423211558310371,
+          "motion": 0.17253630966715827
+        },
+        {
+          "name": "hunt",
+          "duration": 4,
+          "minY": 0.0009839469396371407,
+          "maxY": 1.9423211558310371,
+          "motion": 0.17253630966715827
+        }
+      ],
+      "problems": []
+    },
+    {
+      "id": "brachiosaurus",
+      "vertices": 195460,
+      "weighted": 119702,
+      "sampled": 1197664,
+      "maxWeightError": 5.21540641784668e-8,
+      "textures": [
+        {
+          "material": "New_brachiosaurus_skin",
+          "kind": "map",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "material": "New_brachiosaurus_skin",
+          "kind": "normalMap",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "material": "New_brachiosaurus_skin",
+          "kind": "roughnessMap",
+          "width": 1254,
+          "height": 1254
+        }
+      ],
+      "clips": [
+        {
+          "name": "idle",
+          "duration": 6,
+          "minY": 0.00020652820623201507,
+          "maxY": 4.600000003045071,
+          "motion": 0.3429673249333973
+        },
+        {
+          "name": "walk",
+          "duration": 2.799999952316284,
+          "minY": 0.00020652820620603585,
+          "maxY": 4.600000002873868,
+          "motion": 0.8168207804361978
+        },
+        {
+          "name": "run",
+          "duration": 1.5,
+          "minY": 0.00020652820623001666,
+          "maxY": 4.600000003045071,
+          "motion": 1.1582043170928955
+        },
+        {
+          "name": "roar",
+          "duration": 3.200000047683716,
+          "minY": 0.00020652820623201507,
+          "maxY": 4.613508740056376,
+          "motion": 0.3426624853628327
+        },
+        {
+          "name": "drink",
+          "duration": 5,
+          "minY": 0.00020652820623201507,
+          "maxY": 4.600000000039257,
+          "motion": 1.9901227354762367
+        },
+        {
+          "name": "rest",
+          "duration": 6,
+          "minY": 0.00020652820623201507,
+          "maxY": 4.519999978554901,
+          "motion": 0.3429673249333973
+        },
+        {
+          "name": "alert",
+          "duration": 4,
+          "minY": 0.00020652820623201507,
+          "maxY": 4.600000004615408,
+          "motion": 0.342967315291635
+        },
+        {
+          "name": "browse",
+          "duration": 4,
+          "minY": 0.00020652820623201507,
+          "maxY": 4.635618924400852,
+          "motion": 1.9908921122550964
+        }
+      ],
+      "problems": []
+    },
+    {
+      "id": "velociraptor",
+      "vertices": 123919,
+      "weighted": 123919,
+      "sampled": 758472,
+      "maxWeightError": 4.377216100692749e-8,
+      "textures": [
+        {
+          "material": "Velo_skin",
+          "kind": "map",
+          "width": 1024,
+          "height": 1024
+        },
+        {
+          "material": "Velo_skin",
+          "kind": "normalMap",
+          "width": 1024,
+          "height": 1024
+        },
+        {
+          "material": "Velo_skin",
+          "kind": "roughnessMap",
+          "width": 1024,
+          "height": 1024
+        },
+        {
+          "material": "Reconstructed_pennaceous_feathers",
+          "kind": "map",
+          "width": 1024,
+          "height": 1536
+        }
+      ],
+      "clips": [
+        {
+          "name": "idle",
+          "duration": 6,
+          "minY": 0.0017947375197154836,
+          "maxY": 1.6735123950620192,
+          "motion": 0.20627984404563876
+        },
+        {
+          "name": "walk",
+          "duration": 2.799999952316284,
+          "minY": 0.0017893899630015142,
+          "maxY": 1.6735123950620192,
+          "motion": 0.24381309230454418
+        },
+        {
+          "name": "run",
+          "duration": 1.5,
+          "minY": 0.0017947351963142066,
+          "maxY": 1.6735123950620192,
+          "motion": 0.3560788929462433
+        },
+        {
+          "name": "roar",
+          "duration": 3.200000047683716,
+          "minY": 0.001794737519715428,
+          "maxY": 1.6735123950620192,
+          "motion": 0.2061199963074321
+        },
+        {
+          "name": "drink",
+          "duration": 5,
+          "minY": 0.0017947007848026497,
+          "maxY": 1.6735123950620192,
+          "motion": 0.3645728851669819
+        },
+        {
+          "name": "rest",
+          "duration": 6,
+          "minY": 0.001794724667860348,
+          "maxY": 1.5935123850488218,
+          "motion": 0.1677933782339096
+        },
+        {
+          "name": "alert",
+          "duration": 4,
+          "minY": 0.0017947375197154836,
+          "maxY": 1.6735123950620192,
+          "motion": 0.2062798451512163
+        },
+        {
+          "name": "hunt",
+          "duration": 4,
+          "minY": 0.0017947375197154836,
+          "maxY": 1.6834775115673508,
+          "motion": 0.2062798451512163
+        }
+      ],
+      "problems": []
+    },
+    {
+      "id": "pterosaur",
+      "vertices": 7838,
+      "weighted": 7838,
+      "sampled": 24024,
+      "maxWeightError": 4.6566128730773926e-8,
+      "textures": [
+        {
+          "material": "material_0",
+          "kind": "map",
+          "width": 1024,
+          "height": 1024
+        },
+        {
+          "material": "material_0",
+          "kind": "normalMap",
+          "width": 1024,
+          "height": 1024
+        }
+      ],
+      "clips": [
+        {
+          "name": "fly",
+          "duration": 10.699999809265137,
+          "minY": 0.9311110179170763,
+          "maxY": 3.7222961248408497,
+          "motion": 7.764436669332959
+        },
+        {
+          "name": "walk",
+          "duration": 6.266666889190674,
+          "minY": -0.004876638332922579,
+          "maxY": 1.2256278518728827,
+          "motion": 1.4229243771895717
+        },
+        {
+          "name": "idle",
+          "duration": 8.333333015441895,
+          "minY": -0.004807138793858147,
+          "maxY": 1.1759400769262878,
+          "motion": 0.4429098747036256
+        },
+        {
+          "name": "glide",
+          "duration": 5,
+          "minY": 1.0326787179272487,
+          "maxY": 2.7170562100644347,
+          "motion": 7.105427357601002e-15
+        }
+      ],
+      "problems": []
+    }
+  ],
+  "ui": {
+    "playPause": true,
+    "switchSpecies": true,
+    "seek": true,
+    "download": true,
+    "mobile": true,
+    "errors": []
+  }
+}

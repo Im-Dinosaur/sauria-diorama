@@ -1,0 +1,156 @@
+{
+  "id": "triceratops",
+  "name": "트리케라톱스",
+  "latin": "Triceratops horridus",
+  "sourceFile": "triceratops-daniel",
+  "author": "DanielWalsh / IagoMendez",
+  "source": "https://sketchfab.com/3d-models/triceratops-horridus-cb7bad2c70dc4748a9c58ef9db5fce5e",
+  "license": "CC BY 4.0",
+  "reference": "https://www.nhm.ac.uk/discover/dino-directory/triceratops.html",
+  "dimension": 3.8,
+  "yaw": 3.141592653589793,
+  "head": "Bone003_3",
+  "jaw": "Bone014_0",
+  "hips": "Bone_16",
+  "chest": "Bone001_15",
+  "neck": [
+    "Bone002_4"
+  ],
+  "tail": [
+    "Bone005_24",
+    "Bone006_23",
+    "Bone007_22",
+    "Bone008_21",
+    "Bone009_20",
+    "Bone010_19",
+    "Bone011_18",
+    "Bone012_17"
+  ],
+  "legs": [
+    [
+      "Bone017_8",
+      "Bone018_7",
+      "Bone019_6",
+      "Bone020_5"
+    ],
+    [
+      "Bone027_13",
+      "Bone028_12",
+      "Bone029_11",
+      "Bone030_10"
+    ],
+    [
+      "Bone022_30",
+      "Bone023_29",
+      "Bone024_28",
+      "Bone025_27"
+    ],
+    [
+      "Bone032_39",
+      "Bone033_38",
+      "Bone034_37",
+      "Bone035_36"
+    ]
+  ],
+  "design": "세 뿔, 뼈 프릴과 각질 부리, 무거운 흉곽과 네 발을 기준으로 검수. 피부색은 제작상 해석.",
+  "credit": "Triceratops horridus base model by DanielWalsh / IagoMendez, CC BY 4.0. Modified for this project.",
+  "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+  "triangles": 156920,
+  "bones": 45,
+  "meshes": 3,
+  "feathers": 0,
+  "normalization": {
+    "scale": 0.04141357168082871,
+    "yaw": 3.141592653589793,
+    "units": "display units; preserve relative proportions"
+  },
+  "bounds": {
+    "min": [
+      -0.5467813232067499,
+      1.84308790451837e-10,
+      -1.9000000000000008
+    ],
+    "max": [
+      0.5467813108504153,
+      1.7224561288390254,
+      1.9000000026206159
+    ]
+  },
+  "textures": [
+    {
+      "material": "material",
+      "kind": "map",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "material": "Material",
+      "kind": "map",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "material": "Material",
+      "kind": "normalMap",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "material": "Material",
+      "kind": "roughnessMap",
+      "width": 1024,
+      "height": 1024
+    }
+  ],
+  "clips": [
+    {
+      "name": "idle",
+      "duration": 6,
+      "origin": "project-authored"
+    },
+    {
+      "name": "walk",
+      "duration": 2.8,
+      "origin": "project-authored"
+    },
+    {
+      "name": "run",
+      "duration": 1.5,
+      "origin": "project-authored"
+    },
+    {
+      "name": "roar",
+      "duration": 3.2,
+      "origin": "project-authored"
+    },
+    {
+      "name": "drink",
+      "duration": 5,
+      "origin": "project-authored"
+    },
+    {
+      "name": "rest",
+      "duration": 6,
+      "origin": "project-authored"
+    },
+    {
+      "name": "alert",
+      "duration": 4,
+      "origin": "project-authored"
+    },
+    {
+      "name": "graze",
+      "duration": 4,
+      "origin": "project-authored"
+    }
+  ],
+  "geometryOrigin": "Licensed original sculpt; not a museum scan.",
+  "materialOrigin": "Original source UV textures",
+  "rigOrigin": "Original author rig, with project-authored actions",
+  "limits": [
+    "Reference-based reconstruction. Skin colors and detailed behavior are interpretations.",
+    "Animation file validation does not establish scientific accuracy."
+  ],
+  "integration": "Asset and review only; map integration belongs to Zip 파일 확인 chat.",
+  "glbBytes": 12765968
+}

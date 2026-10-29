@@ -1,0 +1,13 @@
+{
+  "errors": [],
+  "diagnostics": {
+    "triangles": 42676,
+    "bones": 84,
+    "meshes": 8,
+    "view": "head",
+    "layer": "skin",
+    "action": "04_Attack",
+    "paused": true,
+    "time": 2
+  }
+}

@@ -1,0 +1,406 @@
+{
+  "version": 1,
+  "created": "2026-10-29 Asia/Seoul",
+  "owner": "Zip 파일 확인 chat",
+  "assetRoot": "/models/realistic-dinosaurs/",
+  "coordinates": {
+    "up": "+Y",
+    "forward": "+Z",
+    "units": "Normalized display units, not life-size metres. Size is recorded in each model JSON; preserve the existing actor footprint when integrating."
+  },
+  "models": [
+    {
+      "id": "triceratops",
+      "file": "triceratops.glb",
+      "metadata": "triceratops.json",
+      "bones": 45,
+      "triangles": 156920,
+      "clips": [
+        "idle",
+        "walk",
+        "run",
+        "roar",
+        "drink",
+        "rest",
+        "alert",
+        "graze"
+      ],
+      "anatomy": {
+        "hips": "Bone_16",
+        "chest": "Bone001_15",
+        "head": "Bone003_3",
+        "jaw": "Bone014_0",
+        "neck": [
+          "Bone002_4"
+        ],
+        "tail": [
+          "Bone005_24",
+          "Bone006_23",
+          "Bone007_22",
+          "Bone008_21",
+          "Bone009_20",
+          "Bone010_19",
+          "Bone011_18",
+          "Bone012_17"
+        ],
+        "legs": [
+          [
+            "Bone017_8",
+            "Bone018_7",
+            "Bone019_6",
+            "Bone020_5"
+          ],
+          [
+            "Bone027_13",
+            "Bone028_12",
+            "Bone029_11",
+            "Bone030_10"
+          ],
+          [
+            "Bone022_30",
+            "Bone023_29",
+            "Bone024_28",
+            "Bone025_27"
+          ],
+          [
+            "Bone032_39",
+            "Bone033_38",
+            "Bone034_37",
+            "Bone035_36"
+          ]
+        ]
+      },
+      "flatGroundFootGoalCycleDistance": {
+        "walk": 0.375,
+        "run": 0.53125
+      },
+      "notes": [
+        "Clips keep the asset root in place. Multiply the foot-goal stride by any display/actor scale when relating gait phase to travelled distance.",
+        "Baked drink is a neck-lowering posture; runtime mouth-to-water targeting remains necessary."
+      ]
+    },
+    {
+      "id": "stegosaurus",
+      "file": "stegosaurus.glb",
+      "metadata": "stegosaurus.json",
+      "bones": 53,
+      "triangles": 19839,
+      "clips": [
+        "idle",
+        "walk",
+        "run",
+        "roar",
+        "drink",
+        "rest",
+        "alert",
+        "graze"
+      ],
+      "anatomy": {
+        "hips": "Pelvis_02",
+        "chest": "Spine3_05",
+        "head": "Head_09",
+        "jaw": "Jaw_010",
+        "neck": [
+          "Neck1_00",
+          "Neck2_06",
+          "Neck3_07",
+          "Neck4_08"
+        ],
+        "tail": [
+          "TailBase_026",
+          "Tail1_027",
+          "Tail2_028",
+          "Tail3_029",
+          "Tail4_030",
+          "Tail5_031",
+          "Tail6_032",
+          "Tail7_033"
+        ],
+        "legs": [
+          [
+            "UpperArmL_016",
+            "LowerArmL_017",
+            "FootL_018",
+            "ToesL_019"
+          ],
+          [
+            "UpperArmR_021",
+            "LowerArmR_022",
+            "FootR_023",
+            "ToesR_024"
+          ],
+          [
+            "UpperLegL_035",
+            "LowerLegL_036",
+            "BackFootL_037",
+            "BackToesL_038"
+          ],
+          [
+            "UpperLegR_040",
+            "LowerLegR_041",
+            "BackFootR_042",
+            "BackToesR_043"
+          ]
+        ]
+      },
+      "flatGroundFootGoalCycleDistance": {
+        "walk": 0.375,
+        "run": 0.53125
+      },
+      "notes": [
+        "Clips keep the asset root in place. Multiply the foot-goal stride by any display/actor scale when relating gait phase to travelled distance.",
+        "Baked drink is a neck-lowering posture; runtime mouth-to-water targeting remains necessary."
+      ]
+    },
+    {
+      "id": "spinosaurus",
+      "file": "spinosaurus.glb",
+      "metadata": "spinosaurus.json",
+      "bones": 99,
+      "triangles": 70018,
+      "clips": [
+        "idle",
+        "walk",
+        "run",
+        "roar",
+        "drink",
+        "rest",
+        "alert",
+        "hunt"
+      ],
+      "anatomy": {
+        "hips": "Hip_01",
+        "chest": "Torax_05",
+        "head": "Head_010",
+        "jaw": "Jaw_011",
+        "neck": [
+          "Neck1_06",
+          "Neck2_07",
+          "Neck3_08",
+          "Neck4_09"
+        ],
+        "tail": [
+          "TailBase_037",
+          "Tail1_038",
+          "Tail2_039",
+          "Tail3_040",
+          "Tail4_041",
+          "Tail5_042",
+          "Tail6_043",
+          "Tail7_044",
+          "Tail8_045",
+          "Tail9_046",
+          "Tail10_047",
+          "Tail11_048",
+          "Tail12_049",
+          "Tail13_050",
+          "Tail14_051",
+          "Tail15_052",
+          "Tail16_053"
+        ],
+        "legs": [
+          [
+            "FemurL_054",
+            "ShinL_055",
+            "MetacarpalL_056",
+            "FeetL_057"
+          ],
+          [
+            "FemurR_067",
+            "ShinR_068",
+            "MetacarpalR_069",
+            "FeetR_070"
+          ]
+        ]
+      },
+      "flatGroundFootGoalCycleDistance": {
+        "walk": 0.375,
+        "run": 0.53125
+      },
+      "notes": [
+        "Clips keep the asset root in place. Multiply the foot-goal stride by any display/actor scale when relating gait phase to travelled distance.",
+        "Baked drink is a neck-lowering posture; runtime mouth-to-water targeting remains necessary."
+      ]
+    },
+    {
+      "id": "brachiosaurus",
+      "file": "brachiosaurus.glb",
+      "metadata": "brachiosaurus.json",
+      "bones": 109,
+      "triangles": 326988,
+      "clips": [
+        "idle",
+        "walk",
+        "run",
+        "roar",
+        "drink",
+        "rest",
+        "alert",
+        "browse"
+      ],
+      "anatomy": {
+        "hips": "controllerback_145",
+        "chest": "ribs002_120",
+        "head": "head_100",
+        "jaw": "jawlower_89",
+        "neck": [
+          "neckbase_111",
+          "neck1_110",
+          "neck2_109",
+          "neck3_108",
+          "neck4_107",
+          "neck5_106",
+          "neck6_105",
+          "neck7_104",
+          "neck8_103",
+          "neck9_102",
+          "necktop_101"
+        ],
+        "tail": [
+          "tailbase_143",
+          "tailbase001_142",
+          "tailbase002_141",
+          "tailbase003_140",
+          "tailbase004_139",
+          "tailbase005_138"
+        ],
+        "legs": [
+          [
+            "armupperl_113",
+            "armlowerl_112",
+            "controllerhandl_47",
+            "controllerhandl_47"
+          ],
+          [
+            "armupperr_117",
+            "armlowerr_116",
+            "controllerhandr_78",
+            "controllerhandr_78"
+          ],
+          [
+            "legupperl_132",
+            "leglowerl_131",
+            "footl_130",
+            "controllerfootl_32"
+          ],
+          [
+            "legupperr_136",
+            "leglowerr_135",
+            "footr_134",
+            "controllerfootr_63"
+          ]
+        ]
+      },
+      "flatGroundFootGoalCycleDistance": {
+        "walk": 0.375,
+        "run": 0.53125
+      },
+      "notes": [
+        "Clips keep the asset root in place. Multiply the foot-goal stride by any display/actor scale when relating gait phase to travelled distance.",
+        "Baked drink is a neck-lowering posture; runtime mouth-to-water targeting remains necessary."
+      ]
+    },
+    {
+      "id": "velociraptor",
+      "file": "velociraptor.glb",
+      "metadata": "velociraptor.json",
+      "bones": 31,
+      "triangles": 122058,
+      "clips": [
+        "idle",
+        "walk",
+        "run",
+        "roar",
+        "drink",
+        "rest",
+        "alert",
+        "hunt"
+      ],
+      "anatomy": {
+        "hips": "hips",
+        "chest": "chest",
+        "head": "head",
+        "jaw": "jaw",
+        "neck": [
+          "neck0",
+          "neck1"
+        ],
+        "tail": [
+          "tail0",
+          "tail1",
+          "tail2",
+          "tail3",
+          "tail4",
+          "tail5",
+          "tail6",
+          "tail7",
+          "tail8",
+          "tail9"
+        ],
+        "legs": [
+          [
+            "thighL",
+            "shinL",
+            "hockL",
+            "footL"
+          ],
+          [
+            "thighR",
+            "shinR",
+            "hockR",
+            "footR"
+          ]
+        ]
+      },
+      "flatGroundFootGoalCycleDistance": {
+        "walk": 0.375,
+        "run": 0.53125
+      },
+      "notes": [
+        "Clips keep the asset root in place. Multiply the foot-goal stride by any display/actor scale when relating gait phase to travelled distance.",
+        "Baked drink is a neck-lowering posture; runtime mouth-to-water targeting remains necessary."
+      ]
+    },
+    {
+      "id": "pterosaur",
+      "file": "pterosaur.glb",
+      "metadata": "pterosaur.json",
+      "bones": 125,
+      "triangles": 13494,
+      "clips": [
+        "fly",
+        "walk",
+        "idle",
+        "glide"
+      ],
+      "anatomy": {
+        "hips": "center5_5",
+        "chest": "chest9_9",
+        "head": "head15_15",
+        "jaw": "jaw16_16",
+        "neck": [
+          "neck_0110_10",
+          "neck_0211_11",
+          "neck_0312_12",
+          "neck_0413_13",
+          "neck_0514_14"
+        ],
+        "tail": [],
+        "legs": []
+      },
+      "flatGroundFootGoalCycleDistance": null,
+      "notes": [
+        "fly and walk preserve original author motion. fly contains authored vertical translation; take it into account alongside actor altitude.",
+        "glide is a held flight pose."
+      ]
+    }
+  ],
+  "sourceCredit": "Retain CREDITS.txt and visible author attribution in the map.",
+  "review": "/?models=realistic",
+  "verification": {
+    "file": "qa-dinosaur-realistic/verification.json",
+    "result": "PASS",
+    "samples": 2854384,
+    "weighted": 374030
+  }
+}

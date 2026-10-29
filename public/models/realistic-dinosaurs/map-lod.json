@@ -1,0 +1,26 @@
+[
+  {
+    "species": "brachiosaurus",
+    "before": 326988,
+    "after": 92142,
+    "maxRelativeError": 0.0015040766447782516
+  },
+  {
+    "species": "triceratops",
+    "before": 156920,
+    "after": 35943,
+    "maxRelativeError": 0.0036699718330055475
+  },
+  {
+    "species": "velociraptor",
+    "before": 122058,
+    "after": 93414,
+    "maxRelativeError": 0.002283100737258792
+  },
+  {
+    "species": "spinosaurus",
+    "before": 70018,
+    "after": 15398,
+    "maxRelativeError": 0.0003394873347133398
+  }
+]

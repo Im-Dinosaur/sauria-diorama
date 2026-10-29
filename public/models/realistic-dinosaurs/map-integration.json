@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-29",
+  "renderer": "src/models/RealisticMapRig.ts",
+  "population": 32,
+  "modelSelection": "Four *-map.glb variants; original stegosaurus.glb and pterosaur.glb; approved Tyrannosaurus unchanged",
+  "verification": "verification-realistic-map.json",
+  "originals": "Original six GLBs preserved for the model review studio",
+  "limits": [
+    "Water contact tests cover one bank site per terrestrial species, not every location.",
+    "Other species retain previous map dimensions; those are not new scientific size measurements.",
+    "Device FPS and screenshot comparison not verified."
+  ]
+}

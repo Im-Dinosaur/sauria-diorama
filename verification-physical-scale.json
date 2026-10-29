@@ -6,9 +6,9 @@
   "cases": [
     {
       "species": "brachiosaurus",
-      "adultMetres": 22,
+      "adultMetres": 21.999999999999986,
       "targetMetres": 22,
-      "mapWidthFraction": 0.07333333333333333,
+      "mapWidthFraction": 0.07333333333333329,
       "individualMetres": [
         22,
         17.05,
@@ -30,9 +30,9 @@
     },
     {
       "species": "triceratops",
-      "adultMetres": 9.000000000000002,
+      "adultMetres": 9,
       "targetMetres": 9,
-      "mapWidthFraction": 0.030000000000000006,
+      "mapWidthFraction": 0.03,
       "individualMetres": [
         9,
         8.462686567164178,

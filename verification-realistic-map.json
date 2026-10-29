@@ -1,0 +1,75 @@
+{
+  "result": "PASS",
+  "cases": [
+    {
+      "species": "brachiosaurus",
+      "adultMetres": 21.999999999999993,
+      "triangles": 92142,
+      "mouthError": 2.119126039986459e-8,
+      "maxFootError": 1.0495077029659683e-16,
+      "bones": 109,
+      "maxLengthError": 3.0242312853978603e-7,
+      "independentSkeletons": true,
+      "sharedGpuAssets": true,
+      "pause": true
+    },
+    {
+      "species": "triceratops",
+      "adultMetres": 9.000000000000002,
+      "triangles": 35943,
+      "mouthError": 0.011051528256146687,
+      "maxFootError": 6.278378130580853e-8,
+      "bones": 45,
+      "maxLengthError": 2.914335439641036e-16,
+      "independentSkeletons": true,
+      "sharedGpuAssets": true,
+      "pause": true
+    },
+    {
+      "species": "stegosaurus",
+      "adultMetres": 12.597011665710596,
+      "triangles": 19839,
+      "mouthError": 4.337894881612056e-15,
+      "maxFootError": 6.462094678805208e-10,
+      "bones": 53,
+      "maxLengthError": 1.981788066984791e-9,
+      "independentSkeletons": true,
+      "sharedGpuAssets": true,
+      "pause": true
+    },
+    {
+      "species": "spinosaurus",
+      "adultMetres": 12.171468213954963,
+      "triangles": 15398,
+      "mouthError": 4.939934430641427e-7,
+      "maxFootError": 8.926835207839767e-8,
+      "bones": 99,
+      "maxLengthError": 7.808168361878032e-9,
+      "independentSkeletons": true,
+      "sharedGpuAssets": true,
+      "pause": true
+    },
+    {
+      "species": "velociraptor",
+      "adultMetres": 8.97231107363795,
+      "triangles": 93414,
+      "mouthError": 0.010640858793190046,
+      "maxFootError": 2.6055546609171643e-15,
+      "bones": 31,
+      "maxLengthError": 2.0816681711721685e-16,
+      "independentSkeletons": true,
+      "sharedGpuAssets": true,
+      "pause": true
+    },
+    {
+      "species": "pterosaur",
+      "adultMetres": 14.585775613320514,
+      "triangles": 13494,
+      "bones": 125,
+      "maxLengthError": 8.326672684688674e-16,
+      "independentSkeletons": true,
+      "sharedGpuAssets": true,
+      "pause": true
+    }
+  ]
+}

@@ -11,26 +11,12 @@ import { ReferenceLandscape } from './scene/ReferenceLandscape';
 import { ReferenceForest } from './scene/LayeredForest';
 import { MapTyrannosaurus } from './scene/MapTyrannosaurus';
 import { DIORAMA } from './world/layout';
-import { createOrganicDinosaur,disposeOrganicDinosaur,poseOrganicDinosaur } from './models/SkinnedDinosaurs';
-import { advanceEcosystem,ecosystemSummary,setWorldMode,actorAction } from './world/ecosystem';
+import { MapRealisticDinosaur } from './scene/MapRealisticDinosaur';
+import { advanceEcosystem,ecosystemSummary,setWorldMode } from './world/ecosystem';
 import type { Actor,Ecosystem } from './world/ecosystem';
 import type { WorldMode } from './world/layout';
 export type HabitatView='perspective'|'top'|'close';
 export type HabitatSummary=ReturnType<typeof ecosystemSummary>&{fps:number;trees:number;quality:string};
-function Animal({actor,index,world}:{actor:Actor;index:number;world:Ecosystem}){
- const rig=useMemo(()=>createOrganicDinosaur(actor.species,index),[actor.species,index]);
- const transition=useRef({action:'idle',blend:1,from:rig.bones.map(b=>({p:b.position.clone(),q:b.quaternion.clone(),s:b.scale.clone()}))});
- useEffect(()=>()=>disposeOrganicDinosaur(rig),[rig]);
- useFrame((_,dt)=>{
-  rig.root.position.set(actor.x,actor.y,actor.z);rig.root.rotation.y=actor.heading;
-  const reach=actor.target?Math.hypot(actor.target.lookX-actor.x,actor.target.lookZ-actor.z):1.15,action=actorAction(actor,world.mode),blend=transition.current;
-  if(blend.action!==action){blend.action=action;blend.blend=0;rig.bones.forEach((b,i)=>{blend.from[i].p.copy(b.position);blend.from[i].q.copy(b.quaternion);blend.from[i].s.copy(b.scale);});}
-  const clock=actor.moving&&actor.altitude===undefined?actor.gaitTime:action==='idle'||actor.altitude!==undefined?actor.age:actor.actionTime;
-  poseOrganicDinosaur(rig,clock,actor,actor.scale,actor.drink,world.mode!=='peaceful',reach,action);
-  if(blend.blend<1){blend.blend=Math.min(1,blend.blend+(world.paused?0:Math.min(dt,.05))/.24);const t=blend.blend*blend.blend*(3-2*blend.blend);rig.bones.forEach((b,i)=>{b.position.lerpVectors(blend.from[i].p,b.position.clone(),t);b.quaternion.slerpQuaternions(blend.from[i].q,b.quaternion.clone(),t);b.scale.lerpVectors(blend.from[i].s,b.scale.clone(),t);});rig.root.updateMatrixWorld(true);rig.skeleton.update();}
- });
- return <primitive object={rig.root} scale={actor.scale} dispose={null}/>;
-}
 function TopView({zoom}:{zoom:number}){
  const {size}=useThree(),compare=new URLSearchParams(location.search).has('compare');
  return <OrthographicCamera makeDefault position={[0,80,0]} rotation={[-Math.PI/2,0,0]} up={[0,0,-1]} near={.1} far={200} left={-size.width/2} right={size.width/2} top={size.height/2} bottom={-size.height/2} zoom={Math.min(size.width/DIORAMA.width,size.height/DIORAMA.depth)*(compare?1:.94)*Math.pow(.83,-zoom)}/>;
@@ -66,7 +52,7 @@ export default function EcosystemScene({world,mode,paused,view,reset,zoom,onSumm
  return <Canvas shadows dpr={dpr} camera={{position:[30,29,34],fov:43,near:.1,far:200}} gl={{antialias:false,powerPreference:'high-performance',toneMapping:NoToneMapping}} onCreated={({gl})=>{gl.shadowMap.type=PCFSoftShadowMap;}}>
   <Suspense fallback={null}>
    <Studio mode={mode}/><ReferenceLandscape mode={mode} time={()=>world.time}/><ReferenceForest mode={mode}/>
-   {world.actors.map((actor,index)=>actor.species==='rex'?<MapTyrannosaurus key={actor.id} actor={actor} world={world}/>:<Animal key={actor.id} actor={actor} index={index} world={world}/>)}
+   {world.actors.map(actor=>actor.species==='rex'?<MapTyrannosaurus key={actor.id} actor={actor} world={world}/>:<MapRealisticDinosaur key={actor.id} actor={actor} world={world}/>)}
    <DisasterParticles mode={mode} time={()=>world.time}/>{view==='top'?<TopView zoom={zoom}/>:<OrbitView view={view} reset={reset} zoom={zoom}/>}
    <Runtime world={world} mode={mode} paused={paused} onReady={onReady} onSummary={s=>onSummary({...s,quality:tier===0?'HIGH':'BALANCED'})} onTier={()=>setTier(1)}/>
    <EffectComposer multisampling={0} enableNormalPass={tier===0} resolutionScale={.5}>

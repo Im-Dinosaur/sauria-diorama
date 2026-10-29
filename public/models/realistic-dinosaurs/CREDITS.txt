@@ -53,3 +53,11 @@ Material: Original source UV textures
 Animation: fly (original author), walk (original author), idle (original author), glide (project-authored)
 
 Generated material mode: built-in image_gen. Exact prompts: materials/prompts.json. Source images preserved: materials/brachiosaurus-hide-source.png and materials/velociraptor-feather-source.png.
+
+Map derivatives, 2026-10-29: brachiosaurus-map.glb, triceratops-map.glb,
+velociraptor-map.glb and spinosaurus-map.glb use meshoptimizer index simplification.
+Original source author credits and CC BY 4.0 licenses above continue to apply.
+Original geometry attributes, skin weights, rigs, clips and textures are preserved.
+Runtime map adaptation adds scale calibration, terrain foot IK, crouching,
+fixed-length drinking neck targeting and flight-altitude normalization.
+Simplification tooling: meshoptimizer by Arseny Kapoulkine and contributors, MIT.
